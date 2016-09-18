@@ -9,6 +9,7 @@ $routeProvider.when('/panel',{
 	templateUrl : "/panelmenu",
 	controller : "panelController"
 }).
+otherwise({redirect: '/'}).
 when('/request',{
 	templateUrl : "/requestRegister",
 	controller : "requestController"
@@ -28,8 +29,7 @@ when('/bookingDone',{
 when('/',{
 	templateUrl:"/homePage",
 	controller:"homeController"
-}).
-otherwise({redirect: '/'});
+});
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
 	if($cookies.getObject("loggedIn") == true)
