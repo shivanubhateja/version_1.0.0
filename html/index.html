@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="/css">
+	<link rel="stylesheet" type="text/css" href="/angular-csp">
+	<link rel="stylesheet" type="text/css" href="/bootstrap-css">
+	<!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
+</head>
+<body ng-app="headModule" ng-cloak ng-controller="mainController" style="padding-top: 0%">
+	<div ng-include = "'/navbar'"></div>
+	
+	<div ng-view></div>
+	<div class="loading" ng-if="loading"><img src="/loading"></div>
+	
+</body>
+<script type="text/javascript" src="/jquery"></script>
+<script type="text/javascript" src="/angular"></script>
+<script type="text/javascript" src="/angular-route"></script>
+<script type="text/javascript" src="/angular-touch"></script>
+<script type="text/javascript" src="/angular-cookies"></script>
+<script type="text/javascript" src="/bootstrap"></script>
+<script type="text/javascript" src="/frontApp"></script>
+<script type="text/javascript" src="/paneljs"></script>
+<script type="text/javascript" src="/requestRegisterjs"></script>
+<script type="text/javascript" src="/serviceRequestsjs"></script>
+<script type="text/javascript" src="/activationjs"></script>
+<script type="text/javascript" src="/bookingDonejs"></script>
+<script type="text/javascript" src="/homePagejs"></script>
+</html>

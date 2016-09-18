@@ -1,0 +1,16 @@
+<div ng-controller = "panelController" class="container panelMainDiv">
+<div ng-repeat="item in contents">
+<a href="#{{item.link}}" ng-click="removeLocalData()">
+<div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid panelItemContainer">
+	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 panelShowcase" >
+		<img id = 'laptopRepair' src="/{{item.image}}">
+	</div>
+	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 panelText">
+		<h4>{{item.heading}}</h4>
+		<p>{{item.desc}}</p>
+	</div>
+	</div>
+</a>
+</div>
+
+</div>

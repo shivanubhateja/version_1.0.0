@@ -1,0 +1,195 @@
+body{
+	font-family: arial;
+	//background-image: url('/iconImage3');
+	//-webkit-filter: blur(1px);
+
+}
+#loginForm{
+	padding: 5px;
+}
+#loginForm {
+	padding: 15px;
+}
+#loginForm input[type=email] ,#loginForm input[type=password] {
+	width : 300px;
+   -webkit-transition: all .35s ease-in-out;
+   -moz-transition: all .35s ease-in-out;
+   -o-transition: all .35s ease-in-out;
+   transition: all .35s ease-in-out;
+}
+#loginForm 	input[type=email]:focus ,#loginForm input[type=password]:focus {
+
+}
+#errorSpan{
+	color: blue;
+	font-weight: bold;
+}
+#laptopRepair{
+	width: 120px;
+	height: 120px;
+}
+.panelShowcase{
+	text-align: center;
+}
+.panelText h4{
+	text-align: left;
+	color:black;
+
+
+	font-family: 'New Rail Alphabet Off White','New Rail Alphabet White',Helvetica,Arial,sans-serif;
+    color: #040404;
+    font-size: 3em;
+    letter-spacing: -.06em;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    font-weight: 300;
+    margin: 0 0 0 -3px;
+    line-height: 100%;
+    padding: 20px 0 15px 0;
+}
+.panelText p{
+	text-align: left;
+	color:black;
+	padding-right: 150px
+
+}
+.panelItemContainer{
+	border-style:none;
+	margin-bottom: 60px;
+}
+.requestDiv{
+	text-align: center;
+	border-left: solid 0.5px;
+	border-color: gray
+}
+.requestDiv h2{
+	font-weight: normal;
+}
+sup{
+	color: red;
+}
+.activeDate{
+	float:right;
+}
+.panelItems:hover{
+	background-color: 	#F0F8FF;
+
+}
+.loading{
+	position: fixed;
+	top:35%;
+	left:45%;
+}
+.loading img{
+	background-color: transparent;
+	width:100px;
+	height:100px;
+}
+#notificationBar{
+
+	background-color: #ef3a29;
+	min-height: 30px;
+	color:white;
+	font-weight: bold;
+	padding: 5px;
+	position: fixed;
+	top:0%;
+	-webkit-transition: all .35s ease-in-out;
+   -moz-transition: all .35s ease-in-out;
+   -o-transition: all .35s ease-in-out;
+   transition: all .35s ease-in-out;
+
+}
+#notificationBar img{
+	width: 30px;
+	height: 30px;
+
+}
+.iconImage{
+
+	background-image: url('/iconImage3')
+}
+.logoDiv{
+	position: absolute;
+	z-index: -1;
+	background-color: #fe4b06;
+	left:3%;
+	height: 100px;
+	border-radius: 4px;
+	overflow: hidden;
+
+}
+.logo{
+	min-width:10px; 
+	min-height:20px; 
+	width:100px; 
+	height:110px; 
+	position: relative; 
+	top: 10px;
+}
+.recoverPasswordDiv{
+	float: left;
+}
+.activation{
+	float: right;
+}
+.recoverPasswordDiv:hover{
+cursor:pointer;
+}
+.callEngineer{
+	position:relative;
+	height:68px;
+	font-weight: bold;
+}
+/*.callEngineer:hover{
+	width:170px;
+		-webkit-transition: all scale(1.05);
+   -moz-transition: all .03s ease-in-out;
+   -o-transition: all .03s ease-in-out;
+   transition: all .03s ease-in-out;
+}*/
+
+.tagline{
+	font-weight: bolder;
+	/*padding-right: 90px;*/
+}
+.logoIcon{
+	font-weight: bolder;
+	/*padding-left: 90px;*/
+}
+.displayDesktop{
+	cursor:pointer;
+	padding :20px;
+	border:solid 1px;
+	border-radius: 0px 3px 0px 0px;
+	border-color: gray;
+}
+.displayLaptop{
+	padding :20px;
+	border:solid 1px;
+	border-right: none;
+	border-radius: 3px 0px 0px 0px;
+	border-color: gray;
+}
+.selection{
+	padding :20px;
+	border:solid 1px;
+	border-top: none;
+	border-radius: 0px 0px 3px 3px;
+	border-color: gray;
+
+}
+.selectionDeviceImageDiv{
+	height:300px;
+}
+.selectedDeviceImage{
+	opacity:0.7;
+	width:100%;
+	height:100%;
+	overflow: hidden;
+}
+.issuesList{
+	list-style-type: square;
+}

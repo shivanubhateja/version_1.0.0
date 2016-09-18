@@ -1,0 +1,78 @@
+<div>
+<div ng-if="activeRequests.length == 0" class="well well-lg container" > No Pending Service Reqest</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="activeRequests.length > 0">
+<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+</div>
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+	
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Active Requests</div>
+  <div class="panel-body">
+    	<div class="panelItems well" ng-repeat='request in activeRequests' data-toggle="modal" data-target="#requestDetailsModal" ng-click="openModal(request)"> 
+    		Issue - {{request.issueDesc}}
+    		<span class="activeDate">{{request.date}}</span>
+    	</div>
+  </div>
+  </div> 
+</div>
+
+<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+</div>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="completedRequests.length > 0">
+<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+</div>
+
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+	
+<div class="panel panel-success" ng-if="activeRequests.length > 0">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Compteted Requests</div>
+  <div class="panel-body">
+    	<div class="panelItems well" ng-repeat="completedRequest in completedRequests" data-toggle="modal" data-target="#requestDetailsModal" ng-click="openModal(completedRequest)"> 
+    		Issue - {{completedRequest.issueDesc}}
+    		<span class="activeDate">{{completedRequest.date}}</span>
+    	</div>
+  </div>
+  </div>
+</div>
+
+<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+</div>
+</div>
+
+<!-- modal -->
+
+
+
+<div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{requestType}}</h4>
+
+      </div>
+    <div class="modal-body">
+       	<table class="table">
+  			<tr><td>Device Type</td><td>{{modalContent.deviceType}}</td></tr>
+        <tr><td>Service Type</td><td>{{modalContent.serviceType}}</td></tr>
+    		<tr><td>Issue</td><td>{{modalContent.issueDesc}}</td></tr>
+    		<tr><td>Date</td><td>{{modalContent.date}}</td></tr>
+    		<tr><td>Pick Up Address</td><td>{{modalContent.address.initialAddress}},{{modalContent.address.city}},{{modalContent.address.state}},{{modalContent.address.zipCode}}</td></tr>
+    		<tr><td>Contact Details</td><td>{{modalContent.tel.primary}},{{modalContent.tel.alternate}}</td></tr>
+  			<tr><td>Email Provided</td><td>{{modalContent.email}}</td></tr>
+    		<tr><td>Status</td><td>{{modalContent.status}}</td></tr>
+  		</table>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modalends -->
+
+</div>

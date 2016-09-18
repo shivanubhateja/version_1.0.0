@@ -1,0 +1,91 @@
+<div class="row">
+<div class="col-lg-4 col-md-4  col-sm-12 col-xs-12"> 
+<h4 >&nbsp&nbsp&nbsp&nbsp&nbsp Details</h4>
+<ul>
+	<li ng-if="deviceDetails.deviceType != ''">I want to service my <em><b>{{deviceDetails.deviceType}}</b></em></li>
+	<li ng-if="deviceDetails.serviceType != ''">Service Type: <em><b>{{deviceDetails.serviceType}}</b></em></li>
+	<li ng-if="deviceDetails.issueDesc != '' ">Problem Description: <em><b>{{deviceDetails.issueDesc}}</b></em></li>
+	<li ng-if="deviceDetails.address.initialAddress !='' && deviceDetails.address.city !='' && deviceDetails.address.state !='' && deviceDetails.address.zipCode !='' ">Pick Up My PC from <em><b>{{deviceDetails.address.initialAddress}}, {{deviceDetails.address.city}}, {{deviceDetails.address.state}}, {{deviceDetails.address.zipCode}}</b></em> </li>
+	<li ng-if="deviceDetails.tel.primary !=''">Call Me Up On :-<em><b>{{deviceDetails.tel.primary}}, {{deviceDetails.tel.alternate}}</b></em> </li>
+
+</ul>
+</div>
+<div class=" col-lg-8 col-md-8 col-sm-12 col-xs-12 requestDiv container ">
+	
+	<p>To book an expert's visit please fill in the form below. We will contact you shortly to confirm your booking. Our qualified computer repair engineer will try to diagnose your problem and estimate time needed to repair your computer. Please get your personal details and address ready.</p>
+
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> &nbsp</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> &nbsp</div>
+	<div ng-if="(deviceDetails.deviceType == '')" class=''>
+		<div>
+			<h4>IT IS A </h4>
+			<span ng-repeat="device in deviceList" >
+			<input type="button" class="btn btn-success" ng-click="selectDevice(device)" value="{{device}}">
+			<span ng-if="$index != deviceList.length-1">OR</span>
+			</span>
+		</div>
+	</div>
+	<div ng-if="(deviceDetails.deviceType != '' && deviceDetails.serviceType == '')">
+		<div>
+			<h4>Type Of service required ?</h4>
+			<span ng-repeat="option in serviceTypes" >
+			<button class="btn btn-success" ng-click="serviceType(option)">{{option}}</button>
+			<span ng-if="$index != serviceTypes.length-1">OR</span>
+			</span>
+		</div>
+	</div>
+	<!-- <h5 ng-if="deviceDetails.serviceType == serviceTypes[1]"><em>Awesome,</em> Give is few details so that our experts visit prepared to tackle the issue</h5> -->
+
+	<br>
+	<form ng-if="(deviceDetails.serviceType != '')" name="requestForm">
+	
+  				
+
+
+<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  			<input type="text" class="form-control" ng-model="deviceDetails.address.initialAddress" placeholder="Address" aria-describedby="basic-addon1" required>
+		</div><br>
+		</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+  			<input type="text" class="form-control" ng-model="deviceDetails.address.city" placeholder="City" aria-describedby="basic-addon1" required>
+		</div><br>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  			<input type="text" class="form-control" ng-model="deviceDetails.address.state" placeholder="State" aria-describedby="basic-addon1" required>
+		</div><br>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  			<input type="number" class="form-control" ng-model="deviceDetails.address.zipCode" placeholder="Zip Code" aria-describedby="basic-addon1" required>
+		</div>
+<br>
+</div>
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  			<input type="email" name="email"  class="form-control"   ng-model="deviceDetails.email" placeholder="Email Address" aria-describedby="basic-addon1" required>
+		</div><br>
+		</div>
+		
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  			<input type="number"  class="form-control" ng-model="deviceDetails.tel.primary" placeholder="Primary PhoneNo." aria-describedby="basic-addon1" required>
+		</div><br>
+		</div>
+		</div>
+		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<textarea class="form-control" rows="10" placeholder="Describe the issue" ng-model="deviceDetails.issueDesc"  required></textarea>
+			<br>
+		</div>
+
+
+		</div>
+		<!-- <div class="g-recaptcha" data-sitekey="6LetvyETAAAAAN_IDiHZgjMli4Afu-nbAeXkFH74"></div> -->
+<input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary == '' || requestForm.email.$invalid" ng-click="submitRequest()" value="BOOK ENGINEER">
+			</form>
+</div>
