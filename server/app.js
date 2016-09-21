@@ -56,7 +56,7 @@ var pastRequestsSchema = mongoose.Schema({
 			status :String
 });
 // mail setup
-var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:copetoke@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 // var mailOptions = {
 //     from: '"Fred Foo 👥" <brandname@brandname.com>', // sender address
 //     to: 'shivanubhateja31@gmail.com', // list of receivers
