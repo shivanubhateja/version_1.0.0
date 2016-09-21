@@ -29,14 +29,15 @@ when('/bookingDone',{
 when('/',{
 	templateUrl:"/homePage",
 	controller:"homeController"
-});
+}).
+otherwise({redirect: '/'});
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
 	if($cookies.getObject("loggedIn") == true)
 		$rootScope.loggedIn = true;
 	else
 		$rootScope.loggedIn = false;
-
+	$scope.activationEmailSent={};
 	$rootScope.errorMessageNavBar = "";
 	$scope.brandName="brandName";
 	$scope.loginButton="Login";
@@ -80,8 +81,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 						$rootScope.disableErrorBar();
 
 					}
-
-
 				}
 				else if(response.data.loginSuccess)
 				{
@@ -136,7 +135,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					$scope.recoveryEmailSent = true;
 		},function errorCallback(response){})
 	}
-	$scope.activationEmailSent = false;
+	$scope.activationEmailSent.flag = false;
 	$scope.resendActivationEmail = function(email){
 		$scope.loadingInModal = true;
 		$http({
@@ -145,7 +144,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 		}).then(function successCallback(response){
 			alert(JSON.stringify(response));
 			$scope.loadingInModal = false;
-			$scope.activationEmailSent = true;
+			$scope.activationEmailSent.flag = true;
 		},function errorCallback(response){})
 	}
 	$scope.engineerBook = function(){

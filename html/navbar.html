@@ -38,7 +38,7 @@
               <span class="recoverPasswordDiv" data-toggle="modal" data-target="#recoverPassword">
               <sub>Recover Password?</sub>
               </span>
-              <span class="recoverPasswordDiv activation" data-toggle="modal" data-target="#resendActivationEmail">
+              <span class="recoverPasswordDiv activation" data-toggle="modal" ng-click="activationEmailSent.flag=false" data-target="#resendActivationEmail">
               <sub>Resend Activation Email</sub>
               </span>
           </li>
@@ -143,15 +143,15 @@
       </div>
     <div class="modal-body">
        <form name="loginForm">
-            <input type="email" ng-show="!activationEmailSent" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
-            <p ng-show="activationEmailSent"> Activation Email Successfully sent.</p>
+            <input type="email" ng-show="!activationEmailSent.flag" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
+            <p ng-show="activationEmailSent.flag"> Activation Email Successfully sent.</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/loading"></div>
         </form>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-show="!activationEmailSent" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="resendActivationEmail(userEmailRecover)">Send Activation Email</button>
-        <button type="button" class="btn btn-Default" data-dismiss="modal" ng-show="activationEmailSent">OK</button>
+        <button type="button" class="btn btn-primary" ng-show="!activationEmailSent.flag" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="resendActivationEmail(userEmailRecover)">Send Activation Email</button>
+        <button type="button" class="btn btn-Default" data-dismiss="modal" ng-show="activationEmailSent.flag">OK</button>
       </div>
     </div>
   </div>

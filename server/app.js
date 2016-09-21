@@ -56,7 +56,7 @@ var pastRequestsSchema = mongoose.Schema({
 			status :String
 });
 // mail setup
-var transporter = nodemailer.createTransport('smtps://shivanubhateja31%40gmail.com:sandeepneha12@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:copetoke@smtp.gmail.com');
 // var mailOptions = {
 //     from: '"Fred Foo 👥" <brandname@brandname.com>', // sender address
 //     to: 'shivanubhateja31@gmail.com', // list of receivers
@@ -237,15 +237,16 @@ app.post('/signUpRequest',function(request,response){
    		else{   	
    		var link="http://localhost:3000/accountActivation?token="+logins._id;
    			var mailOptions = {
-  	   	 		from: '"Fred Foo " <brandname@brandname.com>', // sender address
+  	   	 		from: '"copetoke " <support@copetoke.com>', // sender address
   	   	 		to: username, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
    		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
-    			if(error)
+    			if(error){
         			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+    			}
    				else{
    					response.send({signUpResponse:"waitingForActivation"});
    					}
@@ -318,7 +319,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
 		var user_password = user[0].password;
 		var mailOptions = {
-  	   	 		from: '"Fred Foo " <brandname@brandname.com>', // sender address
+  	   	 		from: '"copetoke" <support@copetoke.com>', // sender address
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Password Recovery✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
@@ -362,6 +363,6 @@ app.get('/resendActivationEmail',function(request,response){
 	})
 })
 
-app.listen(3000,function(){ 
+app.listen(8080,function(){ 
 	console.log("server started successfully");
 });
