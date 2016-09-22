@@ -2,7 +2,7 @@
   "name": "firstAttempt",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app.js",
   "dependencies": {
     "angular": "~1.5.5",
     "angular-route": "~1.5.5",

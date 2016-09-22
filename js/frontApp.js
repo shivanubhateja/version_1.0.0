@@ -33,10 +33,12 @@ when('/',{
 otherwise({redirect: '/'});
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
-	if($cookies.getObject("loggedIn") == true)
+	if($cookies.getObject("loggedIn") === true){
 		$rootScope.loggedIn = true;
-	else
+	}
+	else{
 		$rootScope.loggedIn = false;
+	}
 	$scope.activationEmailSent={};
 	$rootScope.errorMessageNavBar = "";
 	$scope.brandName="brandName";
@@ -62,24 +64,21 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 				if(!response.data.loginSuccess){
 					//login failed
 					$scope.invalidCredentials = true;
-					$cookies.putObject("loggedIn",true);
+					$cookies.putObject("loggedIn",false);
 					// localStorage.setItem("loggedInLocal",false);
 					$rootScope.loggedIn = false;
 					var loginErrorReason = response.data.message;
-					if(loginErrorReason == "accountInActive"){
+					if(loginErrorReason === "accountInActive"){
 						$rootScope.errorMessageNavBar = "Please Activate Your Account Through Email";
 						$rootScope.disableErrorBar();
-
 					}
 					else if(loginErrorReason == "passwordIncorrect"){
 						$rootScope.errorMessageNavBar = "Incorrect Password";
 						$rootScope.disableErrorBar();
-
 					}
 					else if(loginErrorReason == "userDoesNotExist"){
 						$rootScope.errorMessageNavBar = "You are Not Registered With us Please Sign Up";
 						$rootScope.disableErrorBar();
-
 					}
 				}
 				else if(response.data.loginSuccess)

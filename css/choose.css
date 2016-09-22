@@ -1,0 +1,18 @@
+.choose-us{
+	background-color: #1B6D9D;
+	position: relative;
+	top:20px;
+	color: white;
+	text-align:justify;
+}
+.choose-us-icons {
+    padding: 58px 0 0 120px;
+ }
+.choose-us-icons img{
+    	padding: 0 0 16px 56px;
+    }
+.choose-us-text {
+    font-size: 16px;
+    text-align: left;
+    font-weight: bolder;
+}

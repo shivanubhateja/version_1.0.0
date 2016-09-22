@@ -78,6 +78,9 @@ var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSche
 app.get('/css',function(request, response){
 	response.sendFile(path.join(__dirname+"/../css/main.css"));
 });
+app.get('/choose',function(request, response){
+	response.sendFile(path.join(__dirname+"/../css/choose.css"));
+})
 app.get('/angular',function(request, response){ 
 	response.sendFile(path.join(__dirname+"/../node_modules/angular/angular.min.js"));
 }); 
@@ -181,10 +184,10 @@ app.get("/logo",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/logo.png"));
 }); 
 app.get("/desktopImage",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/desktop.png"));
+	response.sendFile(path.join(__dirname+"/../images/desktop.svg"));
 }); 
 app.get("/laptopImage",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/laptop.png"));
+	response.sendFile(path.join(__dirname+"/../images/laptopBig.svg"));
 });
 app.get("/laptopSmall",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/laptopSmall.svg"));
@@ -192,7 +195,18 @@ app.get("/laptopSmall",function(request,response){
 app.get("/desktopSmall",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/desktopSmall.svg"));
 });
-
+app.get("/pound",function(request,response){
+	response.sendFile(path.join(__dirname+"/../images/Pound.svg"));
+});
+app.get("/hours24",function(request,response){
+	response.sendFile(path.join(__dirname+"/../images/Hours24.svg"));
+});
+app.get("/clock",function(request,response){
+	response.sendFile(path.join(__dirname+"/../images/Clock.svg"));
+});
+app.get("/lock",function(request,response){
+	response.sendFile(path.join(__dirname+"/../images/Lock.svg"));
+});	
 //http requests
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
@@ -345,7 +359,7 @@ app.get('/resendActivationEmail',function(request,response){
 			else{
 				var link="http://localhost:3000/accountActivation?token="+user[0]._id;
    			var mailOptions = {
-  	   	 		from: '"Fred Foo " <brandname@brandname.com>', // sender address
+  	   	 		from: '"COPE TOKE" <brandname@brandname.com>', // sender address
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
