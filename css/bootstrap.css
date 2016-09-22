@@ -3176,27 +3176,27 @@ fieldset[disabled] .btn-primary.focus {
 .btn-success {
   color: #fff;
   //background-color: #5cb85c;
-background-color: #fe4b06;
+background-color: #1B6D9D;
 
-  border-color: #fe4b06;
+  border-color: #1B6D9D;
 }
 .btn-success:focus,
 .btn-success.focus {
   color: #fff;
-  background-color: #fe4b06;
-  border-color: #fe4b06;
+  background-color: #1B6D9D;
+  border-color: #1B6D9D;
 }
 .btn-success:hover {
   color: #fff;
-  background-color: #fe4b06;
-  border-color: #fe4b06;
+  background-color: #1B6D9D;
+  border-color: #1B6D9D;
 }
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
   color: #fff;
-  background-color: #fe4b06;
-  border-color:#fe4b06;
+  background-color: #1B6D9D;
+  border-color:#1B6D9D;
 }
 .btn-success:active:hover,
 .btn-success.active:hover,
@@ -3208,8 +3208,8 @@ background-color: #fe4b06;
 .btn-success.active.focus,
 .open > .dropdown-toggle.btn-success.focus {
   color: #fff;
-  background-color: #fe4b06;
-  border-color: #fe4b06;
+  background-color: #1B6D9D;
+  border-color: #1B6D9D;
 }
 .btn-success:active,
 .btn-success.active,
@@ -3225,12 +3225,12 @@ fieldset[disabled] .btn-success:focus,
 .btn-success.disabled.focus,
 .btn-success[disabled].focus,
 fieldset[disabled] .btn-success.focus {
-  background-color: #fe4b06;
-  border-color: #fe4b06;
+  background-color: #1B6D9D;
+  border-color: #1B6D9D;
 }
 .btn-success .badge {
-  color: #fe4b06;
-  background-color: #fe4b06;
+  color: #1B6D9D;
+  background-color: #1B6D9D;
 }
 .btn-info {
   color: #fff;
@@ -4500,7 +4500,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default {
   //changed
   //background-image: url('http://3zkqyz2t3xwi492ll518psvq.wpengine.netdna-cdn.com/wp-content/themes/stem_v4/images/nav-transparent-bg.png');
-  background-color: #fe4b06;
+  background-color: #1B6D9D;
   //background-color: #f23b1c;
    filter: alpha(opacity=0)
   border-color: white;

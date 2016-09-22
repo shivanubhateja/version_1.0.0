@@ -4,6 +4,17 @@ body{
 	//-webkit-filter: blur(1px);
 
 }
+.btn-primary {
+    color: #fff;
+    background-color: black;
+    border-color: black;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: black;
+    border-color: black;
+    box-shadow: 1px 1px 11px 1px white;
+}
 #loginForm{
 	padding: 5px;
 }
@@ -114,7 +125,7 @@ sup{
 .logoDiv{
 	position: absolute;
 	z-index: -1;
-	background-color: #fe4b06;
+	background-color: #1B6D9D;
 	left:3%;
 	height: 100px;
 	border-radius: 4px;
