@@ -8,6 +8,7 @@ var nodemailer = require('nodemailer');
 var app = express();   
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/../'));
 mongoose.connect('mongodb://localhost:27017/version_1');
 
 
@@ -74,46 +75,8 @@ var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
 
-//libraries , css 
-app.get('/css',function(request, response){
-	response.sendFile(path.join(__dirname+"/../css/main.css"));
-});
-app.get('/choose',function(request, response){
-	response.sendFile(path.join(__dirname+"/../css/choose.css"));
-})
-app.get('/angular',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/angular/angular.min.js"));
-}); 
-app.get('/angular-csp',function(request, response){
-	response.sendFile(path.join(__dirname+"/../node_modules/angular/angular-csp.css"));
-});
-app.get('/bootstrap-css',function(request, response){
-	response.sendFile(path.join(__dirname+"/../css/bootstrap.css"));
-}); 
-app.get('/angular-route',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/angular-route/angular-route.min.js"));
-});
-app.get('/angular-cookies',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/angular-cookies/angular-cookies.min.js"));
-});
-app.get('/angular-touch',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/angular-touch/angular-touch.min.js"));
-});   
-app.get('/bootstrap',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/bootstrap/dist/js/bootstrap.min.js"));
-});
-app.get('/jquery',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../node_modules/jquery/dist/jquery.min.js"));
-});   
-
 
 // HTML
-app.get('/navbar',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/navbar.html"));
-});
-app.get('/whyChoose',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/choose.html"));
-});
 app.get('/',function(request, response){ 
 	response.sendFile(path.join(__dirname+"/../html/index.html"));
 }); 
@@ -142,71 +105,71 @@ app.get('/desktopIssues',function(request, response){
 	response.sendFile(path.join(__dirname+"/../html/desktopIssues.html"));
 }); 
 
-// handcrafted scripts
-app.get('/frontApp',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/frontApp.js"));
-}); 
-app.get('/paneljs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/panel.js"));
-}); 
-app.get('/requestRegisterjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/requestRegister.js"));
-}); 
-app.get('/serviceRequestsjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/serviceRequests.js"));
-}); 
-app.get('/activationjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/accountActivation.js"));
-}); 
-app.get('/bookingDonejs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/bookingDone.js"));
-}); 
-app.get('/homePagejs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../js/controllers/homePage.js"));
-}); 
+// // handcrafted scripts
+// app.get('/frontApp',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/frontApp.js"));
+// }); 
+// app.get('/paneljs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/panel.js"));
+// }); 
+// app.get('/requestRegisterjs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/requestRegister.js"));
+// }); 
+// app.get('/serviceRequestsjs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/serviceRequests.js"));
+// }); 
+// app.get('/activationjs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/accountActivation.js"));
+// }); 
+// app.get('/bookingDonejs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/bookingDone.js"));
+// }); 
+// app.get('/homePagejs',function(request, response){ 
+// 	response.sendFile(path.join(__dirname+"/../js/controllers/homePage.js"));
+// }); 
 // images
-app.get("/laptopRepair",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/laptopRepair.png"));
-});  
-app.get("/floppy",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/floppy.png"));
-});  
+// app.get("/laptopRepair",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/laptopRepair.png"));
+// });  
+// app.get("/floppy",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/floppy.png"));
+// });  
 app.get("/loading",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/loading.gif"));
 });  
-app.get("/error",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/error.png"));
-}); 
+// app.get("/error",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/error.png"));
+// }); 
 app.get("/iconImage3",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/iconImage3.jpg"));
 }); 
 app.get("/logo",function(request,response){
 	response.sendFile(path.join(__dirname+"/../images/logo.png"));
 }); 
-app.get("/desktopImage",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/desktop.svg"));
-}); 
-app.get("/laptopImage",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/laptopBig.svg"));
-});
-app.get("/laptopSmall",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/laptopSmall.svg"));
-});
-app.get("/desktopSmall",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/desktopSmall.svg"));
-});
-app.get("/pound",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/Pound.svg"));
-});
-app.get("/hours24",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/Hours24.svg"));
-});
-app.get("/clock",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/Clock.svg"));
-});
-app.get("/lock",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/Lock.svg"));
-});	
+// app.get("/desktopImage",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/desktop.svg"));
+// }); 
+// app.get("/laptopImage",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/laptopBig.svg"));
+// });
+// app.get("/laptopSmall",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/laptopSmall.svg"));
+// });
+// app.get("/desktopSmall",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/desktopSmall.svg"));
+// });
+// app.get("/pound",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/Pound.svg"));
+// });
+// app.get("/hours24",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/Hours24.svg"));
+// });
+// app.get("/clock",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/Clock.svg"));
+// });
+// app.get("/lock",function(request,response){
+// 	response.sendFile(path.join(__dirname+"/../images/Lock.svg"));
+// });	
 //http requests
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;

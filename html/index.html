@@ -4,30 +4,30 @@
 	<title>Index Page</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="/bootstrap-css">
-	<link rel="stylesheet" type="text/css" href="/css">
-	<link rel="stylesheet" type="text/css" href="/angular-csp">
-	<link rel="stylesheet" type="text/css" href="/choose">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/node_modules/angular/angular-csp.css">
+	<link rel="stylesheet" type="text/css" href="/css/choose.css">
 	<!-- <script src='https://www.google.com/recaptcha/api.js'></script> -->
 </head>
 <body ng-app="headModule" ng-cloak ng-controller="mainController" style="padding-top: 0%">
-	<div ng-include = "'/navbar'"></div>
+	<div ng-include = "'/html/navbar.html'"></div>
 	
 	<div ng-view></div>
-	<div class="loading" ng-if="loading"><img src="/loading"></div>
+	<div class="loading" ng-if="loading"><img src="/images/loading.gif"></div>
 	
 </body>
-<script type="text/javascript" src="/jquery"></script>
-<script type="text/javascript" src="/angular"></script>
-<script type="text/javascript" src="/angular-route"></script>
-<script type="text/javascript" src="/angular-touch"></script>
-<script type="text/javascript" src="/angular-cookies"></script>
-<script type="text/javascript" src="/bootstrap"></script>
-<script type="text/javascript" src="/frontApp"></script>
-<script type="text/javascript" src="/paneljs"></script>
-<script type="text/javascript" src="/requestRegisterjs"></script>
-<script type="text/javascript" src="/serviceRequestsjs"></script>
-<script type="text/javascript" src="/activationjs"></script>
-<script type="text/javascript" src="/bookingDonejs"></script>
-<script type="text/javascript" src="/homePagejs"></script>
+<script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
+<script type="text/javascript" src="/node_modules/angular-route/angular-route.min.js"></script>
+<script type="text/javascript" src="/node_modules/angular-touch/angular-touch.min.js"></script>
+<script type="text/javascript" src="/node_modules/angular-cookies/angular-cookies.min.js"></script>
+<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/frontApp.js"></script>
+<script type="text/javascript" src="/js/controllers/panel.js"></script>
+<script type="text/javascript" src="/js/controllers/requestRegister.js"></script>
+<script type="text/javascript" src="/js/controllers/serviceRequests.js"></script>
+<script type="text/javascript" src="/js/controllers/accountActivation.js"></script>
+<script type="text/javascript" src="/js/controllers/bookingDone.js"></script>
+<script type="text/javascript" src="/js/controllers/homePage.js"></script>
 </html>

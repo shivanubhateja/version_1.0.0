@@ -1,10 +1,13 @@
 body{
-	font-family: arial;
+	/*font-family: arial;*/
+	line-height: 1.3;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;	
 	//background-image: url('/iconImage3');
 	//-webkit-filter: blur(1px);
 
 }
-.btn-primary {
+/*.btn-primary {
     color: #fff;
     background-color: black;
     border-color: black;
@@ -14,7 +17,7 @@ body{
     background-color: black;
     border-color: black;
     box-shadow: 1px 1px 11px 1px white;
-}
+}*/
 #loginForm{
 	padding: 5px;
 }
@@ -149,10 +152,19 @@ sup{
 .recoverPasswordDiv:hover{
 cursor:pointer;
 }
-.callEngineer{
+button.btn.btn-primary.btn-group-justified.callEngineer{
 	position:relative;
-	height:68px;
+	height: 50px;
+	margin-top: 5%;
 	font-weight: bold;
+	background-color: #1B6D9D;
+	border-color: white;
+}
+button.btn.btn-primary.btn-group-justified.callEngineer:hover,button.btn.btn-primary.btn-group-justified.callEngineer:active,
+button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-primary.btn-group-justified.callEngineer:visited{
+	background-color: white;
+    color: black;
+    border-color: white;
 }
 /*.callEngineer:hover{
 	width:170px;
@@ -164,25 +176,32 @@ cursor:pointer;
 
 .tagline{
 	font-weight: bolder;
+	    font-size: 17px;
+    text-align: center;
 	/*padding-right: 90px;*/
 }
 .logoIcon{
 	font-weight: bolder;
 	/*padding-left: 90px;*/
 }
+.repairDisplay{
+	padding: 20px;
+}
 .displayDesktop{
 	cursor:pointer;
-	padding :20px;
+	height: 87px;
+	padding :20px 0 0 27px;
 	border:solid 1px;
 	border-radius: 0px 3px 0px 0px;
 	border-color: gray;
 }
 .displayLaptop{
-	padding :20px;
+	padding :27px 0 0 20px;;
 	border:solid 1px;
 	border-right: none;
 	border-radius: 3px 0px 0px 0px;
 	border-color: gray;
+	height: 87px;
 }
 .selection{
 	padding :20px;
@@ -196,11 +215,14 @@ cursor:pointer;
 	height:300px;
 }
 .selectedDeviceImage{
-	opacity:0.7;
+	opacity:0.1;
 	width:100%;
 	height:100%;
 	overflow: hidden;
 }
 .issuesList{
 	list-style-type: square;
+}
+.modal-body{
+	overflow: hidden;
 }

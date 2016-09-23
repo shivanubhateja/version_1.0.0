@@ -12,13 +12,13 @@ headModuleVar.controller('panelController',["$rootScope","$scope","$http","$loca
 			link:"request",
 			heading:"GOT AN ISSUE...!!!",
 			desc:"You are just a few clicks away in getting you PC working again. Register your request and let our experts handle rest of the hastle",
-			image:"laptopRepair"
+			image:"images/laptopRepair.png"
 		},
 		{
 			link:"serviceRequests",
 			heading:"My Service Requests",
 			desc:"Get Details Of active as well as completed Service Requests.",
-			image:"floppy"
+			image:"images/floppy.png"
 		}
 		];
 		$rootScope.errorMessageNavBar = "";

@@ -3,7 +3,7 @@
 		<p class='logoIcon'>LOGO</p>
 	</div>
 	<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6 container-fluid' >
-		<p class='pull-right tagline'>ANY COMPUTER PROBLEM?<br> Get It Solved While relaxing on your sofa.</p>
+		<p class='pull-right tagline'>ANY COMPUTER PROBLEM?<br> Receive the best service in Coimbatore!</p>
 	</div>
 	
 	<!-- <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12 '> -->
@@ -11,10 +11,10 @@
 	</div>
 	<div class='col-lg-8 col-md-8 col-sm-12 col-xs-12 repairDisplay'>
 		<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6 displayLaptop' ng-click="selection('laptop')"  ng-style="borderStyleLaptop">
-		<img src="/laptopSmall">
+		<img src="/images/laptopSmall.svg">
 		Laptop</div>
 		<div class='col-lg-6 col-md-6 col-sm-6 col-xs-6 displayDesktop' ng-click="selection('desktop')" ng-style="borderStyleDesktop">
-		<img src="/desktopSmall">
+		<img src="/images/desktopSmall.svg">
 		Desktop</div>
 		<div ng-show="(selectedDevice === 'desktop')" class='col-lg-12 col-md-12 col-sm-12 col-xs-12 selection'>
 			<div ng-include="'/desktopIssues'"></div>	
@@ -28,4 +28,4 @@
 	</div>
 
 </div>
-<div ng-include="'/whyChoose'" class='col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid choose-us'></div>
+<div ng-include="'/html/choose.html'" class='col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid choose-us'></div>

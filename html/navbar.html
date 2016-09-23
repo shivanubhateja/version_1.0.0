@@ -17,7 +17,7 @@
 
       <ul class="nav navbar-nav navbar-right">
       <!--  <p class = "navbar-text" id= "errorSpan"> {{errorMessageNavBar}}</p> -->
-    <li>
+    <li style="margin-right: 10px;">
         <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()">BOOK AN ENGINEER</button>
     </li>
         <li class="dropdown" ng-hide="loggedIn">
@@ -99,7 +99,7 @@
 
 </nav>
 
-<div id="notificationBar" ng-show="errorMessageNavBar != '' " class = " col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid" ><img src="/error"> &nbsp{{errorMessageNavBar}}</div>
+<div id="notificationBar" ng-show="errorMessageNavBar != '' " class = " col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid" ><img src="/images/error.png"> &nbsp{{errorMessageNavBar}}</div>
 
 
 
@@ -120,7 +120,7 @@
             <input type="email" ng-show="!recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
             <p ng-show="recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
             <div><span>&nbsp</span></div>
-           <div class="loading" ng-if="loadingInModal"><img src="/loading"></div>
+           <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
     </div>
       <div class="modal-footer">
@@ -146,7 +146,7 @@
             <input type="email" ng-show="!activationEmailSent.flag" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
             <p ng-show="activationEmailSent.flag"> Activation Email Successfully sent.</p>
             <div><span>&nbsp</span></div>
-           <div class="loading" ng-if="loadingInModal"><img src="/loading"></div>
+           <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
     </div>
       <div class="modal-footer">
