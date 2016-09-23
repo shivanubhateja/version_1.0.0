@@ -58,118 +58,16 @@ var pastRequestsSchema = mongoose.Schema({
 });
 // mail setup
 var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
-// var mailOptions = {
-//     from: '"Fred Foo 👥" <brandname@brandname.com>', // sender address
-//     to: 'shivanubhateja31@gmail.com', // list of receivers
-//     subject: 'Hello ✔', // Subject line
-//     text: 'Hello world 🐴', // plaintext body
-//     html: '<b>Hello world 🐴</b>' // html body
-// };
-// transporter.sendMail(mailOptions, function(error, info){
-//     if(error){
-//         return console.log(error);
-//     }
-//     console.log('Message sent: ' + info.response);
-// });
+
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
 
 
-// HTML
+//index page
 app.get('/',function(request, response){ 
 	response.sendFile(path.join(__dirname+"/../html/index.html"));
 }); 
-app.get('/panelmenu',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/panel.html"));
-});
-app.get('/requestRegister',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/requestRegister.html"));
-}); 
-app.get('/serviceRequests',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/serviceRequests.html"));
-}); 
-app.get('/activation',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/accountActivation.html"));
-}); 
-app.get('/bookingDone',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/bookingDone.html"));
-}); 
-app.get('/homePage',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/homePage.html"));
-}); 
-app.get('/laptopIssues',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/laptopIssues.html"));
-}); 
-app.get('/desktopIssues',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/desktopIssues.html"));
-}); 
-
-// // handcrafted scripts
-// app.get('/frontApp',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/frontApp.js"));
-// }); 
-// app.get('/paneljs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/panel.js"));
-// }); 
-// app.get('/requestRegisterjs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/requestRegister.js"));
-// }); 
-// app.get('/serviceRequestsjs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/serviceRequests.js"));
-// }); 
-// app.get('/activationjs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/accountActivation.js"));
-// }); 
-// app.get('/bookingDonejs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/bookingDone.js"));
-// }); 
-// app.get('/homePagejs',function(request, response){ 
-// 	response.sendFile(path.join(__dirname+"/../js/controllers/homePage.js"));
-// }); 
-// images
-// app.get("/laptopRepair",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/laptopRepair.png"));
-// });  
-// app.get("/floppy",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/floppy.png"));
-// });  
-app.get("/loading",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/loading.gif"));
-});  
-// app.get("/error",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/error.png"));
-// }); 
-app.get("/iconImage3",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/iconImage3.jpg"));
-}); 
-app.get("/logo",function(request,response){
-	response.sendFile(path.join(__dirname+"/../images/logo.png"));
-}); 
-// app.get("/desktopImage",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/desktop.svg"));
-// }); 
-// app.get("/laptopImage",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/laptopBig.svg"));
-// });
-// app.get("/laptopSmall",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/laptopSmall.svg"));
-// });
-// app.get("/desktopSmall",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/desktopSmall.svg"));
-// });
-// app.get("/pound",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/Pound.svg"));
-// });
-// app.get("/hours24",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/Hours24.svg"));
-// });
-// app.get("/clock",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/Clock.svg"));
-// });
-// app.get("/lock",function(request,response){
-// 	response.sendFile(path.join(__dirname+"/../images/Lock.svg"));
-// });	
 //http requests
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;

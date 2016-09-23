@@ -6,28 +6,28 @@ var headModuleVar = angular.module('headModule',["ngRoute","ngTouch","ngCookies"
 
 headModuleVar.config(['$locationProvider','$routeProvider',function config($locationProvider, $routeProvider){
 $routeProvider.when('/panel',{
-	templateUrl : "/panelmenu",
+	templateUrl : "/html/panel.html",
 	controller : "panelController"
 }).
 otherwise({redirect: '/'}).
 when('/request',{
-	templateUrl : "/requestRegister",
+	templateUrl : "/html/requestRegister.html",
 	controller : "requestController"
 }).
 when('/serviceRequests',{
-	templateUrl:"/serviceRequests",
+	templateUrl:"/html/serviceRequests.html",
 	controller:"serviceRequestsController"
 }).
 when('/accountActivation',{
-	templateUrl:"/activation",
+	templateUrl:"/html/accountActivation.html",
 	controller:"accountActivationController"
 }).
 when('/bookingDone',{
-	templateUrl:"/bookingDone",
+	templateUrl:"/html/bookingDone.html",
 	controller:"bookingController"
 }).
 when('/',{
-	templateUrl:"/homePage",
+	templateUrl:"/html/homePage.html",
 	controller:"homeController"
 }).
 otherwise({redirect: '/'});

@@ -121,10 +121,6 @@ sup{
 	height: 30px;
 
 }
-.iconImage{
-
-	background-image: url('/iconImage3')
-}
 .logoDiv{
 	position: absolute;
 	z-index: -1;
