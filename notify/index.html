@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Notify - Under Constraction and Coming Soon Template</title>
+	<meta charset="utf-8">
+	<meta name="author" content="pixelhint.com">
+	<meta name="description" content="Notify Under Constraction and Coming Soon Template"/>
+
+	<link rel="stylesheet" type="text/css" href="./notify/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="./notify/css/main.css">
+
+	<script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
+    <script type="text/javascript" src="./notify/js/jquery.js"></script>
+    <script type="text/javascript" src="./notify/js/TimeCircles.js"></script>
+    <script type="text/javascript" src="./notify/js/backstretch.js"></script>
+    <script type="text/javascript" src="./notify/js/main.js"></script>
+    <script type="text/javascript" src="./notify/js/notifyApp.js"></script>
+</head>
+<body ng-app="notifyApp" ng-controller="notifyController">
+
+				 <div class="loading" ng-if="loading"><img src="/images/loading.gif"></div>
+	<section class="content wrapper">
+
+		<h1>Be ready, we are launching soon!</h1>
+		<p class="description">We're not quite there yet - but we are getting there! - and we really want you to know when we are ready. Subsribe to our emails to get a early bird discount.</p>
+
+		<div class="subscription_form clearfix">
+			<div>
+				<form>
+				<p class="description" ng-bind="notify.status"></p>
+					<input type="email" id="mc-email" ng-model="emailid" name="emailid" placeholder="enter your email">
+					<button type="submit" id="mc_submit" ng-click="sendEmail()"><i class="icon"></i></button>
+				</form>
+			</div>
+		</div>
+
+		<div class="counter clear" data-date="2016-10-05 00:00:00"></div>
+
+	</section>
+	
+	<div class="back_img"></div>
+	
+</body>
+</html>

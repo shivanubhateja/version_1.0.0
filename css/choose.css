@@ -1,18 +1,31 @@
 .choose-us{
 	background-color: #1B6D9D;
 	position: relative;
-	top:20px;
+	top: 20px;
 	color: white;
-	text-align:justify;
+	text-align: justify;
 }
 .choose-us-icons {
-    padding: 58px 0 0 120px;
+    padding: 58px 0 0 0;
+    text-align: center;
  }
 .choose-us-icons img{
-    	padding: 0 0 16px 56px;
+	padding: 0 0 16px 56px;
+    width: 110px;
+    height: 73px;
     }
 .choose-us-text {
     font-size: 16px;
-    text-align: left;
+    padding-left: 70px;
+    text-align: center;
     font-weight: bolder;
+}
+.choose-us-icon-container{
+    min-height: 171px;
+}
+.choose-icon-parent-div{
+    margin-bottom: 40px;
+}
+.choose-us-text-parent{
+    margin-top: 50px;
 }

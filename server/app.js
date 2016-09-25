@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/../'));
 mongoose.connect('mongodb://localhost:27017/version_1');
 
 
-
+//mongoose schemas
 var loginSchema =mongoose.Schema({
 	emailid : { type: String, unique:true},
 	first_name : String,
@@ -20,7 +20,6 @@ var loginSchema =mongoose.Schema({
 	phone_no : Number,
 	activationStatus : {type:String, default:"inActive"}
 });
-
 var submitRequstSchema = mongoose.Schema({
 			date : {type:Date,default:Date.now},
 			deviceType :String,
@@ -38,7 +37,6 @@ var submitRequstSchema = mongoose.Schema({
 			email:String,
 			status:String
 });
-
 var pastRequestsSchema = mongoose.Schema({
 			date : Date,	
 			deviceType :String,
@@ -56,25 +54,38 @@ var pastRequestsSchema = mongoose.Schema({
 			email:String,
 			status :String
 });
-// mail setup
-var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
-
+var adminSchema = mongoose.Schema({
+	username: {type: String, unique: true},
+	password: String, 
+	changePermission: Boolean
+});
+var earlyBirdSchema = mongoose.Schema({
+	emailid:{type:String , unique: true}
+});
+//mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
-
+var adminLoginModel = mongoose.model('adminLogins', adminSchema);
+var earlyBirdModel = mongoose.model('earlyBirds', earlyBirdSchema);
+// mail setup
+var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 
 //index page
 app.get('/',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../html/index.html"));
+	response.sendFile(path.join(__dirname+"/../notify/index.html"));
 }); 
+//admin page
+app.get("/admin",function(request, response){
+	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
+});
 //http requests
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
 	var password = request.body.password;
 
 	mongoose.model('logins').find({emailid : username},function(err,user){
-		if(user.length >0){
+		if(user.length > 0){
 		if(password == user[0].password && user[0].activationStatus == "active"){
 			response.send({loginSuccess: true, message : "success"});
 		}
@@ -87,6 +98,23 @@ app.post('/loginRequest',function(request, response){
 	else{
 		response.send({loginSuccess : false, message : "userDoesNotExist"});
 	}
+	})
+});
+app.post('/adminLoginRequest', function(request, response){
+	var username = request.body.username;
+	var password = request.body.password;
+	mongoose.model("adminLogins").find({username:username},function(err,foundRecord){
+		if(foundRecord.length > 0){
+			if(password == foundRecord[0].password){
+				response.send({loginSuccess: true, changePermission: foundRecord[0].changePermission, message: "Success"});
+			}
+			else{
+				response.send({loginSuccess: false, message: "Incorrect Password"});
+			}
+		}
+		else{
+			response.send({loginSuccess: false, message: "Admin ban phle"})
+		}
 	})
 });
 app.post('/signUpRequest',function(request,response){
@@ -159,7 +187,6 @@ app.get('/getServiceRequests',function(request,response){
 		active:[],
 		completed:[]
 	};
-	console.log(request.query.userEmail)
 	var getDetails = function(){
 		return new promise(function(resolve,reject){
 		mongoose.model('submitRequests').find({email : request.query.userEmail},function(err,activeRequests){
@@ -237,7 +264,28 @@ app.get('/resendActivationEmail',function(request,response){
 		}
 	})
 })
+app.post('/sendInfoMail',function(request, response){
+	var emailid = request.body.emailid;
+	var emailDb = new earlyBirdModel({emailid: emailid});
+	emailDb.save(function(err, saved){
+			var mailOptions = {
+  	   	 		from: '"CLORDA" <support@clorda.com>', // sender address
+  	   	 		to: emailid, // list of receivers
+   		 		subject: 'Welcome To Clorda✔', // Subject line
+   		 		text: 'Congratulations', // plaintext body
+   		 		html: '<p>congratulations</p>' // html body
+						};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error)
+        			response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" });	 
+   				else{
+   					response.send({infoEmail:"Check your email for more information about Clorda", status:"success"});
+   					}
+    			});
+	});
+	
 
+})
 app.listen(8080,function(){ 
 	console.log("server started successfully");
 });
