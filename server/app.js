@@ -283,8 +283,6 @@ app.post('/sendInfoMail',function(request, response){
    					}
     			});
 	});
-	
-
 })
 app.listen(8080,function(){ 
 	console.log("server started successfully");
