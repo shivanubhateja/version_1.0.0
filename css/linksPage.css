@@ -1,0 +1,24 @@
+.links-page-div{
+	background-color: #000;
+}
+.links-page-line{
+		    color: #909090;
+		    font-size: 24px;
+    font-style: italic;
+        text-align: right;
+            text-align: center;
+    padding-top: 40px;
+}
+.links-page-logo{
+	    text-align: center;			
+}
+.links-page-logo .logo{
+	top:0px;
+}
+.quick-links{
+	    font-size: 18px;
+    font-weight: 700;
+    color: #28c2ba;
+    text-align: left;
+    margin: 7px 0 7px 0;
+}

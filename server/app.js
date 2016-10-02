@@ -273,7 +273,7 @@ app.post('/sendInfoMail',function(request, response){
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Welcome To Clorda✔', // Subject line
    		 		text: 'Congratulations', // plaintext body
-   		 		html: '<p>congratulations</p>' // html body
+   		 		html: '<h2>Hi, thanks for showing your interest.</h2><p>We will notify you with an early bird present as soon as we are up.</p>' // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error)

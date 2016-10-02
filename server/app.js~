@@ -8,10 +8,11 @@ var nodemailer = require('nodemailer');
 var app = express();   
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
+app.use(express.static(__dirname + '/../'));
 mongoose.connect('mongodb://localhost:27017/version_1');
 
 
-
+//mongoose schemas
 var loginSchema =mongoose.Schema({
 	emailid : { type: String, unique:true},
 	first_name : String,
@@ -19,15 +20,10 @@ var loginSchema =mongoose.Schema({
 	phone_no : Number,
 	activationStatus : {type:String, default:"inActive"}
 });
-
 var submitRequstSchema = mongoose.Schema({
 			date : {type:Date,default:Date.now},
 			deviceType :String,
-			understandIssue :String,
-			brand:String,
-			model:String,
-			canStart:String,
-			issueType:String,
+			serviceType :String,
 			issueDesc:String,
 			address : {
 				initialAddress:String,
@@ -37,19 +33,14 @@ var submitRequstSchema = mongoose.Schema({
 			},
 			tel:{
 				primary:Number,
-				alternate:Number
-			},
-			email:{type:String,unique:true},
+				},
+			email:String,
 			status:String
 });
-
 var pastRequestsSchema = mongoose.Schema({
-	deviceType :String,
-			understandIssue :String,
-			brand:String,
-			model:String,
-			canStart:String,
-			issueType:String,
+			date : Date,	
+			deviceType :String,
+			serviceType :String,
 			issueDesc:String,
 			address : {
 				initialAddress:String,
@@ -59,120 +50,42 @@ var pastRequestsSchema = mongoose.Schema({
 			},
 			tel:{
 				primary:Number,
-				alternate:Number
 			},
 			email:String,
 			status :String
 });
-// mail setup
-var transporter = nodemailer.createTransport('smtps://shivanubhateja31%40gmail.com:sandeepneha12@smtp.gmail.com');
-// var mailOptions = {
-//     from: '"Fred Foo 👥" <brandname@brandname.com>', // sender address
-//     to: 'shivanubhateja31@gmail.com', // list of receivers
-//     subject: 'Hello ✔', // Subject line
-//     text: 'Hello world 🐴', // plaintext body
-//     html: '<b>Hello world 🐴</b>' // html body
-// };
-// transporter.sendMail(mailOptions, function(error, info){
-//     if(error){
-//         return console.log(error);
-//     }
-//     console.log('Message sent: ' + info.response);
-// });
+var adminSchema = mongoose.Schema({
+	username: {type: String, unique: true},
+	password: String, 
+	changePermission: Boolean
+});
+var earlyBirdSchema = mongoose.Schema({
+	emailid:{type:String , unique: true}
+});
+//mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
+var adminLoginModel = mongoose.model('adminLogins', adminSchema);
+var earlyBirdModel = mongoose.model('earlyBirds', earlyBirdSchema);
+// mail setup
+var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 
-//libraries , css 
-app.get('/css',function(request, response){
-	response.sendFile(path.join(__dirname+"/css/main.css"));
-});
-app.get('/angular',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/node_modules/angular/angular.min.js"));
-}); 
-app.get('/angular-csp',function(request, response){
-	response.sendFile(path.join(__dirname+"/node_modules/angular/angular-csp.css"));
-});
-app.get('/bootstrap-css',function(request, response){
-	response.sendFile(path.join(__dirname+"/css/bootstrap.css"));
-}); 
-app.get('/angular-route',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/node_modules/angular-route/angular-route.min.js"));
-});
-app.get('/angular-touch',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/node_modules/angular-touch/angular-touch.min.js"));
-});   
-app.get('/bootstrap',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/node_modules/bootstrap/dist/js/bootstrap.min.js"));
-});
-app.get('/jquery',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/node_modules/jquery/dist/jquery.min.js"));
-});   
-
-
-// HTML
-app.get('/navbar',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/navbar.html"));
-});
+//index page
 app.get('/',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/index.html"));
+	response.sendFile(path.join(__dirname+"/../notify/index.html"));
 }); 
-app.get('/panelmenu',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/panel.html"));
+//admin page
+app.get("/admin",function(request, response){
+	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
 });
-app.get('/requestRegister',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/requestRegister.html"));
-}); 
-app.get('/serviceRequests',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/serviceRequests.html"));
-}); 
-app.get('/activation',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/html/accountActivation.html"));
-}); 
-
-// handcrafted scripts
-app.get('/frontApp',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/js/frontApp.js"));
-}); 
-app.get('/paneljs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/js/controllers/panel.js"));
-}); 
-app.get('/requestRegisterjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/js/controllers/requestRegister.js"));
-}); 
-app.get('/serviceRequestsjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/js/controllers/serviceRequests.js"));
-}); 
-app.get('/activationjs',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/js/controllers/accountActivation.js"));
-}); 
-// images
-app.get("/laptopRepair",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/laptopRepair.png"));
-});  
-app.get("/floppy",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/floppy.png"));
-});  
-app.get("/loading",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/loading.gif"));
-});  
-app.get("/error",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/error.png"));
-}); 
-app.get("/iconImage3",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/iconImage3.jpg"));
-}); 
-app.get("/logo",function(request,response){
-	response.sendFile(path.join(__dirname+"/images/logo.png"));
-});
-
 //http requests
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
 	var password = request.body.password;
 
 	mongoose.model('logins').find({emailid : username},function(err,user){
-		if(user.length >0){
+		if(user.length > 0){
 		if(password == user[0].password && user[0].activationStatus == "active"){
 			response.send({loginSuccess: true, message : "success"});
 		}
@@ -185,6 +98,23 @@ app.post('/loginRequest',function(request, response){
 	else{
 		response.send({loginSuccess : false, message : "userDoesNotExist"});
 	}
+	})
+});
+app.post('/adminLoginRequest', function(request, response){
+	var username = request.body.username;
+	var password = request.body.password;
+	mongoose.model("adminLogins").find({username:username},function(err,foundRecord){
+		if(foundRecord.length > 0){
+			if(password == foundRecord[0].password){
+				response.send({loginSuccess: true, changePermission: foundRecord[0].changePermission, message: "Success"});
+			}
+			else{
+				response.send({loginSuccess: false, message: "Incorrect Password"});
+			}
+		}
+		else{
+			response.send({loginSuccess: false, message: "Admin ban phle"})
+		}
 	})
 });
 app.post('/signUpRequest',function(request,response){
@@ -210,15 +140,16 @@ app.post('/signUpRequest',function(request,response){
    		else{   	
    		var link="http://localhost:3000/accountActivation?token="+logins._id;
    			var mailOptions = {
-  	   	 		from: '"Fred Foo " <brandname@brandname.com>', // sender address
+  	   	 		from: '"copetoke " <support@copetoke.com>', // sender address
   	   	 		to: username, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
    		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
-    			if(error)
+    			if(error){
         			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+    			}
    				else{
    					response.send({signUpResponse:"waitingForActivation"});
    					}
@@ -290,7 +221,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
 		var user_password = user[0].password;
 		var mailOptions = {
-  	   	 		from: '"Fred Foo " <brandname@brandname.com>', // sender address
+  	   	 		from: '"copetoke" <support@copetoke.com>', // sender address
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Password Recovery✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
@@ -305,7 +236,54 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
     			});
 	})
 });
-
-app.listen(3000,function(){ 
+app.get('/resendActivationEmail',function(request,response){
+	var emailid = request.query.user;
+	mongoose.model('logins').find({emailid:emailid},function(err,user){
+		if(user.length <= 0)
+			response.send({response:"You Are Not Registered, Please Sign Up"});
+		else{
+			if(user[0].activationStatus == 'active')
+				response.send({response:'Account is already Active'})
+			else{
+				var link="http://localhost:3000/accountActivation?token="+user[0]._id;
+   			var mailOptions = {
+  	   	 		from: '"COPE TOKE" <brandname@brandname.com>', // sender address
+  	   	 		to: emailid, // list of receivers
+   		 		subject: 'Hello ✔', // Subject line
+   		 		text: 'Activation Email', // plaintext body
+   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+						};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error)
+        			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+   				else{
+   					response.send({signUpResponse:"emailSent"});
+   					}
+    			});
+			}
+		}
+	})
+})
+app.post('/sendInfoMail',function(request, response){
+	var emailid = request.body.emailid;
+	var emailDb = new earlyBirdModel({emailid: emailid});
+	emailDb.save(function(err, saved){
+			var mailOptions = {
+  	   	 		from: '"CLORDA" <support@clorda.com>', // sender address
+  	   	 		to: emailid, // list of receivers
+   		 		subject: 'Welcome To Clorda✔', // Subject line
+   		 		text: 'Congratulations', // plaintext body
+   		 		html: '<h2>Hi, thanks for showing your interest.</h2><p>We will notify you with an early bird present as soon as we are up.</p>' // html body
+						};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error)
+        			response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" });	 
+   				else{
+   					response.send({infoEmail:"Check your email for more information about Clorda", status:"success"});
+   					}
+    			});
+	});
+})
+app.listen(8080,function(){ 
 	console.log("server started successfully");
 });

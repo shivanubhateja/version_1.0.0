@@ -151,6 +151,9 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 		localStorage.removeItem("serviceTypeLocal");
 		$location.path("/request");
 	}
+	$scope.goToHomePage = function(){
+		$location.path('/');
+	}
 	$scope.issueTypeListDesktop=[
 			"Display Malfunction.",
 			"LCD/LED damages or complete broken down.",

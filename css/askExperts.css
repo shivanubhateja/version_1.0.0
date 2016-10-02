@@ -1,0 +1,33 @@
+.ask-expert-div{
+	    background-color: #e1e1e1;
+}
+a {
+    text-decoration: none !important;
+    color: #777777;
+}
+a:hover, a:visited, a:active, a:focus{
+	color: #777777;	
+}
+.have-ques{
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0;
+    margin: 32px 0;
+    color: #28c2ba;
+}
+.phone-no{
+	font-size: 50px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 28px 0;
+    text-align: center;
+}
+.working-hours{
+font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 28px 54px;
+    text-align: center;
+    color: #777777;	
+}

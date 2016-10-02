@@ -2,12 +2,11 @@
 <div class="col-lg-4 col-md-4  col-sm-12 col-xs-12"> 
 <h4 >&nbsp&nbsp&nbsp&nbsp&nbsp Details</h4>
 <ul>
-	<li ng-if="deviceDetails.deviceType != ''">I want to service my <em><b>{{deviceDetails.deviceType}}</b></em></li>
+	<li ng-if="deviceDetails.deviceType != ''">I want to service my: <em><b>{{deviceDetails.deviceType}}</b></em></li>
 	<li ng-if="deviceDetails.serviceType != ''">Service Type: <em><b>{{deviceDetails.serviceType}}</b></em></li>
+	<li ng-if="deviceDetails.address.initialAddress !='' && deviceDetails.address.city !='' && deviceDetails.address.state !='' && deviceDetails.address.zipCode !='' ">Pick Up My PC from: <em><b>{{deviceDetails.address.initialAddress}}, {{deviceDetails.address.city}}, {{deviceDetails.address.state}}, {{deviceDetails.address.zipCode}}</b></em> </li>
+	<li ng-if="deviceDetails.tel.primary !=''">Call Me Up On: <em><b>{{deviceDetails.tel.primary}}, {{deviceDetails.tel.alternate}}</b></em> </li>
 	<li ng-if="deviceDetails.issueDesc != '' ">Problem Description: <em><b>{{deviceDetails.issueDesc}}</b></em></li>
-	<li ng-if="deviceDetails.address.initialAddress !='' && deviceDetails.address.city !='' && deviceDetails.address.state !='' && deviceDetails.address.zipCode !='' ">Pick Up My PC from <em><b>{{deviceDetails.address.initialAddress}}, {{deviceDetails.address.city}}, {{deviceDetails.address.state}}, {{deviceDetails.address.zipCode}}</b></em> </li>
-	<li ng-if="deviceDetails.tel.primary !=''">Call Me Up On :-<em><b>{{deviceDetails.tel.primary}}, {{deviceDetails.tel.alternate}}</b></em> </li>
-
 </ul>
 </div>
 <div class=" col-lg-8 col-md-8 col-sm-12 col-xs-12 requestDiv container ">
@@ -65,7 +64,7 @@
 		</div>
 <br>
 </div>
-		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="!loggedIn">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
   			<input type="email" name="email"  class="form-control"   ng-model="deviceDetails.email" placeholder="Email Address" aria-describedby="basic-addon1" required>
 		</div><br>

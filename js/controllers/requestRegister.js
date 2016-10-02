@@ -16,10 +16,10 @@ headModuleVar.controller('requestController',["$rootScope","$scope","$http","$lo
 			tel:{
 				primary:'',
 			},
-			email:''
+			email:$rootScope.loggedIn? $rootScope.userEmail : ""
 		}
 
-		
+		console.log($rootScope.userEmail)
 		$scope.deviceList=["Desktop","Laptop"];
 		$scope.serviceTypes = ["Pick Up","On-Site Repair"];
 		
