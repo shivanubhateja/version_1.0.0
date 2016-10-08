@@ -38,6 +38,7 @@ var submitRequstSchema = mongoose.Schema({
 			status:String
 });
 var pastRequestsSchema = mongoose.Schema({
+			 _id: String,
 			date : Date,	
 			deviceType :String,
 			serviceType :String,
@@ -179,7 +180,6 @@ app.post('/submitRequest',function(request,response){
         	response.send({response:"requestSubmitted"})
         } 
         // return console.error("Error while saving data to MongoDB: " + err); // <- this gets executed when there's an error
-        console.error("request submittion attempt"); // <- this never gets logged, even if there's no error.
     });
 })
 app.get('/getServiceRequests',function(request,response){
@@ -191,7 +191,6 @@ app.get('/getServiceRequests',function(request,response){
 	if(request.query.userEmail !== undefined){
 		query = {email : request.query.userEmail};
 	}
-	console.log(".............",query)
 	var getDetails = function(){
 		return new promise(function(resolve,reject){
 		mongoose.model('submitRequests').find(query,function(err,activeRequests){
@@ -287,7 +286,64 @@ app.post('/sendInfoMail',function(request, response){
    					}
     			});
 	});
-})
+});
+app.get("/updateStatus",function(request, response){
+	var user = request.query.user;
+	var status = request.query.status;
+	if(status === "Completed"){
+		//remove request from pending collection and add in completed requests
+		mongoose.model('submitRequests').find({_id : user},function(err, data){
+			//we got the record now adding it to completed request collections
+
+			var copy = {
+				_id: data[0]._id,
+				date : data[0].date,	
+				deviceType :data[0].deviceType,
+				serviceType :data[0].serviceType,
+				issueDesc:data[0].issueDesc,
+				address : {
+					initialAddress:data[0].address.initialAddress,
+					city:data[0].address.city,
+					state:data[0].address.state,
+					zipCode:data[0].address.zipCode
+				},
+				tel:{
+					primary:data[0].tel.primary,
+				},
+				email:data[0].email,
+				status :"Completed"
+			}
+			var dataToBeSaved = new completedRequestsModel(copy);
+			dataToBeSaved.save(function(err, data){
+				if(err){
+					console.log(err);
+				}
+				else
+				{
+					//remove recored from pending requests
+					mongoose.model('submitRequests').find({_id : user}).remove(function(err, removed){
+						if(err){
+							response.send("error in removing from pending requests");
+						}
+						else{
+							response.send("done Bro")
+						}
+					});
+				}
+			})
+		})
+	}
+	else{
+		submitRequestModel.update({_id:user},{status:status},function(err, updatedRecord){
+			if(err){
+				response.send("error in updating pending request")
+			}
+			else{
+				response.send("updated")
+			}
+		})
+	}
+});
 app.listen(8080,function(){ 
 	console.log("server started successfully");
 });

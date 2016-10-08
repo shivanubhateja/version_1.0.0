@@ -9,6 +9,7 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 	$scope.loginResponse.message = '';
 	$scope.requests = {}
 	$scope.statusObject = {};
+	$scope.statusObject.statusToChange = [];
 	$scope.adminLoginCheck = function(){
 		$http({
   			method: 'POST',
@@ -39,6 +40,8 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 		}).then(function successCallback(response){
 			$scope.requests.activeRequests = response.data.active;
 			$scope.requests.completedRequests = response.data.completed;
+
+			console.log($scope.requests.completedRequests)
 			$scope.requests.completedRequests.forEach(function(request, index){
 				$scope.requests.completedRequests[index].date =  request.date.substr(0,10);
 			})
@@ -51,15 +54,16 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 
 		})
 	}
-	$scope.changeStatusFromActiveRequest = function(request){
-		console.log($scope.statusObject.statusToChange,id);
-		
-		// var removeIndex = $scope.requests.activeRequests.map(function(item) { return item.id; })
-  //                      .indexOf();
-		// $scope.requests.activeRequests = $scope.requests.activeRequests.map(function(item){
-		// 	if(item === request)
-		// })
+	$scope.changeStatusFromActiveRequest = function(index,user){
+		console.log($scope.statusObject.statusToChange[index],user);
+		$http({
+			method: "GET",
+			url: "/updateStatus?user="+user+"&status="+$scope.statusObject.statusToChange[index]
+		}).then(function successCallback(response){
+			console.log(response.data)
+		}, function failCallback(){
+
+		})
 	}
 
-	$scope.fetchPendingRequests();
 }]);
