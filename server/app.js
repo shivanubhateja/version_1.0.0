@@ -73,7 +73,7 @@ var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:mad
 
 //index page
 app.get('/',function(request, response){ 
-	response.sendFile(path.join(__dirname+"/../notify/index.html"));
+	response.sendFile(path.join(__dirname+"/../html/index.html"));
 }); 
 //admin page
 app.get("/admin",function(request, response){
@@ -186,19 +186,23 @@ app.get('/getServiceRequests',function(request,response){
 	var res = {
 		active:[],
 		completed:[]
-	};
+	}; 
+	var query= {}
+	if(request.query.userEmail !== undefined){
+		query = {email : request.query.userEmail};
+	}
+	console.log(".............",query)
 	var getDetails = function(){
 		return new promise(function(resolve,reject){
-		mongoose.model('submitRequests').find({email : request.query.userEmail},function(err,activeRequests){
+		mongoose.model('submitRequests').find(query,function(err,activeRequests){
 		res.active = activeRequests;
-			mongoose.model('completedRequests').find({email : request.query.userEmail},function(err,pastRequests){
+			mongoose.model('completedRequests').find(query,function(err,pastRequests){
 			res.completed = pastRequests;
 			resolve(res);
 			});
 		});
 		})
 	}
-
 	getDetails().then(function(data){
 		response.send(data);
 	})

@@ -5,11 +5,12 @@
 var headModuleVar = angular.module('headModule',["ngRoute","ngTouch","ngCookies"]);
 
 headModuleVar.config(['$locationProvider','$routeProvider',function config($locationProvider, $routeProvider){
-$routeProvider.when('/panel',{
+$routeProvider.
+otherwise({redirectTo: '/'}).
+when('/panel',{
 	templateUrl : "/html/panel.html",
 	controller : "panelController"
 }).
-otherwise({redirect: '/'}).
 when('/request',{
 	templateUrl : "/html/requestRegister.html",
 	controller : "requestController"
@@ -29,8 +30,7 @@ when('/bookingDone',{
 when('/',{
 	templateUrl:"/html/homePage.html",
 	controller:"homeController"
-}).
-otherwise({redirect: '/'});
+})
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
 	if($cookies.getObject("loggedIn") === true){

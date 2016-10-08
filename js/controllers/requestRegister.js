@@ -2,7 +2,8 @@
 var headModuleVar = angular.module("headModule");
 
 headModuleVar.controller('requestController',["$rootScope","$scope","$http","$location",function($rootScope,$scope,$http,$location){
-
+$rootScope.homePage = false;
+	
 			$scope.deviceDetails = {
 			deviceType :(localStorage.getItem("deviceTypeLocal") !=null)? (localStorage.getItem("deviceTypeLocal")): '',
 			serviceType :(localStorage.getItem("serviceTypeLocal") !=null)? (localStorage.getItem("serviceTypeLocal")): '',

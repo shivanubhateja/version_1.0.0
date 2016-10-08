@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Index Page</title>
+	<title>Clorda</title>
 	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
@@ -12,7 +13,8 @@
 </head>
 <body ng-app="headModule" ng-cloak ng-controller="mainController" style="padding-top: 0%">
 	<div ng-include = "'/html/navbar.html'"></div>
-	<div id="background-image"></div>
+	<div ng-show="homePage" id="background-image" ></div>
+	<div ng-show="!homePage" id="background-image-inner-pages"></div>
 	<div ng-view></div>
 
 	<div class="loading" ng-if="loading"><img src="/images/loading.gif"></div>

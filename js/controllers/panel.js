@@ -1,6 +1,8 @@
 var headModuleVar = angular.module("headModule");
 
 headModuleVar.controller('panelController',["$rootScope","$scope","$http","$location",function($rootScope,$scope,$http,$location){
+	$rootScope.homePage = false;
+
 	if(!$rootScope.loggedIn){
 		$rootScope.errorMessageNavBar = "Login To Open Menu";
 		$rootScope.disableErrorBar();

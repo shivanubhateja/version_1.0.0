@@ -5,3 +5,17 @@
 	margin-top: 10%;
 
 }
+.listRequests{
+	    display: table;
+}
+td {
+    padding: 0 20px 0 0;
+}
+.service-type{
+    color: red;
+    font-weight: bold;
+}
+.status-styling{
+	color: green;
+	font-weight: bold;
+}
