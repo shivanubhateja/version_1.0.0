@@ -1,5 +1,6 @@
 .links-page-div{
 	background-color: #000;
+    line-height: 1.6;
 }
 .links-page-line{
 		    color: #909090;
@@ -16,9 +17,20 @@
 	top:0px;
 }
 .quick-links{
-	    font-size: 18px;
+	font-size: 18px;
     font-weight: 700;
     color: #28c2ba;
     text-align: left;
     margin: 7px 0 7px 0;
+}
+.book-engineer-link{
+    cursor: pointer;
+    color: #777777;
+}
+.book-engineer-link:hover{
+    color:#28c2ba;
+}
+.linksNon_a{
+    color: #77775C;
+    cursor: pointer;
 }

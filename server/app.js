@@ -63,12 +63,18 @@ var adminSchema = mongoose.Schema({
 var earlyBirdSchema = mongoose.Schema({
 	emailid:{type:String , unique: true}
 });
+var enquirySchema = mongoose.Schema({
+	emailId : String,
+	query : String,
+	phoneNo : Number
+});
 //mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
 var adminLoginModel = mongoose.model('adminLogins', adminSchema);
 var earlyBirdModel = mongoose.model('earlyBirds', earlyBirdSchema);
+var enquiryModel = mongoose.model('enquiries', enquirySchema)
 // mail setup
 var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 
@@ -287,6 +293,20 @@ app.post('/sendInfoMail',function(request, response){
     			});
 	});
 });
+app.post("/submitEnquiry",function(request, response){
+	var entry = {};
+	entry.emailId = request.body.emailId;
+	entry.query = request.body.query;
+	entry.phoneNo = request.body.phoneNo;
+	var entryToBeStored = new enquiryModel(entry);
+	entryToBeStored.save(function(err, savedData){
+		if(err)
+		{
+			console.log(err)
+		}
+		response.send("success")
+	})
+})
 app.get("/updateStatus",function(request, response){
 	var user = request.query.user;
 	var status = request.query.status;

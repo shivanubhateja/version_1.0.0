@@ -30,6 +30,14 @@ when('/bookingDone',{
 when('/',{
 	templateUrl:"/html/homePage.html",
 	controller:"homeController"
+}).
+when('/terms',{
+	templateUrl:"/html/terms.html",
+	controller:"informationController"
+}).
+when('/privacy-policy',{
+	templateUrl:"/html/privacy-policy.html",
+	controller:"informationController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
@@ -43,6 +51,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$rootScope.errorMessageNavBar = "";
 	$scope.brandName="brandName";
 	$scope.loginButton="Login";
+	$scope.enquiry = {};
+	$scope.enquiry.enquirySentFlag = false;
 	$rootScope.userEmail = localStorage.getItem('userEmailLocal');
 
 	$rootScope.disableErrorBar = function(){
@@ -60,7 +70,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
   			url: '/loginRequest',
   			data: {userEmail : $rootScope.userEmail , password : $scope.password}
 			}).then(function successCallback(response) {	
-				// alert(response.data.loginSuccess);
 				if(!response.data.loginSuccess){
 					//login failed
 					$scope.invalidCredentials = true;
@@ -108,7 +117,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
   			data: {userEmail : userEmailSignUp, password : passwordSignUp, firstName : firstName, contactNo : contactNo}			
 		}).then(function successCallback(response){
 		$scope.loading = false;
-			alert(JSON.stringify(response))
 		},function errorCallback(response){})
 		//check if user already exists
 
@@ -123,7 +131,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 		localStorage.removeItem("deviceTypeLocal");
 		localStorage.removeItem("serviceTypeLocal");
 	}
-	$scope.recoveryEmailSent = false;
+	$scope.recovery = {};
+	$scope.recovery.recoveryEmailSent = false;
 	$scope.recoverPassword = function(email){
 		$scope.loadingInModal = true;
 		$http({
@@ -131,8 +140,10 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 			url:'/sendPasswordRecoveryEmail?user='+email
 		}).then(function successCallback(response){
 					$scope.loadingInModal = false;
-					$scope.recoveryEmailSent = true;
-		},function errorCallback(response){})
+					$scope.recovery.recoveryEmailSent = true;
+		},function errorCallback(response){
+			console.log("failed")
+		})
 	}
 	$scope.activationEmailSent.flag = false;
 	$scope.resendActivationEmail = function(email){
@@ -141,7 +152,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 			method:'GET',
 			url:'/resendActivationEmail?user='+email
 		}).then(function successCallback(response){
-			alert(JSON.stringify(response));
 			$scope.loadingInModal = false;
 			$scope.activationEmailSent.flag = true;
 		},function errorCallback(response){})
@@ -153,6 +163,15 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	}
 	$scope.goToHomePage = function(){
 		$location.path('/');
+	}
+	$scope.enquiry.submitEnquiry = function(){
+		$http({
+			method:"POST",
+			url:"/submitEnquiry",
+			data: {emailId: $scope.enquiry.userEmail, query: $scope.enquiry.query, phoneNo : $scope.enquiry.phoneNo}
+		}).then(function successCallback(response){
+				$scope.enquiry.enquirySentFlag = true;
+		}, function failCallback(){})
 	}
 	$scope.issueTypeListDesktop=[
 			"Display Malfunction.",

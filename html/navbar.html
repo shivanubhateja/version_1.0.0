@@ -20,37 +20,42 @@
     <li class="call-engineer-li">
         <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()">BOOK AN ENGINEER</button>
     </li>
-        <li class="dropdown" ng-hide="loggedIn">
-          <a class="dropdown-toggle login-tab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{loginButton}} <span class="caret"></span></a>
-         
-          <ul class="dropdown-menu">
-          <div class="input-group" id="loginForm">
-          <form name="loginForm">
-            <li><input type="email" name="userEmail" id="userEmail" class="form-control" placeholder="User Name" data-toggle="tooltip" title="Enter Email Address!" ></li>
-            <div><span>&nbsp</span></div>
-            <li><input type="password" name="password" id="password" class="form-control" placeholder="Password" data-toggle="tooltip" title="Enter Password!"></li>
-			<div><span>&nbsp</span></div>
-            <li><input type="button" class="btn btn-success btn-group-justified " value="LOGIN" ng-click="login()" /></li>
-          
-          </form>
-          <div style="display: inline;">
-          <li>
-              <span class="recoverPasswordDiv" data-toggle="modal" data-target="#recoverPassword">
-              <sub>Recover Password?</sub>
-              </span>
-              <span class="recoverPasswordDiv activation" data-toggle="modal" ng-click="activationEmailSent.flag=false" data-target="#resendActivationEmail">
-              <sub>Resend Activation Email</sub>
-              </span>
+    <li class="call-engineer-li">
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal">ENQUIRE FIRST</button>
+    </li>
+    <li class="dropdown" ng-hide="loggedIn">
+      <a class="dropdown-toggle login-tab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{loginButton}} <span class="caret"></span></a>
+     
+      <ul class="dropdown-menu">
+      <div class="input-group" id="loginForm">
+      <form name="loginForm">
+        <li><input type="email" name="userEmail" id="userEmail" class="form-control" placeholder="User Name" data-toggle="tooltip" title="Enter Email Address!" ></li>
+        <div><span>&nbsp</span></div>
+        <li><input type="password" name="password" id="password" class="form-control" placeholder="Password" data-toggle="tooltip" title="Enter Password!"></li>
+	     <div><span>&nbsp</span></div>
+        <li><input type="button" class="btn btn-success btn-group-justified " value="LOGIN" ng-click="login()" /></li>
+      
+      </form>
+        <div style="display: inline;">
+        <li>
+          <span class="recoverPasswordDiv" data-toggle="modal" data-target="#recoverPassword" >
+          <sub>Recover Password?</sub>
+          </span>
           </li>
-          </div>
-          </div>
-          </ul>
-        </li>
+          <li>
+          <span class="recoverPasswordDiv activation" data-toggle="modal" ng-click="activationEmailSent.flag=false" data-target="#resendActivationEmail">
+          <sub>Resend Activation Email</sub>
+          </span>
+      </li>
+      </div>
+      </div>
+      </ul>
+    </li>
   		 <li ng-show="loggedIn"><a href="#/panel">Account</a></li>
         <li ng-show="loggedIn"><a ng-click="logout()">Logout</a></li>
 
 <!-- signup -->
-      <li class="dropdown" ng-hide="loggedIn">
+  <li class="dropdown" ng-hide="loggedIn">
           <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign Up <span class="caret"></span></a>
          
           <ul class="dropdown-menu">
@@ -59,50 +64,31 @@
             <li><span>Email Address<sup>*</sup></span><input type="email" name="userEmailSignUp" id="userEmailSignUp" ng-model="userEmailSignUp" class="form-control"  data-toggle="tooltip" title="Enter Email Address!" required></li>
         
              <div ng-if="signUpForm.userEmailSignUp.$dirty && signUpForm.userEmailSignUp.$invalid"><span><sup>invalid Email Address</sup></span></div>
-    <div><span>&nbsp</span></div>
+               <div><span>&nbsp</span></div>
 
             <li><span>Name<sup>*</sup></span><input type="text" name="userNameSignUp" id="userNameSignUp" ng-model="userNameSignUp" class="form-control"  data-toggle="tooltip" title="Enter Name!" required></li>
             <div><span>&nbsp</span></div>
 
             <li><span>Enter New Password<sup>*</sup></span><input type="password" name="passwordOne" id="passwordOne" ng-model = "passwordOne" class="form-control" data-toggle="tooltip" title="Enter New Password!" required></li>
-      <div><span>&nbsp</span></div>
+           <div><span>&nbsp</span></div>
 
             <li><span>Re-enter Password<sup>*</sup></span><input type="password" name="passwordTwo" id="passwordTwo" ng-model = "passwordTwo" class="form-control" data-toggle="tooltip" title="Confirm Password!" required></li>
-      <div ng-if="passwordOne != passwordTwo && signUpForm.userEmailSignUp.$dirty && signUpForm.passwordTwo.$dirty"><span><sup>Password Didn't match</sup></span></div>
-      <div><span>&nbsp</span></div>
-            
+          <div ng-if="passwordOne != passwordTwo && signUpForm.userEmailSignUp.$dirty && signUpForm.passwordTwo.$dirty"><span><sup>Password Didn't match</sup></span></div>
+          <div><span>&nbsp</span></div>
             <li><span>Contact No.<sup>*</sup></span><input type="Number" name="contactNo" id="contactNo" ng-model = "contactNo" class="form-control" data-toggle="tooltip" title="Enter Mobile No.!" required></li>
-   <div><span>&nbsp</span></div>
+            <div><span>&nbsp</span></div>
             <li><input type="button" class="btn btn-primary btn-group-justified " ng-disabled = "passwordOne != passwordTwo ||  !signUpForm.userEmailSignUp.$dirty || !signUpForm.userNameSignUp.$dirty || !signUpForm.contactNo.$dirty || !signUpForm.userEmailSignUp.$valid || !signUpForm.contactNo.$valid || !signUpForm.userNameSignUp.$valid ||  !signUpForm.passwordTwo.$dirty ||  !signUpForm.passwordOne.$dirty " value="Sign Up" ng-click="signUp()" /></li>
             
           </form>
           </div>
           </ul>
-        </li>
+  </li>
 <!-- sign up ends -->
-
-
-        <!-- <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li> -->
       </ul>
     </div><!-- /.navbar-collapse -->
-  
   </div><!-- /.container-fluid -->
-
 </nav>
-
 <div id="notificationBar" ng-show="errorMessageNavBar != '' " class = " col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid" ><img src="/images/error.png"> &nbsp{{errorMessageNavBar}}</div>
-
-
-
 
 
 
@@ -117,15 +103,15 @@
       </div>
     <div class="modal-body">
        <form name="loginForm">
-            <input type="email" ng-show="!recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
-            <p ng-show="recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
+            <input type="email" ng-show="!recovery.recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
+            <p ng-show="recovery.recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-show="!recoveryEmailSent" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="recoverPassword(userEmailRecover)">Send Password</button>
-        <button type="button" class="btn btn-Default" data-dismiss="modal" ng-show="recoveryEmailSent">OK</button>
+        <button type="button" class="btn btn-primary" ng-show="!recovery.recoveryEmailSent" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="recoverPassword(userEmailRecover)">Send Password</button>
+        <button type="button" class="btn btn-Default" data-dismiss="modal" ng-click="recovery.recoveryEmailSent = false" ng-show="recovery.recoveryEmailSent">OK</button>
       </div>
     </div>
   </div>
@@ -157,3 +143,34 @@
   </div>
 </div>
 <!-- modalends -->
+<!-- modal box for enquire -->
+<div class="modal fade" id="enquireModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Enter your enquiry details and we will contact you back</h4>
+      </div>
+    <div class="modal-body">
+       <form name="enquiryForm" >
+          <input type="email" ng-hide="enquiry.enquirySentFlag" name="userEmail" ng-model="enquiry.userEmail" class="form-control" placeholder="Enter Email Id" data-toggle="tooltip" title="Enter Email Address!" >
+            <br ng-hide="enquiry.enquirySentFlag" >
+
+          <textarea ng-hide="enquiry.enquirySentFlag" class="form-control" rows="5" placeholder="Get experts suggestions about your device issue, get estimate pricing for you device service" name="enquiryQuery" ng-model="enquiry.query"  required></textarea>
+          <br ng-hide="enquiry.enquirySentFlag" >
+
+          <input type="tel" ng-hide="enquiry.enquirySentFlag" name="enquiryPhoneNo" ng-model="enquiry.phoneNo" class="form-control" placeholder="Mobile Number Will Help Us Serve You Better" data-toggle="tooltip" title="Enter Email Address!" >
+            
+            <br ng-hide="enquiry.enquirySentFlag" >
+            <p ng-show="enquiry.enquirySentFlag"> We Received Your Enquiry, We Will Reach You Soon. Thank You</p>
+       </form>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-hide="enquiry.enquirySentFlag" ng-disabled="enquiryForm.userEmail.$invalid || enquiryForm.userEmail.$pristine || enquiryForm.enquiryQuery.$pristine ||
+        enquiryForm.enquiryPhoneNo.$pristine || enquiryForm.enquiryPhoneNo.$invalid || enquiry.query === '' || enquiry.phoneNo == '' "  ng-click="enquiry.submitEnquiry()">Enquire</button>
+        <button type="button" class="btn btn-Default" ng-click="enquiry.enquirySentFlag = false" data-dismiss="modal" ng-show="enquiry.enquirySentFlag">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal box for enquire ends -->

@@ -5,12 +5,16 @@ body{
     font-size: 14px;	
 	//background-image: url('/iconImage3');
 	//-webkit-filter: blur(1px);
-	}
+}
+textarea {
+    resize: none;
+}
 #background-image{
-	background-image: url("/../images/back2.jpg");
+	background-image: url("/../images/iconImage3.jpg");
 	position: fixed;
     top: 0;
     width: 100%;
+    opacity: 0.2;
     height: 1000px;
     z-index: -999;
 }
@@ -22,26 +26,12 @@ body{
     height: 1000px;
     z-index: -999;
 }
-/*.btn-primary {
-    color: #fff;
-    background-color: black;
-    border-color: black;
-}
-.btn-primary:hover {
-    color: #fff;
-    background-color: black;
-    border-color: black;
-    box-shadow: 1px 1px 11px 1px white;
-}*/
 #loginForm{
 	padding: 5px;
 }
 #loginForm {
 	padding: 15px;
 }
-
-
-
 #loginForm input[type=email] ,#loginForm input[type=password] {
 	width : 300px;
    -webkit-transition: all .35s ease-in-out;
@@ -51,6 +41,7 @@ body{
 }
 #loginForm 	input[type=email]:focus ,#loginForm input[type=password]:focus {
 
+
 }
 #errorSpan{
 	color: blue;
@@ -59,9 +50,16 @@ body{
 #laptopRepair{
 	width: 120px;
 	height: 120px;
+	overflow: hidden;
 }
 .panelShowcase{
 	text-align: center;
+}
+.panelMainDiv{
+	    padding: 100px 0;
+    margin: -100px 0;
+    background: white;
+    width: 100%;
 }
 .panelText h4{
 	text-align: left;
@@ -83,7 +81,6 @@ body{
 	text-align: left;
 	color:black;
 	padding-right: 150px
-
 }
 .panelItemContainer{
 	border-style:none;
@@ -105,7 +102,6 @@ sup{
 }
 .panelItems:hover{
 	background-color: 	#F0F8FF;
-
 }
 .loading{
 	position: fixed;
@@ -130,15 +126,13 @@ sup{
    -moz-transition: all .35s ease-in-out;
    -o-transition: all .35s ease-in-out;
    transition: all .35s ease-in-out;
-
 }
 #notificationBar img{
 	width: 30px;
 	height: 30px;
-
 }
 .logoDiv{
-	    position: absolute;
+	position: absolute;
     z-index: 10;
     background-color: #1B6D9D;
     left: 2%;
@@ -149,7 +143,7 @@ sup{
 
 }
 .logo{
-	    min-width: 10px;
+	min-width: 10px;
     min-height: 20px;
     width: 166px;
     height: 102px;
@@ -166,7 +160,7 @@ cursor:pointer;
 button.btn.btn-primary.btn-group-justified.callEngineer{
 	position:relative;
 	height: 50px;
-	margin-top: 5%;
+	margin-top: 9px;
 	font-weight: bold;
 	background-color: #1B6D9D;
 	border-color: white;
@@ -177,31 +171,22 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
     color: black;
     border-color: white;
 }
-/*.callEngineer:hover{
-	width:170px;
-		-webkit-transition: all scale(1.05);
-   -moz-transition: all .03s ease-in-out;
-   -o-transition: all .03s ease-in-out;
-   transition: all .03s ease-in-out;
-}*/
-
 .tagline{
 	font-weight: bolder;
     font-size: 17px;
     text-align: center;
-    color: white;
+    color: #3d3d3d;
 	/*padding-right: 90px;*/
 }
-
 .repairDisplay{
 	padding: 20px;
-	color: white;
+	color: #3d3d3d;
 	line-height: 2;
     font-weight: 600;
 }
 .displayDesktop{
 	cursor:pointer;
-	height: 87px;
+	height: 95px;
 	padding :20px 0 0 14px;
 	border:solid 1px;
 	border-radius: 0px 3px 0px 0px;
@@ -213,22 +198,21 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
 	border-right: none;
 	border-radius: 3px 0px 0px 0px;
 	border-color: gray;
-	height: 87px;
+	height: 95px;
 }
 .selection{
 	padding :20px;
 	border:solid 1px;
 	border-top: none;
 	border-radius: 0px 0px 3px 3px;
-	border-color: white;
-
+	border-color: #3d3d3d;
+	overflow: hidden;
 }
 .selectionDeviceImageDiv{
-	height:300px;
+	height: 300px;
+	text-align: center;
 }
 .selectedDeviceImage{
-	//opacity:0.1;
-	width:70%;
 	height:100%;
 	overflow: hidden;
 }
@@ -241,18 +225,24 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
 .call-engineer-li{
 	margin-right: 10px;
 }
-@media all and (max-width: 768px) {  
-#loginForm{
-	background-color: white;
-	    width: 100%;
-} 
-#loginForm input[type=email] ,#loginForm input[type=password] {
-	width : 100%;
-}
-.login-tab{
-	margin-top: 5px;
-}
-.call-engineer-li{
-	margin-right: none;
-}
+@media all and (max-width: 767px) {  
+	#loginForm{
+		background-color: white;
+		    width: 100%;
+	} 
+	#loginForm input[type=email] ,#loginForm input[type=password] {
+		width : 100%;
+	}
+	.login-tab{
+		margin-top: 5px;
+	}
+	.call-engineer-li{
+		margin-right: none;
+	}
+		#slider{
+			width: 100%;
+		}
+	.navbar-collapse.collapse.in{
+		padding-top: 30px;
+	}
 }

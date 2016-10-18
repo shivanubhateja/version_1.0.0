@@ -1,0 +1,19 @@
+.terms-heading{
+    color: #656162;
+    text-align: center;
+}
+.information{
+	line-height: 1.3;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #656162;
+}
+.white-Background{
+	background-color: white;
+	margin: -100px 0;
+    padding: 100px 0;
+}
+a{
+	    text-decoration: none !important;
+    color: #777777;
+}

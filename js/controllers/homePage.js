@@ -7,12 +7,12 @@ headModuleVar.controller("homeController",['$scope','$rootScope',function($scope
 	$scope.borderStyleLaptop = {
 				'border-bottom':'none',
 				'padding-bottom':'21px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 	$scope.borderStyleDesktop =  {
 				'border-bottom':'solid 1px',
 				'padding-bottom':'20px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 	$scope.selection = function(selectedDevice){
 		$scope.selectedDevice = selectedDevice;
@@ -21,12 +21,12 @@ headModuleVar.controller("homeController",['$scope','$rootScope',function($scope
 			$scope.borderStyleDesktop = {
 				'border-bottom':'none',
 				'padding-bottom':'21px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 			$scope.borderStyleLaptop = {
 				'border-bottom':'solid 1px',
 				'padding-bottom':'20px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 ;
 		}
@@ -35,12 +35,12 @@ headModuleVar.controller("homeController",['$scope','$rootScope',function($scope
 			$scope.borderStyleLaptop = {
 				'border-bottom':'none',
 				'padding-bottom':'21px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 			$scope.borderStyleDesktop = {
 				'border-bottom':'solid 1px',
 				'padding-bottom':'20px',
-				'border-color':'white'
+				'border-color':'#3d3d3d'
 			};
 		}
 	}
