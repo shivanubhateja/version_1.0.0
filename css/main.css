@@ -246,3 +246,8 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
 		padding-top: 30px;
 	}
 }
+.map-include-div{
+	pointer-events: none;
+    background: white;
+    padding: 0;
+}

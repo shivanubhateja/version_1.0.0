@@ -117,6 +117,10 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
   			data: {userEmail : userEmailSignUp, password : passwordSignUp, firstName : firstName, contactNo : contactNo}			
 		}).then(function successCallback(response){
 		$scope.loading = false;
+		if(response.data.response === "alreadyExists"){
+			$rootScope.errorMessageNavBar = "Email Address Provided is Already Exists";
+			$rootScope.disableErrorBar();
+		}
 		},function errorCallback(response){})
 		//check if user already exists
 

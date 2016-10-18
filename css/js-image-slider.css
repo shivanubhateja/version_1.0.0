@@ -5,12 +5,12 @@
 }
 #sliderFrame 
 {
-    padding: 0;
+    padding: 0px;
 
 }
 
 #slider, #slider .sliderInner {
-    width: 57%;
+    width: 99%;
     height:285px;/* Must be the same size as the slider images */
     border-radius:3px;
 }

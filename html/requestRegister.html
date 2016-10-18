@@ -1,4 +1,4 @@
-<div>
+<div style="min-height: 500px">
 <div class="col-lg-4 col-md-4  col-sm-12 col-xs-12"> 
 <h4 >&nbsp&nbsp&nbsp&nbsp&nbsp Details</h4>
 <ul>
@@ -9,7 +9,7 @@
 	<li ng-if="deviceDetails.issueDesc != '' ">Problem Description: <em><b>{{deviceDetails.issueDesc}}</b></em></li>
 </ul>
 </div>
-<div class=" col-lg-8 col-md-8 col-sm-12 col-xs-12 requestDiv container ">
+<div class=" col-lg-8 col-md-8 col-sm-12 col-xs-12 requestDiv container " style=" padding-bottom: 50px">
 	
 	<p>To book an expert's visit please fill in the form below. We will contact you shortly to confirm your booking. Our qualified computer repair engineer will try to diagnose your problem and estimate time needed to repair your computer. Please get your personal details and address ready.</p>
 
@@ -88,3 +88,5 @@
 <input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary == '' || requestForm.email.$invalid" ng-click="submitRequest()" value="BOOK ENGINEER">
 			</form>
 </div>
+</div>
+<div ng-include="'/html/linksPage.html'"></div>
