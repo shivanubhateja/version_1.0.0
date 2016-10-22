@@ -23,6 +23,7 @@
     margin: 0px;
 }
 .team-page-thumbnail{
+        height: 305px;
     text-align: center;
     border: none;
     background: #F7F7F7;
@@ -81,11 +82,13 @@
     border: 2px solid #1B6D9D;
     color : #1B6D9D;
     margin: 20px;
-    float: right;
 }
 
 .team-page-thumbnail .btn:hover{
     border: none;
     background: #1B6D9D;
     color: #fff;  
+}
+.caption{
+    height: 120px;
 }

@@ -3,7 +3,6 @@ var $container  = $('#team-page-container'),
     timeout;
  
 $articles.on( 'mouseenter', function( event ) {
-         console.log("Entering Mouse");
     var $article    = $(this);
     clearTimeout( timeout );
     timeout = setTimeout( function() {
@@ -19,7 +18,6 @@ $articles.on( 'mouseenter', function( event ) {
 });
  
 $container.on( 'mouseleave', function( event ) {
-     console.log("Exiting Mouse");
     clearTimeout( timeout );
     $articles.removeClass('active blur');
      

@@ -104,14 +104,14 @@
       </div>
     <div class="modal-body">
        <form name="loginForm">
-            <input type="email" ng-show="!recovery.recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
+            <input type="email" ng-show="!recovery.recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover.email" id="userEmailRecover.email" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" required>
             <p ng-show="recovery.recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-show="!recovery.recoveryEmailSent" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="recoverPassword(userEmailRecover)">Send Password</button>
+        <button type="button" class="btn btn-primary" ng-show="!recovery.recoveryEmailSent" ng-disabled="loginForm.userEmailRecover.$invalid || userEmailRecover.email == '' " ng-click="recoverPassword(userEmailRecover.email)">Send Password</button>
         <button type="button" class="btn btn-Default" data-dismiss="modal" ng-click="recovery.recoveryEmailSent = false" ng-show="recovery.recoveryEmailSent">OK</button>
       </div>
     </div>
@@ -130,14 +130,14 @@
       </div>
     <div class="modal-body">
        <form name="loginForm">
-            <input type="email" ng-show="!activationEmailSent.flag" name="userEmailRecover" ng-model="userEmailRecover" id="userEmailRecover" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
+            <input type="email" ng-show="!activationEmailSent.flag" name="userEmailRecover" ng-model="userEmailRecover.email" id="userEmailRecover.email" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" >
             <p ng-show="activationEmailSent.flag"> Activation Email Successfully sent.</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" ng-show="!activationEmailSent.flag" ng-disabled="loginForm.userEmailRecover.$invalid" ng-click="resendActivationEmail(userEmailRecover)">Send Activation Email</button>
+        <button type="button" class="btn btn-primary" ng-show="!activationEmailSent.flag" ng-disabled="loginForm.userEmailRecover.$invalid || userEmailRecover.email == ''" ng-click="resendActivationEmail(userEmailRecover.email)">Send Activation Email</button>
         <button type="button" class="btn btn-Default" data-dismiss="modal" ng-show="activationEmailSent.flag">OK</button>
       </div>
     </div>
@@ -175,3 +175,35 @@
   </div>
 </div>
 <!-- modal box for enquire ends -->
+
+<!-- modal -->
+
+
+
+<div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{requestType}}</h4>
+
+      </div>
+    <div class="modal-body">
+        <table class="table">
+        <tr><td>Device Type</td><td>{{modalContent.deviceType}}</td></tr>
+        <tr><td>Service Type</td><td>{{modalContent.serviceType}}</td></tr>
+        <tr><td>Issue</td><td>{{modalContent.issueDesc}}</td></tr>
+        <tr><td>Date</td><td>{{modalContent.date}}</td></tr>
+        <tr><td>Pick Up Address</td><td>{{modalContent.address.initialAddress}},{{modalContent.address.city}},{{modalContent.address.state}},{{modalContent.address.zipCode}}</td></tr>
+        <tr><td>Contact Details</td><td>{{modalContent.tel.primary}},{{modalContent.tel.alternate}}</td></tr>
+        <tr><td>Email Provided</td><td>{{modalContent.email}}</td></tr>
+        <tr><td>Status</td><td>{{modalContent.status}}</td></tr>
+      </table>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modalends -->

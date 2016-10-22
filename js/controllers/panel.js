@@ -29,6 +29,9 @@ headModuleVar.controller('panelController',["$rootScope","$scope","$http","$loca
 			localStorage.removeItem("deviceTypeLocal");
 		localStorage.removeItem("serviceTypeLocal");
 		}
-
+		$scope.redirectTo = function(path){
+			$scope.removeLocalData();
+			$location.path(path);
+		}
 	}
 }]);

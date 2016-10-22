@@ -19,7 +19,7 @@
 <body ng-app="headModule" ng-cloak ng-controller="mainController" style="padding-top: 0%">
 	<div ng-include = "'/html/navbar.html'"></div>
 	<!-- <div ng-show="homePage" id="background-image" ></div> -->
-	<div ng-show="!homePage" id="background-image-inner-pages"></div>
+	<!-- <div ng-show="!homePage" id="background-image-inner-pages"></div> -->
 	<div ng-view></div>
 
 	<div class="loading" ng-if="loading"><img src="/images/loading.gif"></div>
@@ -39,7 +39,11 @@
 <script type="text/javascript" src="/js/controllers/bookingDone.js"></script>
 <script type="text/javascript" src="/js/controllers/informationController.js"></script>
 <script type="text/javascript" src="/js/controllers/homePage.js"></script>
-<script src="/js/slider/js-image-slider.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/controllers/referalController.js"></script>
+
+
+
+<!-- <script src="/js/slider/js-image-slider.js" type="text/javascript"></script> -->
 
 
 <!-- <script>

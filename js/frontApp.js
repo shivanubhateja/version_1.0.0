@@ -38,6 +38,10 @@ when('/terms',{
 when('/privacy-policy',{
 	templateUrl:"/html/privacy-policy.html",
 	controller:"informationController"
+}).
+when('/referals',{
+	templateUrl:"/html/referals.html",
+	controller:"referalController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
@@ -47,6 +51,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	else{
 		$rootScope.loggedIn = false;
 	}
+	$scope.userEmailRecover= {};
+	$scope.userEmailRecover.email = '';
 	$scope.activationEmailSent={};
 	$rootScope.errorMessageNavBar = "";
 	$rootScope.errorMessageNavBarSuccess = "";
@@ -55,6 +61,11 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$scope.enquiry = {};
 	$scope.enquiry.enquirySentFlag = false;
 	$rootScope.userEmail = localStorage.getItem('userEmailLocal');
+
+
+	$scope.$on('$locationChangeStart', function(event, next, current) {
+		// $('#requestDetailsModal').modal('hide');
+	});
 
 	$rootScope.disableErrorBar = function(){
 	 setTimeout(function(){
@@ -104,7 +115,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					$cookies.putObject("loggedIn",true)
 					// localStorage.setItem("loggedInLocal",true);
 					$rootScope.loggedIn = true;
-					console.log("logged in set to TRUE");
 					localStorage.setItem("userEmailLocal",$rootScope.userEmail);
 					$location.url("/panel")
 				}
@@ -131,7 +141,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 			$rootScope.disableErrorBar();
 		}
 		else if(response.data.response === "waitingForActivation"){
-			console.log("onnas")
 			$rootScope.errorMessageNavBarSuccess = "Successfully Registered, Please Check Your Email For Activation Link";
 			$rootScope.disableErrorBarSuccess();
 		}
@@ -163,8 +172,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 		}).then(function successCallback(response){
 					$scope.loadingInModal = false;
 					$scope.recovery.recoveryEmailSent = true;
+					$scope.userEmailRecover.email = '';
 		},function errorCallback(response){
-			console.log("failed")
 		})
 	}
 	$scope.activationEmailSent.flag = false;
