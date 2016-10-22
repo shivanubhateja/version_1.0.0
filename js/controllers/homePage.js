@@ -1,13 +1,33 @@
 var headModuleVar = angular.module("headModule");
 
-headModuleVar.controller("homeController",['$scope','$rootScope',function($scope, $rootScope){
+headModuleVar.controller("homeController",['$scope','$rootScope','$http',function($scope, $rootScope, $http){
 	$rootScope.homePage = true;
 	// $scope.showw = false;
 	$scope.selectedDevice = "laptop";
 	$scope.availability = {};
-	$scope.availability.isAvailable = true;
+	$scope.availability.location = '';
+	$scope.availability.invalidPinCode = false;
 	$scope.availability.checkAvaiability = function(){
-		$scope.availability.isAvailable = false;
+		delete $scope.availability.isAvailable;
+		if(($scope.availability.location+'').length != 6 || typeof $scope.availability.location != "number"){
+			$scope.availability.invalidPinCode = true;
+		}
+		else{
+		$http({
+			method: 'GET',
+			url: '/checkAvailability?location='+$scope.availability.location
+		}).then(function successCallback(response){
+
+	$scope.availability.invalidPinCode = false;
+			if(response.data.response === true){
+				$scope.availability.isAvailable = 'true';
+			}
+			else{
+				$scope.availability.isAvailable = 'false';	
+			}
+		}, function failureCallback(){
+		})
+	}
 	}
 	$scope.borderStyleLaptop = {
 				'border-bottom':'none',

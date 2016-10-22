@@ -1,11 +1,37 @@
 angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope","$http", "$cookies", "$rootScope",function($scope, $http, $cookies ,$rootScope){
+	$scope.fetchPendingRequests = function(){
+		$http({
+			method: "GET",
+			url: "/getServiceRequests "
+		}).then(function successCallback(response){
+			$scope.requests.activeRequests = response.data.active;
+			$scope.requests.completedRequests = response.data.completed;
+
+			console.log($scope.requests.completedRequests)
+			$scope.requests.completedRequests.forEach(function(request, index){
+				$scope.requests.completedRequests[index].date =  request.date.substr(0,10);
+			})
+
+			$scope.requests.activeRequests.forEach(function(request, index){
+				$scope.requests.activeRequests[index].date =  request.date.substr(0,10);
+			})
+		},
+		function failCallback(response){
+
+		})
+	}
 	$rootScope.homePage = false;
 	
 	$scope.adminDetails = {};
 	$scope.loginResponse = {};
 	$scope.adminDetails.userName = "";
 	$scope.adminDetails.password = "";
-	$scope.adminLoggedIn = false;
+	if($cookies.getObject('adminLoggedInCookie') === true){
+		$scope.adminLoggedIn = true;
+		$scope.fetchPendingRequests();
+	}
+	else
+		$scope.adminLoggedIn = false;
 	$scope.loginResponse.message = '';
 	$scope.requests = {}
 	$scope.statusObject = {};
@@ -33,27 +59,6 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 					$scope.loginResponse.message = response.data.message;
 			})
 	}
-	$scope.fetchPendingRequests = function(){
-		$http({
-			method: "GET",
-			url: "/getServiceRequests "
-		}).then(function successCallback(response){
-			$scope.requests.activeRequests = response.data.active;
-			$scope.requests.completedRequests = response.data.completed;
-
-			console.log($scope.requests.completedRequests)
-			$scope.requests.completedRequests.forEach(function(request, index){
-				$scope.requests.completedRequests[index].date =  request.date.substr(0,10);
-			})
-
-			$scope.requests.activeRequests.forEach(function(request, index){
-				$scope.requests.activeRequests[index].date =  request.date.substr(0,10);
-			})
-		},
-		function failCallback(response){
-
-		})
-	}
 	$scope.changeStatusFromActiveRequest = function(index,user){
 		console.log($scope.statusObject.statusToChange[index],user);
 		$http({
@@ -65,5 +70,8 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 
 		})
 	}
-
+	$scope.adminLogout = function(){
+		$scope.adminLoggedIn = !$scope.adminLoggedIn;
+		$cookies.remove('adminLoggedInCookie')
+	}
 }]);

@@ -5,11 +5,16 @@
 		<h2 class="check-availability">CHECK IF WE SERVE IN YOUR AREA</h2>
 		</div>
 		<div class=" col-lg-7 col-md-7 col-sm-12 col-xs-12 enterPincodeDiv">
-			<input type="number" name="" placeholder="Enter Your Pincode" class='pincode-input'>
+			<input type="number" name="" placeholder="Enter Your Pincode" ng-model="availability.location" class='pincode-input'>
 			<button ng-click="availability.checkAvaiability()" class="btn btn-primary check-btn">Check</button>
 		<div  class="availabilityDisplay">
-			<img ng-if="!availability.isAvailable" class="no-availability-image" src="/images/no-address.svg">
-			<p ng-if="!availability.isAvailable" class="no-availability-text">Sorry, we don't provide any services in the selected location. We are working hard to extent services to your area.</p>
+			<img ng-if="availability.isAvailable === 'true'" class="no-availability-image" src="/images/yes-address.svg">
+			<p ng-if="availability.isAvailable === 'true'" class="no-availability-text">Hurray, we are near you, Click <b><a href="#/request">HERE</a></b> button to book an engineer.</p>
+			
+			<img ng-if="availability.isAvailable === 'false' || availability.invalidPinCode" class="no-availability-image" src="/images/no-address.svg">
+			<p ng-if="availability.isAvailable === 'false' " class="no-availability-text">Sorry, we don't provide any services in the selected location. We are working hard to extent services to your area.</p>
+			
+			<p ng-if="availability.invalidPinCode" class="no-availability-text">Please enter a valid Pin Code</p>
 		</div>
 		</div>
 

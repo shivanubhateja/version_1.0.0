@@ -1,0 +1,45 @@
+@media all and (max-width: 767px) {  
+	#loginForm{
+		background-color: white;
+		    width: 100%;
+	} 
+	#loginForm input[type=email] ,#loginForm input[type=password] {
+		width : 100%;
+	}
+	.login-tab{
+		margin-top: 5px;
+	}
+	.call-engineer-li{
+		margin-right: none;
+	}
+		#slider{
+			width: 100%;
+		}
+	.navbar-collapse.collapse.in{
+		padding-top: 30px;
+	}
+}
+@media all and (max-width: 800px) {  
+	.taglineDiv{
+		height: initial;
+	}	
+	.navbar-default {
+		 margin-bottom: 0px;
+	}
+	.tagline{
+		font-size: 3em;
+	}
+	.check-availability {
+    font-size: 15px;
+	}
+	.reach-you-heading {
+    	padding: 0;
+	}
+}
+@media all and (max-width: 800px) {
+	.pincode-input {
+	    width: 200px;
+        margin-bottom: 10px;
+        margin-top: 0px;
+	}
+}

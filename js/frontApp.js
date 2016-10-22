@@ -49,6 +49,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	}
 	$scope.activationEmailSent={};
 	$rootScope.errorMessageNavBar = "";
+	$rootScope.errorMessageNavBarSuccess = "";
 	$scope.brandName="brandName";
 	$scope.loginButton="Login";
 	$scope.enquiry = {};
@@ -58,6 +59,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$rootScope.disableErrorBar = function(){
 	 setTimeout(function(){
 	 	$rootScope.errorMessageNavBar = "";
+	 	$rootScope.errorMessageNavBarSuccess = "";
 	 	$rootScope.$apply()
 	},3000)
 	};
@@ -121,6 +123,15 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 			$rootScope.errorMessageNavBar = "Email Address Provided is Already Exists";
 			$rootScope.disableErrorBar();
 		}
+		else if(response.data.response === "waitingForActivation"){
+			console.log("onnas")
+			$rootScope.errorMessageNavBarSuccess = "Successfully Registered, Please Check Your Email For Activation Link";
+			// $rootScope.disableErrorBar();
+		}
+		else if(response.data.response === "failedToSendMailRegisterLater"){
+			$rootScope.errorMessageNavBar = "Sorry, we are unable to send email right Now, but You can enquire or book an engineer without logging in";
+			$rootScope.disableErrorBar();
+		} 
 		},function errorCallback(response){})
 		//check if user already exists
 
