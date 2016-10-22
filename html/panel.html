@@ -1,5 +1,5 @@
 <div ng-controller = "panelController" class="container panelMainDiv">
-<div ng-repeat="item in contents">
+<!-- <div ng-repeat="item in contents">
 <a href="#{{item.link}}" ng-click="removeLocalData()">
 <div class = "col-lg-12 col-md-12 col-sm-12 col-xs-12 container-fluid panelItemContainer">
 	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 panelShowcase" >
@@ -13,6 +13,57 @@
 </a>
 </div>
 
+</div> -->
+
+<div class="container" style="margin-bottom: 50px;">
+<div class="row" id="team-page-container">
+
+<div class="col-lg-4 team-page-thumbnail">
+  <div class="thumbnail"   >
+    <img src="images/male-reporter.svg" alt="Sample image" class="img-rounded" />
+    <div class="caption">
+      <h4>Book Engineer</h4>
+     <p class="designation">Book engineer quickly using these links , yeah you can do that.</p>
+    </div>
+    <button type="button" class="btn btn-default">Book</button>
+  </div>
 </div>
 
+<div class="col-lg-4 team-page-thumbnail">
+  <div class="thumbnail"   >
+    <img src="images/padnote.svg" alt="Sample image" class="img-rounded" />
+    <div class="caption">
+      <h4 >Service Requests</h4>
+      <p class="designation">View all your service requests in a jiffy bhenchod, yes you</p>
+    </div>
+    <button type="button" class="btn btn-default">View</button>
+  </div>
+</div>
+
+<div class="col-lg-4 team-page-thumbnail">
+  <div class="thumbnail"   >
+    <img src="images/touch-screen.svg" alt="Sample image" class="img-rounded" />
+    <div class="caption">
+      <h4 >My Account</h4>
+      <p class="designation">Manage your account and edit all the information about you</p>
+    </div>
+    <button type="button" class="btn btn-default">Manage</button>
+  </div>
+</div>
+
+<div class="col-lg-4 team-page-thumbnail">
+  <div class="thumbnail"   >
+    <img src="images/megaphone.svg" alt="Sample image" class="img-rounded" />
+    <div class="caption">
+      <h4 >Refer a Friend</h4>
+      <p class="designation">Refer a friend and get 100 off on your next repair</p>
+    </div>
+    <button type="button" class="btn btn-default">Refer</button>
+  </div>
+</div>
+
+</div>
+</div>
 <div ng-include="'/html/linksPage.html'"></div>
+<script src="/js/panel/panel.js" type="text/javascript"></script>
+<script src="/js/panel/modernizr.custom.js" type="text/javascript"></script>
