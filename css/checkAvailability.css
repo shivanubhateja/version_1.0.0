@@ -1,0 +1,50 @@
+.check-availability-parent{    
+	background-color: #F4F3F0;
+	padding: 10px; 
+	text-align: center;
+	    background-image: url("/images/ghar.svg");
+}
+.check-availability{
+	    font-family: headingsFont;
+    font-weight: lighter;
+}
+.enterPincodeDiv{
+}
+.pincode-input{
+    -moz-appearance:textfield;
+}
+.pincode-input:focus{
+	 outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.pincode-input{
+    padding: 10px;
+    border: none;
+    width: 300px;
+    border-bottom: 2px solid gray;
+    margin-top: 60px;
+    font-family: headingsFont;
+}
+.check-btn{
+	margin-left: 20px;
+}
+.no-availability-image{
+	    width: 280px;
+    height: 70px;
+}
+.no-availability-text{
+	padding:0px 0 5px;
+	font-family: headingsFont;
+	color: #7a7978;"
+}
+.reach-you-heading{
+	    padding: 0 100px;    
+	    margin: 4% 0px 4% 0px;
+}
+.CheckTriangle{
+	  fill:#F4F3F0;
+      background-color:transparent; 
+}

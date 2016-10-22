@@ -11,11 +11,12 @@
 	<link rel="stylesheet" type="text/css" href="/css/main.css">
 	<link rel="stylesheet" type="text/css" href="/node_modules/angular/angular-csp.css">
 	<link rel="stylesheet" type="text/css" href="/css/choose.css">
+	<link rel="stylesheet" type="text/css" href="/css/checkAvailability.css">
 
 </head>
 <body ng-app="headModule" ng-cloak ng-controller="mainController" style="padding-top: 0%">
 	<div ng-include = "'/html/navbar.html'"></div>
-	<div ng-show="homePage" id="background-image" ></div>
+	<!-- <div ng-show="homePage" id="background-image" ></div> -->
 	<div ng-show="!homePage" id="background-image-inner-pages"></div>
 	<div ng-view></div>
 

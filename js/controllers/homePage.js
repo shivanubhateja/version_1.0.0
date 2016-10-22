@@ -4,6 +4,11 @@ headModuleVar.controller("homeController",['$scope','$rootScope',function($scope
 	$rootScope.homePage = true;
 	// $scope.showw = false;
 	$scope.selectedDevice = "laptop";
+	$scope.availability = {};
+	$scope.availability.isAvailable = true;
+	$scope.availability.checkAvaiability = function(){
+		$scope.availability.isAvailable = false;
+	}
 	$scope.borderStyleLaptop = {
 				'border-bottom':'none',
 				'padding-bottom':'21px',

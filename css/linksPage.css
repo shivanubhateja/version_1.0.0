@@ -1,6 +1,7 @@
 .links-page-div{
 	background-color: #000;
     line-height: 1.6;
+    padding-bottom: 20px;
 }
 .links-page-line{
 		    color: #909090;
@@ -23,6 +24,9 @@
     text-align: left;
     margin: 7px 0 7px 0;
 }
+p{
+    margin: 0 !important; 
+}
 .book-engineer-link{
     cursor: pointer;
     color: #777777;
@@ -33,4 +37,13 @@
 .linksNon_a{
     color: #77775C;
     cursor: pointer;
+}
+.social-link{
+    width:30px;
+    height:30px;
+    margin: 7px 7px;
+}
+.triangle.links{
+    background: #e1e1e1;
+
 }
