@@ -63,6 +63,13 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	 	$rootScope.$apply()
 	},3000)
 	};
+	$rootScope.disableErrorBarSuccess = function(){
+	 setTimeout(function(){
+	 	$rootScope.errorMessageNavBar = "";
+	 	$rootScope.errorMessageNavBarSuccess = "";
+	 	$rootScope.$apply()
+	},5000)
+	};
 	$scope.login = function(){
 		$rootScope.userEmail = document.getElementById("userEmail").value;
 		$scope.password= document.getElementById("password").value;
@@ -126,7 +133,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 		else if(response.data.response === "waitingForActivation"){
 			console.log("onnas")
 			$rootScope.errorMessageNavBarSuccess = "Successfully Registered, Please Check Your Email For Activation Link";
-			// $rootScope.disableErrorBar();
+			$rootScope.disableErrorBarSuccess();
 		}
 		else if(response.data.response === "failedToSendMailRegisterLater"){
 			$rootScope.errorMessageNavBar = "Sorry, we are unable to send email right Now, but You can enquire or book an engineer without logging in";

@@ -60,7 +60,6 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 			})
 	}
 	$scope.changeStatusFromActiveRequest = function(index,user){
-		console.log($scope.statusObject.statusToChange[index],user);
 		$http({
 			method: "GET",
 			url: "/updateStatus?user="+user+"&status="+$scope.statusObject.statusToChange[index]

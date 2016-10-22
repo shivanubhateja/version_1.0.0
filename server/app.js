@@ -18,6 +18,8 @@ var loginSchema =mongoose.Schema({
 	first_name : String,
 	password : String,
 	phone_no : Number,
+	referalCode: String,
+	referalBalance: {type: Number, default: 0},
 	activationStatus : {type:String, default:"inActive"}
 });
 var submitRequstSchema = mongoose.Schema({
@@ -167,6 +169,7 @@ app.post('/signUpRequest',function(request,response){
 	var password = request.body.password;
     var firstName = request.body.firstName;
     var contactNo = request.body.contactNo;
+    var referalCod = firstName.substring(0, 4).toUpperCase() + Date.now();
 	//check if email id already exists 
 	mongoose.model("logins").find({emailid: username},function(err,user){
 		if(user.length > 0 ){
@@ -177,13 +180,14 @@ app.post('/signUpRequest',function(request,response){
    						emailid : username,
 						first_name : firstName,
 						password : password,
-						phone_no : contactNo
+						phone_no : contactNo,
+						referalCode : referalCod
    					});
    	signUpDetails.save(function(err, logins){
    		if(err){
    			}
    		else{   	
-   		var link="http://localhost:3000/accountActivation?token="+logins._id;
+   		var link="http://localhost:8080/accountActivation?token="+logins._id;
    			var mailOptions = {
   	   	 		from: '"copetoke " <support@copetoke.com>', // sender address
   	   	 		to: username, // list of receivers
@@ -292,7 +296,7 @@ app.get('/resendActivationEmail',function(request,response){
 			if(user[0].activationStatus == 'active')
 				response.send({response:'Account is already Active'})
 			else{
-				var link="http://localhost:3000/accountActivation?token="+user[0]._id;
+				var link="http://localhost:8080/accountActivation?token="+user[0]._id;
    			var mailOptions = {
   	   	 		from: '"COPE TOKE" <brandname@brandname.com>', // sender address
   	   	 		to: emailid, // list of receivers

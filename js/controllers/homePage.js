@@ -53,7 +53,6 @@ headModuleVar.controller("homeController",['$scope','$rootScope','$http',functio
 				'padding-bottom':'20px',
 				'border-color':'#3d3d3d'
 			};
-;
 		}
 		else
 		{
