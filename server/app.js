@@ -38,7 +38,7 @@ var submitRequstSchema = mongoose.Schema({
 			status:String
 });
 var pastRequestsSchema = mongoose.Schema({
-			 _id: String,
+			_id: String,
 			date : Date,	
 			deviceType :String,
 			serviceType :String,
@@ -68,6 +68,16 @@ var enquirySchema = mongoose.Schema({
 	query : String,
 	phoneNo : Number
 });
+var pincodesWeServeSchema = mongoose.Schema({
+	pincode: {type: Number, unique: true},
+	availability: Boolean,
+	counter: Number  // used to count no of user requests to a non service area
+});
+var pincodesRequestedSchema = mongoose.Schema({
+	pincode: {type: Number, unique: true},
+	noOfTimes: Number
+})
+var pincodes
 //mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
@@ -75,6 +85,8 @@ var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSche
 var adminLoginModel = mongoose.model('adminLogins', adminSchema);
 var earlyBirdModel = mongoose.model('earlyBirds', earlyBirdSchema);
 var enquiryModel = mongoose.model('enquiries', enquirySchema)
+var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSchema);
+var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
 // mail setup
 var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 
@@ -87,6 +99,32 @@ app.get("/admin",function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
 });
 //http requests
+app.get('/checkAvailability',function(request, response){
+	var pin = request.query.location;
+	pincodesWeServeModel.find({pincode: pin},function(err, data){
+		if(err){
+			response.send({response: "Error"});
+		}
+		else {
+			if(data.length > 0 && data[0].availability === true){
+				response.send({response: data[0].availability});
+			}
+			//else if we do not server on that location then store that pincode to database
+			else{
+				if(data.length === 0){
+					var newPincode = new pincodesWeServeModel({pincode: pin,availability:false,counter: 1})
+					newPincode.save(function(err, added){});
+					response.send({response: "SoonWeWillCoverThisArea"})
+				}
+				else{
+					pincodesWeServeModel.update({pincode: pin}, {counter: data[0].counter+1},function(err, added){
+						response.send({response: "SoonWeWillCoverThisArea"})
+					})
+				}
+			}
+		}
+	})
+})
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
 	var password = request.body.password;
@@ -155,10 +193,10 @@ app.post('/signUpRequest',function(request,response){
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error){
-        			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+        			response.send({response:"failedToSendMailRegisterLater"});	 
     			}
    				else{
-   					response.send({signUpResponse:"waitingForActivation"});
+   					response.send({response:"waitingForActivation"});
    					}
     			});
 			}
