@@ -1,1 +1,13 @@
-asda
+<div class="">
+	image and social networks' share links
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xss-12 referral-parent">
+	<div> Enter The Email Id you want to refer</div>
+	<div>
+	<form name="referralForm">
+	<input type="email" name="referralEmail" placeholder="Email Address" ng-model="referral.emailid" class='pincode-input referral' required>
+	<button ng-click="referral.sendInvite()" ng-disabled="referralForm.referralEmail.$invalid" class="btn btn-primary check-btn">Send Invite</button>
+	</form>
+		<div class="referralDisplay" ng-show="referral.displaySent">Invitation Sent To {{referral.emailid}}</div>
+	</div>
+</div>

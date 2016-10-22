@@ -79,16 +79,21 @@ var pincodesRequestedSchema = mongoose.Schema({
 	pincode: {type: Number, unique: true},
 	noOfTimes: Number
 })
-var pincodes
+var referralSystemShema = mongoose.Schema({
+	referredTo: String,
+	referredBy: String,
+	madeAccount: Boolean
+})
 //mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
 var adminLoginModel = mongoose.model('adminLogins', adminSchema);
 var earlyBirdModel = mongoose.model('earlyBirds', earlyBirdSchema);
-var enquiryModel = mongoose.model('enquiries', enquirySchema)
+var enquiryModel = mongoose.model('enquiries', enquirySchema);
 var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSchema);
 var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
+var referralSystemModel = mongoose.model('referrals', referralSystemShema);
 // mail setup
 var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
 
@@ -101,6 +106,42 @@ app.get("/admin",function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
 });
 //http requests
+app.get('/referral',function(request, response){
+	var emailidTo = request.query.emailidTo;
+	var emailidFrom = request.query.emailidFrom;
+	var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: emailidFrom, madeAccount:false});
+	dataToAdd.save(function(err, data){
+		if(err){
+			response.send({response: "error"});
+		}
+		else{
+			//send email to emailidTo
+			var referralLink = '';
+			loginsModel.find({emailid: emailidFrom},function(err, data){
+				if(err){
+					response.send({response:"error"});
+				}
+				else{
+				    referralLink = "http://localhost:8080/referrals?referralFrom="+data[0].referalCode+"&referralTo="+emailidTo;
+				    var mailOptions = {
+			  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
+			  	   	 		to: emailidTo, // list of receivers
+			   		 		subject: 'Invitation From '+data[0].first_name+' to join Clorda.com ✔', // Subject line
+			   		 		text: ' Email', // plaintext body
+			   		 		html: '<a href="'+ referralLink+'">Join Clorda</a>' // html body
+									};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error)
+        			response.send({response:"failedToSendMail"});	 
+   				else{
+   					response.send({signUpResponse:"emailSent"});
+   					}
+    			});
+				}
+			})
+		}
+	})
+})
 app.get('/checkAvailability',function(request, response){
 	var pin = request.query.location;
 	pincodesWeServeModel.find({pincode: pin},function(err, data){
@@ -189,7 +230,7 @@ app.post('/signUpRequest',function(request,response){
    		else{   	
    		var link="http://localhost:8080/accountActivation?token="+logins._id;
    			var mailOptions = {
-  	   	 		from: '"copetoke " <support@copetoke.com>', // sender address
+  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
   	   	 		to: username, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
@@ -272,7 +313,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
 		var user_password = user[0].password;
 		var mailOptions = {
-  	   	 		from: '"copetoke" <support@copetoke.com>', // sender address
+  	   	 		from: '"Clorda" <support@clorda.com>', // sender address
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Password Recovery✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
@@ -298,7 +339,7 @@ app.get('/resendActivationEmail',function(request,response){
 			else{
 				var link="http://localhost:8080/accountActivation?token="+user[0]._id;
    			var mailOptions = {
-  	   	 		from: '"COPE TOKE" <brandname@brandname.com>', // sender address
+  	   	 		from: '"Clorda" <support@clorda.com>', // sender address
   	   	 		to: emailid, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body

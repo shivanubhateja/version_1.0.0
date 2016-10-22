@@ -18,13 +18,13 @@
       <ul class="nav navbar-nav navbar-right">
       <!--  <p class = "navbar-text" id= "errorSpan"> {{errorMessageNavBar}}</p> -->
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()">BOOK AN ENGINEER</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">BOOK AN ENGINEER</button>
     </li>
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal">ENQUIRE FIRST</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal" >ENQUIRE FIRST</button>
     </li>
     <li class="dropdown" ng-hide="loggedIn">
-      <a class="dropdown-toggle login-tab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{loginButton}} <span class="caret"></span></a>
+      <a class="dropdown-toggle login-tab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{loginButton}} <span class="caret"></span></a>
      
       <ul class="dropdown-menu">
       <div class="input-group" id="loginForm">
@@ -51,8 +51,8 @@
       </div>
       </ul>
     </li>
-  		 <li ng-show="loggedIn"><a href="#/panel">Account</a></li>
-        <li ng-show="loggedIn"><a ng-click="logout()">Logout</a></li>
+  		 <li ng-show="loggedIn"><a href="#/panel"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Account</a></li>
+        <li ng-show="loggedIn"><a ng-click="logout()"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Logout</a></li>
 
 <!-- signup -->
   <li class="dropdown" ng-hide="loggedIn">

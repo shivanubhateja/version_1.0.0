@@ -15,9 +15,6 @@
 		#slider{
 			width: 100%;
 		}
-	.navbar-collapse.collapse.in{
-		padding-top: 30px;
-	}
 }
 @media all and (max-width: 800px) {  
 	.taglineDiv{
