@@ -109,37 +109,42 @@ app.get("/admin",function(request, response){
 app.get('/referral',function(request, response){
 	var emailidTo = request.query.emailidTo;
 	var emailidFrom = request.query.emailidFrom;
-	var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: emailidFrom, madeAccount:false});
-	dataToAdd.save(function(err, data){
-		if(err){
-			response.send({response: "error"});
-		}
-		else{
-			//send email to emailidTo
-			var referralLink = '';
-			loginsModel.find({emailid: emailidFrom},function(err, data){
+	//get referral code 
+	loginsModel.find({emailid: emailidFrom},function(err, referredByData){
+		var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: referredByData[0].referalCode, madeAccount:false});
+			dataToAdd.save(function(err, data){
 				if(err){
-					response.send({response:"error"});
+					response.send({response: "error"});
 				}
 				else{
-					referralLink = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
-				    var mailOptions = {
-			  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
-			  	   	 		to: emailidTo, // list of receivers
-			   		 		subject: 'Invitation From '+data[0].first_name+' to join Clorda.com ✔', // Subject line
-			   		 		text: ' Email', // plaintext body
-			   		 		html: '<a href="'+ referralLink+'">Join Clorda</a>' // html body
-									};	
-					transporter.sendMail(mailOptions, function(error, info){
-		    			if(error)
-		        			response.send({response:"failedToSendMail"});	 
-		   				else
-		   					response.send({response:"emailSent"});
-		    			});
+					//send email to emailidTo
+					var referralLink = '';
+					loginsModel.find({emailid: emailidFrom},function(err, data){
+						if(err){
+							response.send({response:"error"});
+						}
+						else{
+							referralLink = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
+						    var mailOptions = {
+					  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
+					  	   	 		to: emailidTo, // list of receivers
+					   		 		subject: 'Invitation From '+data[0].first_name+' to join Clorda.com ✔', // Subject line
+					   		 		text: ' Email', // plaintext body
+					   		 		html: '<a href="'+ referralLink+'">Join Clorda</a>' // html body
+											};	
+									transporter.sendMail(mailOptions, function(error, info){
+						    			if(error)
+						        			response.send({response:"failedToSendMail"});	 
+						   				else
+						   					response.send({response:"emailSent"});
+						    			});
+						}
+					})
 				}
 			})
-		}
 	})
+
+	
 })
 app.get('/checkAvailability',function(request, response){
 	var pin = request.query.location;
@@ -247,7 +252,59 @@ app.post('/signUpRequest',function(request,response){
    	});
 	}
 	})
-});  
+}); 
+app.post('/signUpRequestRefer', function(request, response){
+	var username = request.body.userEmail;
+	var password = request.body.password;
+    var firstName = request.body.firstName;
+    var contactNo = request.body.contactNo;
+    var referredBy = request.body.referralCode;
+    var referalCod = firstName.substring(0, 4).toUpperCase() + Date.now();
+
+    //save details in logins collection
+    var details = new loginsModel({
+    	emailid : username,
+		first_name : firstName,
+		password : password,
+		phone_no : contactNo,
+		referalCode : referalCod
+    });
+    details.save(function(err, detailsSaved){
+    	if(err){
+    		response.send({response:"alreadyExists"});
+    	}
+    	else{
+    		//sending activation link
+    		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
+   			var mailOptions = {
+		  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
+		  	   	 		to: username, // list of receivers
+		   		 		subject: 'Hello ✔', // Subject line
+		   		 		text: 'Activation Email', // plaintext body
+		   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+						};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error){
+        			response.send({response:"failedToSendMailRegisterLater"});	 
+    			}
+   				else{
+   					//now details are saved and activation email is sent change refer collection
+   					referralSystemModel.update({referredTo: username, referredBy: referredBy}, {madeAccount: true}, function(err, changed){
+   						if(err){
+   							response.send({response: "error"});
+   						}
+   						else{
+   						
+						   					response.send({response:"waitingForActivation"});
+   								
+   						}
+   					})
+   					}
+    			});
+
+    	}
+    })
+})
 app.post('/submitRequest',function(request,response){
 	var deviceDetails = request.body.deviceDetails;
 	deviceDetails["status"]="Processing";
@@ -296,14 +353,35 @@ app.get('/getServiceRequests',function(request,response){
 });
 app.get('/accountActivation',function(request,response){
 	var id = request.query.token;
-
+	var referredBy = '';
+	if(request.query.referredBy){
+		referredBy = request.query.referredBy;
+	}
 	mongoose.model("logins").update({_id:id},{activationStatus:"active"},function(err,updatedRecord){
 		if(err){
 			response.send({activationResponse:"UnableToActivate"})
 		}
 		else{
-
-			response.redirect("/#/activation");
+					loginsModel.find({referalCode: referredBy}, function(err, referredByData){
+   								if(err){
+   									response.send({response:"error"});
+   								}
+   								else{
+   									if(referredBy !== ''){
+   									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 75}, function(err, updated){
+   										if(err){
+   											response.send({response:"error"});
+   										}
+   										else{
+											response.redirect("/#/activation");
+   										}
+   									});
+   								}
+   								else{
+   									response.redirect("/#/activation");
+   								}
+   								}
+   							})
 		}
 	});
 });
