@@ -1,7 +1,7 @@
 @media all and (max-width: 767px) {  
 	#loginForm{
 		background-color: white;
-		    width: 100%;
+		width: 100%;
 	} 
 	#loginForm input[type=email] ,#loginForm input[type=password] {
 		width : 100%;
@@ -12,14 +12,21 @@
 	.call-engineer-li{
 		margin-right: none;
 	}
-		#slider{
-			width: 100%;
-		}
+	#slider{
+		width: 100%;
+	}
+	#signUp-refer form{
+		float: initial;
+	}
 }
 @media all and (max-width: 800px) {  
 	.taglineDiv{
-		height: initial;
+		/*height: initial;*/
 	}	
+	.welcome-image{
+    background-position: 0% 17%;
+    background-size: 197% 84%;
+	}
 	.navbar-default {
 		 margin-bottom: 0px;
 	}

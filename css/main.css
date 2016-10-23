@@ -38,19 +38,19 @@ textarea {
 .welcome-image{
     background-position: 56% 17%;
     background-repeat: no-repeat;
-    /* background-color: red; */
-    background-image: url("/../images/welcomeImage.jpg");
+     background-color: #E9EAEF; 
+    background-image: url("/../images/service.jpg");
     position: absolute;
     top: 0px;
     left: 0px;
-    opacity: 0.6;
+    /*opacity: 0.6;*/
     z-index: -999;
     /* width: 100%; */
-    height: 530px;
+    height: 570px;
     /* overflow: hidden; */
     pointer-events: none;
     transition: transform linear -1ms, -webkit-transform linear -1ms;
-    background-size: 100%;
+    background-size: 100% 100%;
     visibility: visible;
     }
 #loginForm{
@@ -223,11 +223,17 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
     font-weight: lighter;
     font-size: 4em;
     opacity: 0.9;
-    text-align: center;
-        padding-top: 60px;
+    text-align: right;
+    padding-top: 60px;
+    margin: 0 100px 0 0;
 }
 .taglineDiv{
     height: 370px;
+
+}
+.cover{
+	    height: 400px;
+    background: rgba(39,56,68,.6);
 }
 .repairDisplay{
 	padding: 20px;

@@ -39,9 +39,13 @@ when('/privacy-policy',{
 	templateUrl:"/html/privacy-policy.html",
 	controller:"informationController"
 }).
-when('/referals',{
+when('/referrals',{
 	templateUrl:"/html/referals.html",
 	controller:"referalController"
+}).
+when('/invitation',{
+	templateUrl:"/html/invitation.html",
+	controller:"invitationController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){

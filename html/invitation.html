@@ -1,0 +1,34 @@
+<!-- <div class="invitationImage col-lg-8 col-md-8 col-sm-8 col-xs-6"></div> -->
+
+<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="signUp-refer">
+	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+	
+		<div class="invitationImage col-lg-4 col-md-4 col-sm-6 col-xs-6">
+		</div>
+		<div class="invitationText col-lg-8 col-md-8 col-sm-6 col-xs-6">Congrats, You got an invite for Clorda Services from {{referSignUp.referralCode}}
+		</div>
+	</div>
+	<div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <form name="signUpForm" class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <li><span>Email Address<sup>*</sup></span><input type="email" name="userEmailSignUp" id="userEmailSignUp" ng-model="referSignUp.referredTo" ng-disabled="true" class="form-control"  data-toggle="tooltip" title="Enter Email Address!" required></li>
+        
+             <div ng-if="signUpForm.userEmailSignUp.$dirty && signUpForm.userEmailSignUp.$invalid"><span><sup>invalid Email Address</sup></span></div>
+               <div><span>&nbsp</span></div>
+
+            <li><span>Name<sup>*</sup></span><input type="text" name="userNameSignUp" id="userNameSignUp" ng-model="userNameSignUp" class="form-control"  data-toggle="tooltip" title="Enter Name!" required></li>
+            <div><span>&nbsp</span></div>
+
+            <li><span>Enter New Password<sup>*</sup></span><input type="password" name="passwordOne" id="passwordOne" ng-model = "passwordOne" class="form-control" data-toggle="tooltip" title="Enter New Password!" required></li>
+           <div><span>&nbsp</span></div>
+
+            <li><span>Re-enter Password<sup>*</sup></span><input type="password" name="passwordTwo" id="passwordTwo" ng-model = "passwordTwo" class="form-control" data-toggle="tooltip" title="Confirm Password!" required></li>
+	          <div ng-if="passwordOne != passwordTwo && signUpForm.userEmailSignUp.$dirty && signUpForm.passwordTwo.$dirty"><span><sup>Password Didn't match</sup></span></div>
+	          <div><span>&nbsp</span></div>
+            <li><span>Contact No.<sup>*</sup></span><input type="Number" name="contactNo" id="contactNo" ng-model = "contactNo" class="form-control" data-toggle="tooltip" title="Enter Mobile No.!" required></li>
+            <div><span>&nbsp</span></div>
+            <li><input type="button" class="btn btn-primary btn-group-justified " ng-disabled = "passwordOne != passwordTwo || !signUpForm.userNameSignUp.$dirty || !signUpForm.contactNo.$dirty || !signUpForm.userEmailSignUp.$valid || !signUpForm.contactNo.$valid || !signUpForm.userNameSignUp.$valid ||  !signUpForm.passwordTwo.$dirty ||  !signUpForm.passwordOne.$dirty " value="Sign Up" ng-click="signUp()" /></li>    
+    	</form>
+    </div>
+</div>
+
+<div ng-include="'/html/linksPage.html'"></div>

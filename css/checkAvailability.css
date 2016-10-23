@@ -1,5 +1,5 @@
 .check-availability-parent{    
-	background-color: #F4F3F0;
+	background-color: white;
 	padding: 10px; 
 	text-align: center;
 	    background-image: url("/images/ghar.svg");
@@ -45,6 +45,6 @@ input::-webkit-inner-spin-button {
 	    margin: 4% 0px 4% 0px;
 }
 .CheckTriangle{
-	  fill:#F4F3F0;
+	  fill:white;
       background-color:transparent; 
 }

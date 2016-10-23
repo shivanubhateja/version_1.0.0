@@ -1,0 +1,27 @@
+#signUp-refer{
+	padding-bottom: 50px 
+}
+#signUp-refer form{
+	float: right;
+    display: initial;
+}
+#signUp-refer form li{
+	list-style: none;
+    margin:0 50px;
+}
+#signUp-refer form li{
+	    padding-top: 30px;
+}
+#signUp-refer form li:first-child{
+	    padding-top: 0px;
+}
+.invitationImage{
+	background-image: url("/images/invite.svg");
+	background-repeat: no-repeat;
+	height: 300px;
+    /*opacity:0.8;*/
+}
+.invitationText{
+	    padding: 12.5% 232px 0 44px;
+    font-size: 20px;
+}

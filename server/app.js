@@ -122,7 +122,7 @@ app.get('/referral',function(request, response){
 					response.send({response:"error"});
 				}
 				else{
-				    referralLink = "http://localhost:8080/referrals?referralFrom="+data[0].referalCode+"&referralTo="+emailidTo;
+					referralLink = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
 				    var mailOptions = {
 			  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
 			  	   	 		to: emailidTo, // list of receivers
@@ -130,13 +130,12 @@ app.get('/referral',function(request, response){
 			   		 		text: ' Email', // plaintext body
 			   		 		html: '<a href="'+ referralLink+'">Join Clorda</a>' // html body
 									};	
-			transporter.sendMail(mailOptions, function(error, info){
-    			if(error)
-        			response.send({response:"failedToSendMail"});	 
-   				else{
-   					response.send({signUpResponse:"emailSent"});
-   					}
-    			});
+					transporter.sendMail(mailOptions, function(error, info){
+		    			if(error)
+		        			response.send({response:"failedToSendMail"});	 
+		   				else
+		   					response.send({response:"emailSent"});
+		    			});
 				}
 			})
 		}
@@ -447,6 +446,6 @@ app.get("/updateStatus",function(request, response){
 		})
 	}
 });
-app.listen(8080,function(){ 
+app.listen(8080,function(req, res){
 	console.log("server started successfully");
 });
