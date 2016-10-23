@@ -1,32 +1,35 @@
 <!-- <div class="invitationImage col-lg-8 col-md-8 col-sm-8 col-xs-6"></div> -->
+<div class="loading" ng-if="loading"><img src="/images/loading.gif"></div>
 
 <div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="signUp-refer">
 	<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
 	
 		<div class="invitationImage col-lg-4 col-md-4 col-sm-6 col-xs-6">
 		</div>
-		<div class="invitationText col-lg-8 col-md-8 col-sm-6 col-xs-6">Congrats, You got an invite for Clorda Services from {{referSignUp.referralCode}}
+		<div class="invitationText col-lg-8 col-md-8 col-sm-6 col-xs-6">Congrats, You got an invite for Clorda Services, SIGN UP and get FLAT 75/- discount on our services
 		</div>
 	</div>
 	<div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
-        <form name="signUpForm" class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <form name="signUpFormRefer" class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <li><span>Email Address<sup>*</sup></span><input type="email" name="userEmailSignUp" id="userEmailSignUp" ng-model="referSignUp.referredTo" ng-disabled="true" class="form-control"  data-toggle="tooltip" title="Enter Email Address!" required></li>
         
-             <div ng-if="signUpForm.userEmailSignUp.$dirty && signUpForm.userEmailSignUp.$invalid"><span><sup>invalid Email Address</sup></span></div>
-               <div><span>&nbsp</span></div>
-
-            <li><span>Name<sup>*</sup></span><input type="text" name="userNameSignUp" id="userNameSignUp" ng-model="userNameSignUp" class="form-control"  data-toggle="tooltip" title="Enter Name!" required></li>
+            <div ng-if="signUpFormRefer.userEmailSignUp.$dirty && signUpFormRefer.userEmailSignUp.$invalid"><span><sup>invalid Email Address</sup></span></div>
             <div><span>&nbsp</span></div>
 
-            <li><span>Enter New Password<sup>*</sup></span><input type="password" name="passwordOne" id="passwordOne" ng-model = "passwordOne" class="form-control" data-toggle="tooltip" title="Enter New Password!" required></li>
+            <li><span>Name<sup>*</sup></span><input type="text" name="userNameSignUp" id="userNameSignUp" ng-model="referSignUp.name" class="form-control"  data-toggle="tooltip" title="Enter Name!" required></li>
+            <div><span>&nbsp</span></div>
+
+            <li><span>Enter New Password<sup>*</sup></span><input type="password" name="passwordOne" id="passwordOne" ng-model = "referSignUp.passwd" class="form-control" data-toggle="tooltip" title="Enter New Password!" required></li>
            <div><span>&nbsp</span></div>
 
-            <li><span>Re-enter Password<sup>*</sup></span><input type="password" name="passwordTwo" id="passwordTwo" ng-model = "passwordTwo" class="form-control" data-toggle="tooltip" title="Confirm Password!" required></li>
-	          <div ng-if="passwordOne != passwordTwo && signUpForm.userEmailSignUp.$dirty && signUpForm.passwordTwo.$dirty"><span><sup>Password Didn't match</sup></span></div>
-	          <div><span>&nbsp</span></div>
-            <li><span>Contact No.<sup>*</sup></span><input type="Number" name="contactNo" id="contactNo" ng-model = "contactNo" class="form-control" data-toggle="tooltip" title="Enter Mobile No.!" required></li>
+            <li><span>Re-enter Password<sup>*</sup></span><input type="password" name="passwordTwo" id="passwordTwo" ng-model = "referSignUp.passwd2" class="form-control" data-toggle="tooltip" title="Confirm Password!" required></li>
+	          <div ng-if="referSignUp.passwd != referSignUp.passwd2 && signUpFormRefer.passwordTwo.$dirty"><span><sup class="passwdError">Password Didn't match</sup></span></div>
+	          <div ng-if="referSignUp.passwd == referSignUp.passwd2 || !signUpFormRefer.passwordTwo.$dirty"><span>&nbsp</span></div>
+            <li><span>Contact No.<sup>*</sup></span><input type="Number" name="contactNo" id="contactNo" ng-model = "referSignUp.contactNo" class="form-control" data-toggle="tooltip" title="Enter Mobile No.!" required></li>
             <div><span>&nbsp</span></div>
-            <li><input type="button" class="btn btn-primary btn-group-justified " ng-disabled = "passwordOne != passwordTwo || !signUpForm.userNameSignUp.$dirty || !signUpForm.contactNo.$dirty || !signUpForm.userEmailSignUp.$valid || !signUpForm.contactNo.$valid || !signUpForm.userNameSignUp.$valid ||  !signUpForm.passwordTwo.$dirty ||  !signUpForm.passwordOne.$dirty " value="Sign Up" ng-click="signUp()" /></li>    
+            <li><span>Referal Code</span><input type="text" ng-model = "referSignUp.referralCode" class="form-control" placeholder={{referSignUp.referralCode}} ng-disabled="true" required></li>
+            <div><span>&nbsp</span></div>
+            <li><input type="button" class="btn btn-primary btn-group-justified " ng-disabled ="referSignUp.passwd != referSignUp.passwd2 || !signUpFormRefer.userNameSignUp.$dirty || !signUpFormRefer.contactNo.$dirty || !signUpFormRefer.contactNo.$valid || !signUpFormRefer.userNameSignUp.$valid ||  !signUpFormRefer.passwordTwo.$dirty ||  !signUpFormRefer.passwordOne.$dirty " value="Sign Up" ng-click="signUpRefer()" /></li>    
     	</form>
     </div>
 </div>

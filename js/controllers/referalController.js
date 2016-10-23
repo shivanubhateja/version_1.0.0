@@ -1,6 +1,6 @@
 var headModuleVar = angular.module("headModule");
 
-headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '$timeout',function($rootScope, $scope, $http, $timeout){
+headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '$timeout', '$location',function($rootScope, $scope, $http, $timeout, $location){
 	$rootScope.homePage = false;
 	if(!$rootScope.loggedIn){
 		$rootScope.errorMessageNavBar = "Login To Open Menu";

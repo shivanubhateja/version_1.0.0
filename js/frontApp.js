@@ -46,6 +46,10 @@ when('/referrals',{
 when('/invitation',{
 	templateUrl:"/html/invitation.html",
 	controller:"invitationController"
+}).
+when('/activation',{
+	templateUrl:"/html/accountActivation.html",
+	controller:"accountActivationController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){

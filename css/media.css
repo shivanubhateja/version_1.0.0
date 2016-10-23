@@ -22,7 +22,12 @@
 	.taglineContent{
 		top: 30%;
   		left: 10%;
+
 	}
+	.invitationText{
+		padding: 13.5% 0 0 8px;
+    font-size: 15px;
+    }
 }
 @media all and (max-width: 800px) {  
 	.taglineDiv{

@@ -22,6 +22,10 @@
     /*opacity:0.8;*/
 }
 .invitationText{
-	    padding: 12.5% 232px 0 44px;
+    padding: 9.5% 232px 0 44px;
     font-size: 20px;
+}
+.passwdError{
+	padding : 0 0 0 50px;
+	top: 0px;
 }
