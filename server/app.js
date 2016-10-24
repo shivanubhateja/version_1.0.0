@@ -142,13 +142,17 @@ app.get('/referral',function(request, response){
 							response.send({response:"error"});
 						}
 						else{
-							referralLink = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
+							readModuleFile('./../html/email/referral.html', function (err, emailContent) {
+							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
+						    emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+						    emailContent = emailContent.replace(/yahanDalnaHaiName/g, referredByData[0].first_name);
+						    emailContent = emailContent.replace("yahanDalnaHaiReferCode", referredByData[0].referalCode);
 						    var mailOptions = {
 					  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
 					  	   	 		to: emailidTo, // list of receivers
 					   		 		subject: 'Invitation From '+data[0].first_name+' to join Clorda.com ✔', // Subject line
 					   		 		text: ' Email', // plaintext body
-					   		 		html: '<a href="'+ referralLink+'">Join Clorda</a>' // html body
+					   		 		html: emailContent // html body
 											};	
 									transporter.sendMail(mailOptions, function(error, info){
 						    			if(error)
@@ -156,13 +160,14 @@ app.get('/referral',function(request, response){
 						   				else
 						   					response.send({response:"emailSent"});
 						    			});
+
+								})
+
 						}
 					})
 				}
 			})
 	})
-
-	
 })
 app.get('/addCode',function(request, response){
 	var pinToAdd = request.query.pin;
@@ -283,26 +288,26 @@ app.post('/signUpRequest',function(request,response){
    		if(err){
    			}
    		else{   
-   		
-readModuleFile('./../html/confirmEmailTemplate.html', function (err, emailContent) {
-   var link="http://localhost:8080/accountActivation?token="+logins._id;
-	emailContent = emailContent.replace("yahanDalnaHaiLink", link);
-   			var mailOptions = {
-  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
-  	   	 		to: username, // list of receivers
-   		 		subject: 'Hello ✔', // Subject line
-   		 		text: 'Activation Email', // plaintext body
-   		 		html: emailContent // html body
-						};	
-				transporter.sendMail(mailOptions, function(error, info){
-	    			if(error){
-	        			response.send({response:"failedToSendMailRegisterLater"});	 
-	    			}
-	   				else{
-	   					response.send({response:"waitingForActivation"});
-	   					}
-	    			});
-			});
+				readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+				   var link="http://localhost:8080/accountActivation?token="+logins._id;
+					emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+				    emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
+				   			var mailOptions = {
+				  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
+				  	   	 		to: username, // list of receivers
+				   		 		subject: 'Greetings from Clorda ✔', // Subject line
+				   		 		text: 'Activation Email', // plaintext body
+				   		 		html: emailContent // html body
+										};	
+								transporter.sendMail(mailOptions, function(error, info){
+					    			if(error){
+					        			response.send({response:"failedToSendMailRegisterLater"});	 
+					    			}
+					   				else{
+					   					response.send({response:"waitingForActivation"});
+					   					}
+							});
+					});
 		}
    	});
 	}
@@ -469,21 +474,28 @@ app.get('/resendActivationEmail',function(request,response){
 			if(user[0].activationStatus == 'active')
 				response.send({response:'Account is already Active'})
 			else{
+			readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
 				var link="http://localhost:8080/accountActivation?token="+user[0]._id;
-   			var mailOptions = {
-  	   	 		from: '"Clorda" <support@clorda.com>', // sender address
-  	   	 		to: emailid, // list of receivers
-   		 		subject: 'Hello ✔', // Subject line
-   		 		text: 'Activation Email', // plaintext body
-   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+			    emailContent = emailContent.replace(/yahanDalnaHaiName/g, user[0].first_name);
+   				var mailOptions = {
+	  	   	 		from: '"Clorda" <support@clorda.com>', // sender address
+	  	   	 		to: emailid, // list of receivers
+	   		 		subject: 'Activation link from Clorda ✔', // Subject line
+	   		 		text: 'Activation Email', // plaintext body
+	   		 		html: emailContent // html body
 						};	
-			transporter.sendMail(mailOptions, function(error, info){
-    			if(error)
-        			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
-   				else{
-   					response.send({signUpResponse:"emailSent"});
-   					}
+				transporter.sendMail(mailOptions, function(error, info){
+	    			if(error){
+	        			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+	    			}
+	   				else{
+	   					response.send({signUpResponse:"emailSent"});
+	   					}
     			});
+		
+				})
+		
 			}
 		}
 	})
