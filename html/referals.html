@@ -1,6 +1,38 @@
-<div class="">
-	image and social networks' share links
-</div>
+<script>window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  fjs.parentNode.insertBefore(js, fjs);
+ 
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+ 
+  return t;
+}(document, "script", "twitter-wjs"));</script>
+
+<div class="container" >
+
+            <div class="row">
+                <div class="col-lg-5 col-sm-6">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Invite Friends and<br>Earn Amazing Rewards</h2>
+                    <p class="lead">Share your unique link via Facebook, Twiiter or Email and earn Rs 50 for each friend who signs up. </p>
+                    <p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hey!%20Check%20this%20out!%20">Tweet</a></p>
+                </div>
+                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                    <img class="img-responsive" src="images/phones.png" alt="">
+                </div>
+            </div>
+
+ </div>
+<div class="container" style="margin-top:100px;">
+<div class="row">
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 referral-parent">
 	<div> Enter The Email Id you want to refer</div>
 	<div>
@@ -10,4 +42,6 @@
 	</form>
 		<div class="referralDisplay" ng-show="referral.displaySent">Invitation Sent To {{referral.emailid}}</div>
 	</div>
+</div>
+</div>
 </div>
