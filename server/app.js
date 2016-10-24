@@ -4,13 +4,27 @@ var express = require('express');
 var path = require('path');
 var promise = require('promise');
 var nodemailer = require('nodemailer');
+var fs = require('fs');
 
 var app = express();   
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../'));
 mongoose.connect('mongodb://localhost:27017/version_1');
+// fs.readFile('./../html/confirmEmailTemplate.html',  function(err, data){
+//    			console.log(data)
+//    			console.log(err)
+//    		});	
+// var fs = require('fs');
 
+function readModuleFile(path, callback) {
+    try {
+        var filename = require.resolve(path);
+        fs.readFile(filename,'utf8',  callback);
+    } catch (e) {
+        callback(e);
+    }
+}
 
 //mongoose schemas
 var loginSchema =mongoose.Schema({
@@ -95,7 +109,7 @@ var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSch
 var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
 var referralSystemModel = mongoose.model('referrals', referralSystemShema);
 // mail setup
-var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:maderchod@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:madarchod@smtp.gmail.com');
 
 //index page
 app.get('/',function(request, response){ 
@@ -105,6 +119,10 @@ app.get('/',function(request, response){
 app.get("/admin",function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
 });
+//add poin codes
+app.get('/addpincodes', function(request, response){
+	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
+})
 //http requests
 app.get('/referral',function(request, response){
 	var emailidTo = request.query.emailidTo;
@@ -145,6 +163,39 @@ app.get('/referral',function(request, response){
 	})
 
 	
+})
+app.get('/addCode',function(request, response){
+	var pinToAdd = request.query.pin;
+
+	var pinaddvar = new pincodesWeServeModel({pincode: pinToAdd, availability:true, counter:0});
+	pinaddvar.save(function(err, data){
+		if(err)
+			response.send({response:"error"});
+		else{
+			response.send({response:"added"});
+		}
+	})
+});
+app.get('/delCode',function(request, response){
+	var pinToAdd = request.query.pin;
+
+	pincodesWeServeModel.remove({pincode: pinToAdd},function(err, done){
+		if(err)
+			response.send({response:"error"});
+		else{
+			response.send({response:"removed"});
+		}
+	})
+});
+app.get('/getallcodes', function(request, response){
+	pincodesWeServeModel.find({},function(err, codes){
+		if(err){
+			response.send({response: "error"});
+		}
+		else{
+			response.send({response:codes});
+		}
+	})
 })
 app.get('/checkAvailability',function(request, response){
 	var pin = request.query.location;
@@ -231,24 +282,28 @@ app.post('/signUpRequest',function(request,response){
    	signUpDetails.save(function(err, logins){
    		if(err){
    			}
-   		else{   	
-   		var link="http://localhost:8080/accountActivation?token="+logins._id;
+   		else{   
+   		
+readModuleFile('./../html/confirmEmailTemplate.html', function (err, emailContent) {
+   var link="http://localhost:8080/accountActivation?token="+logins._id;
+	emailContent = emailContent.replace("yahanDalnaHaiLink", link);
    			var mailOptions = {
   	   	 		from: '"Clorda " <support@clorda.com>', // sender address
   	   	 		to: username, // list of receivers
    		 		subject: 'Hello ✔', // Subject line
    		 		text: 'Activation Email', // plaintext body
-   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+   		 		html: emailContent // html body
 						};	
-			transporter.sendMail(mailOptions, function(error, info){
-    			if(error){
-        			response.send({response:"failedToSendMailRegisterLater"});	 
-    			}
-   				else{
-   					response.send({response:"waitingForActivation"});
-   					}
-    			});
-			}
+				transporter.sendMail(mailOptions, function(error, info){
+	    			if(error){
+	        			response.send({response:"failedToSendMailRegisterLater"});	 
+	    			}
+	   				else{
+	   					response.send({response:"waitingForActivation"});
+	   					}
+	    			});
+			});
+		}
    	});
 	}
 	})
