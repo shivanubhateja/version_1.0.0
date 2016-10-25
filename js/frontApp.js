@@ -69,7 +69,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$scope.enquiry = {};
 	$scope.enquiry.enquirySentFlag = false;
 	$rootScope.userEmail = localStorage.getItem('userEmailLocal');
-
+	if(localStorage.getItem('userDetails') != null)
+		$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
 
 	$scope.$on('$locationChangeStart', function(event, next, current) {
 		// $('#requestDetailsModal').modal('hide');
@@ -124,6 +125,8 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					// localStorage.setItem("loggedInLocal",true);
 					$rootScope.loggedIn = true;
 					localStorage.setItem("userEmailLocal",$rootScope.userEmail);
+					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no);
+					$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
 					$location.url("/panel")
 				}
 			}, function errorCallback(response) {

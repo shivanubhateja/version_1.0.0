@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<style type="text/css">
+      .btn-circle {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 15px;
+      }
+      .btn-circle.btn-lg {
+        width: 50px;
+        height: 50px;
+        padding: 13px 13px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+      }
+
+  </style>
 
 <script type="text/javascript" src="/node_modules/angular/angular.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +34,8 @@
 	<script type="text/javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<title></title>
 </head>
-<body>
-<div ng-app="adminApp" ng-controller="AdminController">
+<body ng-app="adminApp" ng-controller="AdminController">
+<div >
 
 <!-- admin login -->
 	<div class="admin-login col-lg-4 col-md-6 col-sm-12 col-xs-12 col-lg-offset-4 col-md-offset-3" ng-show="!adminLoggedIn">
@@ -36,7 +56,7 @@
 	</div>
 <!-- admin login ends -->
 
-	<div class="adminPanel" ng-show="adminLoggedIn">
+	<div class="adminPanel" ng-show="adminLoggedIn && !feedback.showPage">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 logout">
 		<button class="btn btn-danger" ng-click="adminLogout()">LOGOUT</button>
 	</div>
@@ -87,6 +107,7 @@
 					  <option value="Out For Delivery">Out For Delivery</option>
 					</select>
 					<button class="btn btn-primary" ng-click="changeStatusFromActiveRequest($index,activeRequest._id)">Change Status</button>
+					<button class="btn btn-primary" ng-click="addFeedbackButton($index,activeRequest._id, activeRequest.email)">Feedback</button>
 				<hr>
 				</div>
 		</div>
@@ -134,5 +155,85 @@
 	
 	</div>
 </div>
+
+
+<!-- feedback -->
+  <div class="container" ng-show="adminLoggedIn && feedback.showPage">
+    <form class="form-horizontal col-xs-10 col-xs-offset-1" method="post" action="">
+      <div class="form-group">
+	      <h4>How happy are you with our service?</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="service" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="service" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="service" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="service" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option5" type="radio" name="service" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+       <div class="form-group">
+	      <h4>How well did we communicate?</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="custome_care" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="custome_care" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="custome_care" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="custome_care" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option5" type="radio" name="custome_care" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+      <div class="form-group">
+	      	<h4>How about delivery?</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="delivery_time" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="delivery_time" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="delivery_time" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="delivery_time" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input  class="option5" type="radio" name="delivery_time" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+       <div class="form-group">
+	      <h4>How easy was it to use the website?</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="website" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="website" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="website" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="website" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option5" type="radio" name="website" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+       <div class="form-group"><h4>How likely is it that you would recommend us to a family, friend or colleague?</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="recommend" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="recommend" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="recommend" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="recommend" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option5" type="radio" name="recommend" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+       <div class="form-group">
+	      <h4>Overall experience</h4></br>
+	        <div data-toggle="buttons">
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option1" type="radio" name="overall" value="1"><i>1</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option2" type="radio" name="overall" value="2"><i>2</i></label>
+	          <label class="btn btn-default btn-circle btn-lg"><input class="option3" type="radio" name="overall" value="3"><i>3</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option4" type="radio" name="overall" value="4"><i>4</i></label>
+		       <label class="btn btn-default btn-circle btn-lg"><input class="option5" type="radio" name="overall" value="5"><i >5</i></label>
+		    </div>
+      </div>
+
+ 		<div class="form-group">
+	      <h4>Any Suggestion?</h4></br>
+	        <textarea ng-model="feedback.suggestions" rows="4" cols="50">
+	        	
+	        </textarea>
+	      </div>
+
+    </form>
+    <button class="btn btn-primary" ng-click="feedback.sendFeedback()">SUBMIT FEEDBACK</button>
+  </div>
 </body>
 </html>

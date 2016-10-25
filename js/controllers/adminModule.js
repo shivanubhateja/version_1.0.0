@@ -36,6 +36,8 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 	$scope.requests = {}
 	$scope.statusObject = {};
 	$scope.statusObject.statusToChange = [];
+	$scope.feedback = {};
+	$scope.feedback.showPage = false;
 	$scope.adminLoginCheck = function(){
 		$http({
   			method: 'POST',
@@ -73,4 +75,36 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 		$scope.adminLoggedIn = !$scope.adminLoggedIn;
 		$cookies.remove('adminLoggedInCookie')
 	}
+	$scope.addFeedbackButton = function(index,orderId, email){
+		$scope.feedback.showPage = true;
+		$scope.feedback.orderid = orderId;
+		$scope.feedback.email = email;
+		// console.log($scope.feedback.selection)
+	}
+	$scope.feedback.sendFeedback = function(){
+		// $scope.feedback.showPage = true;
+		$scope.feedback.service = $("input[name=service]:checked").val();
+		$scope.feedback.custome_care = $("input[name=custome_care]:checked").val();
+		$scope.feedback.delivery_time = $("input[name=delivery_time]:checked").val();
+		$scope.feedback.website = $("input[name=website]:checked").val();
+		$scope.feedback.recommend = $("input[name=recommend]:checked").val();
+		$scope.feedback.overall = $("input[name=overall]:checked").val();
+		// $scope.feedback.suggestions;
+		$http({
+			method:"GET",
+			url:"addFeedback?email="+$scope.feedback.email+"&orderid="+$scope.feedback.orderid+"&service="+$scope.feedback.service+"&custome_care="+$scope.feedback.custome_care+"&delivery_time="+$scope.feedback.delivery_time+"&website="+$scope.feedback.website+"&recommend="+$scope.feedback.recommend+"&overall="+$scope.feedback.overall+"&suggestions="+$scope.feedback.suggestions
+		}).then(function(response){
+			$scope.feedback.showPage = false;
+		$scope.feedback.orderid ;
+		$scope.feedback.email = "";
+		$scope.feedback.service ="";
+		$scope.feedback.custome_care = "";
+		$scope.feedback.delivery_time = "";
+		$scope.feedback.website = "";
+		$scope.feedback.recommend = "";
+		$scope.feedback.overall = '';
+		$scope.feedback.suggestions = '';
+		})
+	}
+
 }]);
