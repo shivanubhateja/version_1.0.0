@@ -15,26 +15,32 @@
   return t;
 }(document, "script", "twitter-wjs"));</script>
 
-<div class="container" >
+<script type="text/javascript" src="/js/referral/referral.js"></script>
+<div class="container-fluid" id="referral-container">
 
             <div class="row">
-                <div class="col-lg-5 col-sm-6">
+                <div class="col-lg-offset-1 col-lg-5 col-sm-6" style="margin-bottom: 40px;">
                     <hr class="section-heading-spacer">
                     <div class="clearfix"></div>
                     <h2 class="section-heading">Invite Friends and<br>Earn Amazing Rewards</h2>
                     <p class="lead">Share your unique link via Facebook, Twiiter or Email and earn Rs 50 for each friend who signs up. </p>
                     <p><a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hey!%20Check%20this%20out!%20">Tweet</a></p>
+                    <div class="input-group">
+						<input id="copylink" type="text" value="http://www.clorda.com/#referral?code=SHIVA1234" readonly />
+						<span class="input-group-button">
+							<button class="btn copybtn" type="button" data-clipboard-target="#copylink">Copy Link</button>
+						</span>
+					</div>
                 </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                <div class="col-lg-5 col-lg-offset-1 col-sm-6"">
                     <img class="img-responsive" src="images/phones.png" alt="">
                 </div>
             </div>
-
- </div>
+</div>
 <div class="container" style="margin-top:100px;">
 <div class="row">
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 referral-parent">
-	<div> Enter The Email Id you want to refer</div>
+<div class="col-lg-6 col-md-6 col-sm-6" style="margin-bottom: 50px;">
+	<h3> Enter The Email Id you want to refer</h3>
 	<div>
 	<form name="referralForm">
 	<input type="email" name="referralEmail" placeholder="Email Address" ng-model="referral.emailid" class='pincode-input referral' required>
@@ -42,6 +48,48 @@
 	</form>
 		<div class="referralDisplay" ng-show="referral.displaySent">Invitation Sent To {{referral.emailid}}</div>
 	</div>
+</div>
+<div class="col-lg-6 col-md-6 col-sm-6">
+				<div id="card" class="weater">
+					<div class="city-selected">
+						<article>
+
+								<div class="night">Hey there! You can track your referrals here</div>
+
+								<div class="temp">Keep Checking!</div>
+
+							<figure style="background-image: url(http://136.243.1.253/~creolitic/bootsnipp/home.jpg)"></figure>
+						</article>
+					</div>
+
+					<div class="days">
+						<div class="row row-no-gutter">
+							<div class="col-md-4">
+								<div class="day">
+									<h1>Reffered</h1>
+									<h3>0</h3>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="day">
+									<h1>Registered</h1>
+									<h3>0</h3>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="day">
+									<h1>Cash</h1>
+									<h3><img src="../images/rupees.png" width="15" height="20" style="margin: 10px" />0</h3>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
 </div>
 </div>
 </div>

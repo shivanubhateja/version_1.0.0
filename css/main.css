@@ -13,6 +13,10 @@ body{
 textarea {
     resize: none;
 }
+
+.navbar{
+	z-index: 1000;
+}
 #background-image{
 	background-image: url("/../images/iconImage3.jpg");
 	position: fixed;
