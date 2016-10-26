@@ -92,3 +92,13 @@
 .caption{
     height: 120px;
 }
+
+#referral-balance{
+    border: 3px dashed #333;
+    margin: 10px;
+    font-size: 23px;
+    padding: 3px 7px 3px 7px;
+    position: absolute;
+    top: 10%;
+    left: 68%;
+}
