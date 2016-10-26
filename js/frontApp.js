@@ -50,6 +50,9 @@ when('/invitation',{
 when('/activation',{
 	templateUrl:"/html/accountActivation.html",
 	controller:"accountActivationController"
+}).
+when('/profile',{
+	templateUrl:"/html/profile.html"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
