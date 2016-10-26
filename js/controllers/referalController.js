@@ -15,7 +15,7 @@ headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '
 			$timeout(function() {
 				$scope.referral.displaySent = false;
 			}, 3000);
-		}
+		};
 		$scope.referral.sendInvite	= function(){
 			$http({
 				method:"GET",

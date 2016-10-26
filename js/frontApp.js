@@ -68,9 +68,12 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$scope.loginButton="Login";
 	$scope.enquiry = {};
 	$scope.enquiry.enquirySentFlag = false;
+	$rootScope.referralLink = {};
 	$rootScope.userEmail = localStorage.getItem('userEmailLocal');
-	if(localStorage.getItem('userDetails') != null)
+	if(localStorage.getItem('userDetails') != null){
 		$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
+		$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
+	}
 
 	$scope.$on('$locationChangeStart', function(event, next, current) {
 		// $('#requestDetailsModal').modal('hide');
@@ -125,8 +128,10 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					// localStorage.setItem("loggedInLocal",true);
 					$rootScope.loggedIn = true;
 					localStorage.setItem("userEmailLocal",$rootScope.userEmail);
-					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no);
+					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no +"&$&$"+response.data.userDetails.referalCode);
 					$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
+					$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
+					console.log($rootScope.userDetails[3]);
 					$location.url("/panel")
 				}
 			}, function errorCallback(response) {
