@@ -34,7 +34,8 @@ var loginSchema =mongoose.Schema({
 	phone_no : Number,
 	referalCode: String,
 	referalBalance: {type: Number, default: 0},
-	activationStatus : {type:String, default:"inActive"}
+	activationStatus : {type:String, default:"inActive"},
+	address: {type:String, default:"Not Saved"}
 });
 var submitRequstSchema = mongoose.Schema({
 			date : {type:Date,default:Date.now},
@@ -213,20 +214,11 @@ app.get('/referral',function(request, response){
 						   				else
 						   					response.send({response:"emailSent"});
 						    			});
-
 								})
-
 						}
 					})
 		}
 	})
-
-
-	
-
-
-
-
 	})
 })
 app.get('/addCode',function(request, response){
@@ -301,6 +293,7 @@ app.post('/loginRequest',function(request, response){
 		userDetails.name = user[0].first_name;
 		userDetails.phone_no = user[0].phone_no;
 		userDetails.referalCode = user[0].referalCode;
+		userDetails.address = user[0].address;
 
 		if(user.length > 0){
 		if(password == user[0].password && user[0].activationStatus == "active"){
@@ -680,7 +673,6 @@ app.get("/addFeedback", function(request, response){
 })
 app.get("/getReferDetails", function(request, response){
 	var code = request.query.refferedBy;
-// madeAccount
 	var signUps = 0;
 	referralSystemModel.find({referredBy:code}, function(err, data){
 		
@@ -697,7 +689,21 @@ app.get("/getReferDetails", function(request, response){
 			}
 		})
 	})
-})
+});
+app.get('/editUserDetails', function(request, response){
+	var name = request.query.name;
+	var phone = request.query.phone;
+	var address = request.query.address;
+	var code = request.query.code;
+	loginsModel.update({referalCode: code}, {first_name:name, phone_no:phone, address:address}, function(err, data){
+		if(err){
+			response.send("error");
+		}
+		else{
+			response.send("success");
+		}
+	})
+});
 app.listen(8080,function(req, res){
 	console.log("server started successfully");
 });

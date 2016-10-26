@@ -11,7 +11,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textinput">Name</label>
             <div class="col-sm-9">
-              <input type="text" placeholder="Name" class="form-control" readonly="true">
+              <input type="text" placeholder="Name" ng-model=userDetailsChanges.name class="form-control editFormDetails" readonly="true">
             </div>
           </div>
 
@@ -19,7 +19,7 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textinput">Email Id</label>
             <div class="col-sm-9">
-              <input type="email" placeholder="Email Id" class="form-control" readonly="true">
+              <input type="email" placeholder="Email Id" ng-model=userDetailsChanges.email class="form-control" readonly="true">
             </div>
           </div>
 
@@ -27,49 +27,35 @@
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textinput">Contact No</label>
             <div class="col-sm-9">
-              <input type="number" placeholder="Contact No" class="form-control" readonly="true">
+              <input type="text" placeholder="Contact No" maxlength="13" ng-model=userDetailsChanges.phone class="form-control editFormDetails" readonly="true">
             </div>
           </div>
 
-           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textinput">Change Password</label>
-            <div class="col-sm-9">
-              <input type="password" placeholder="Change Password" class="form-control" readonly="true">
-            </div>
-          </div>
-
-           <!-- Text input-->
-          <div class="form-group">
-            <label class="col-sm-3 control-label" for="textinput">Confirm Password</label>
-            <div class="col-sm-9">
-              <input type="password" placeholder="Confirm Password" class="form-control" readonly="true">
-            </div>
-          </div>
+          
 
            <!-- Text input-->
           <div class="form-group">
             <label class="col-sm-3 control-label" for="textinput">Address</label>
             <div class="col-sm-9">
-              <textarea type="text" placeholder="Address" class="form-control" readonly="true"></textarea>
+              <textarea type="text" placeholder="Address" ng-model=userDetailsChanges.address class="form-control editFormDetails" readonly="true"></textarea>
             </div>
           </div>
 
           <!-- Cancel and Save button -->
-          <div class="form-group" ng-hide="true">
+          <div class="form-group"  ng-show="canEdit">
             <div class="col-sm-offset-3 col-sm-9">
               <div class="pull-right">
-                <button type="submit" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-default" ng-click="cancelEdit()">Cancel</button>
+                <button type="submit" class="btn btn-primary" ng-click="uploadUserDetails()">Save</button>
               </div>
             </div>
           </div>
 
           <!-- Edit button -->
-          <div class="form-group" ng-hide="false">
+          <div class="form-group" ng-hide="canEdit">
             <div class="col-sm-offset-3 col-sm-9">
               <div class="pull-right">
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <button type="submit" ng-click="editEnable()" class="btn btn-primary">Edit</button>
               </div>
             </div>
           </div>
