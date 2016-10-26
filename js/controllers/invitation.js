@@ -10,7 +10,7 @@ headModuleVar.controller('invitationController',['$scope','$rootScope', '$http',
 	else{
 		$scope.referSignUp = {};
 		$scope.referSignUp.referralCode = $location.search().referralFrom;
-		$scope.referSignUp.referredTo = $location.search().referredTo;
+		// $scope.referSignUp.referredTo = $location.search().referredTo;
 		$scope.referSignUp.mobileNo = '';
 	
 		$scope.signUpRefer = function(){

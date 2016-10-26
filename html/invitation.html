@@ -11,10 +11,10 @@
 	</div>
 	<div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
         <form name="signUpFormRefer" class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <li><span>Email Address<sup>*</sup></span><input type="email" name="userEmailSignUp" id="userEmailSignUp" ng-model="referSignUp.referredTo" ng-disabled="true" class="form-control"  data-toggle="tooltip" title="Enter Email Address!" required></li>
+            <li><span>Email Address<sup>*</sup></span><input type="email" name="userEmailSignUp" id="userEmailSignUp" ng-model="referSignUp.referredTo" class="form-control"  data-toggle="tooltip" title="Enter Email Address!" required></li>
         
-            <div ng-if="signUpFormRefer.userEmailSignUp.$dirty && signUpFormRefer.userEmailSignUp.$invalid"><span><sup>invalid Email Address</sup></span></div>
-            <div><span>&nbsp</span></div>
+            <div ng-if="signUpFormRefer.userEmailSignUp.$dirty && signUpFormRefer.userEmailSignUp.$invalid"><span><sup class="passwdError">invalid Email Address</sup></span></div>
+            <div ng-if="!signUpFormRefer.userEmailSignUp.$dirty || !signUpFormRefer.userEmailSignUp.$invalid"><span>&nbsp</span></div>
 
             <li><span>Name<sup>*</sup></span><input type="text" name="userNameSignUp" id="userNameSignUp" ng-model="referSignUp.name" class="form-control"  data-toggle="tooltip" title="Enter Name!" required></li>
             <div><span>&nbsp</span></div>

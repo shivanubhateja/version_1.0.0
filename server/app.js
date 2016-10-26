@@ -97,7 +97,18 @@ var referralSystemShema = mongoose.Schema({
 	referredTo: String,
 	referredBy: String,
 	madeAccount: Boolean
-})
+});
+var feedbackSchema = mongoose.Schema({
+	orderid:String,
+	emailId:String,
+	service: String,
+	delivery_time: String,
+	custome_care: String, 
+	overall: String,
+	website:String,
+	recommend:String,
+	suggestion: {type: String, default: "No Comments"}
+});
 //mongoose models
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
@@ -108,6 +119,7 @@ var enquiryModel = mongoose.model('enquiries', enquirySchema);
 var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSchema);
 var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
 var referralSystemModel = mongoose.model('referrals', referralSystemShema);
+var feedbackModel = mongoose.model('feedbacks', feedbackSchema);
 // mail setup
 var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:madarchod@smtp.gmail.com');
 
@@ -129,6 +141,7 @@ app.get('/referral',function(request, response){
 	var emailidFrom = request.query.emailidFrom;
 	//get referral code 
 	loginsModel.find({emailid: emailidFrom},function(err, referredByData){
+		//save referral data to db
 		var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: referredByData[0].referalCode, madeAccount:false});
 			dataToAdd.save(function(err, data){
 				if(err){
@@ -143,7 +156,7 @@ app.get('/referral',function(request, response){
 						}
 						else{
 							readModuleFile('./../html/email/referral.html', function (err, emailContent) {
-							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode+"&referredTo="+emailidTo;
+							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode;
 						    emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 						    emailContent = emailContent.replace(/yahanDalnaHaiName/g, referredByData[0].first_name);
 						    emailContent = emailContent.replace("yahanDalnaHaiReferCode", referredByData[0].referalCode);
@@ -232,10 +245,19 @@ app.post('/loginRequest',function(request, response){
 	var username = request.body.userEmail;
 	var password = request.body.password;
 
+
+
+
 	mongoose.model('logins').find({emailid : username},function(err,user){
+		var userDetails = {};
+		userDetails.email = user[0].emailid;
+		userDetails.name = user[0].first_name;
+		userDetails.phone_no = user[0].phone_no;
+		userDetails.referalCode = user[0].referalCode;
+
 		if(user.length > 0){
 		if(password == user[0].password && user[0].activationStatus == "active"){
-			response.send({loginSuccess: true, message : "success"});
+			response.send({loginSuccess: true, message : "success", userDetails:userDetails});
 		}
 		else if(password == user[0].password && user[0].activationStatus == "inActive"){
 			response.send({loginSuccess: false, message : "accountInActive"})
@@ -591,6 +613,24 @@ app.get("/updateStatus",function(request, response){
 		})
 	}
 });
+app.get("/addFeedback", function(request, response){
+
+	var feedback = {};
+	feedback.service = request.query.service;
+	feedback.delivery_time = request.query.delivery_time;
+	feedback.custome_care = request.query.custome_care;
+	feedback.overall = request.query.overall;
+	feedback.website = request.query.website;
+	feedback.recommend = request.query.recommend;
+	feedback.suggestion = request.query.suggestions;
+	feedback.orderid = request.query.orderid;
+	feedback.emailId = request.query.email;
+	
+	var feedbackToSave = new feedbackModel(feedback);
+	feedbackToSave.save(function(err, saves){
+		response.send("success")
+	})
+})
 app.listen(8080,function(req, res){
 	console.log("server started successfully");
 });
