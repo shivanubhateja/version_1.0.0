@@ -12,7 +12,7 @@
 			<p ng-if="availability.isAvailable === 'true'" class="no-availability-text">Hurray, we are near you, Click <b><a href="#/request">HERE</a></b> to book an engineer.</p>
 			
 			<img ng-if="availability.isAvailable === 'false' || availability.invalidPinCode" class="no-availability-image" src="/images/no-address.svg">
-			<p ng-if="availability.isAvailable === 'false' " class="no-availability-text">Sorry, we don't provide any services in the selected location. We are working hard to extent services to your area.</p>
+			<p ng-if="availability.isAvailable === 'false' " class="no-availability-text">Sorry, we don't provide any services in the selected location. We are working hard to extend our services in your area.</p>
 			
 			<p ng-if="availability.invalidPinCode" class="no-availability-text">Please enter a valid Pin Code</p>
 		</div>
