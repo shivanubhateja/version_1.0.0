@@ -70,4 +70,13 @@
 		top: 30%;
   		left: 0%;
 	}
+	.taglineVisible ul {
+	    padding-left: 100px;
+	}
+	.taglineContent {
+    font-size: 24px;
+	}
+	.taglineDiv {
+    height: 280px;
+	}
 }

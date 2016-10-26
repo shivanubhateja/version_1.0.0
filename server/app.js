@@ -288,14 +288,15 @@ app.post('/loginRequest',function(request, response){
 
 
 	mongoose.model('logins').find({emailid : username},function(err,user){
-		var userDetails = {};
+	
+
+		if(user.length > 0){
+				var userDetails = {};
 		userDetails.email = user[0].emailid;
 		userDetails.name = user[0].first_name;
 		userDetails.phone_no = user[0].phone_no;
 		userDetails.referalCode = user[0].referalCode;
 		userDetails.address = user[0].address;
-
-		if(user.length > 0){
 		if(password == user[0].password && user[0].activationStatus == "active"){
 			response.send({loginSuccess: true, message : "success", userDetails:userDetails});
 		}
@@ -490,7 +491,7 @@ app.get('/accountActivation',function(request,response){
    								}
    								else{
    									if(referredBy !== ''){
-   									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 75}, function(err, updated){
+   									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 50}, function(err, updated){
    										if(err){
    											response.send({response:"error"});
    										}

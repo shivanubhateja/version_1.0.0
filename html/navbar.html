@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav navbar-right">
       <!--  <p class = "navbar-text" id= "errorSpan"> {{errorMessageNavBar}}</p> -->
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">BOOK AN ENGINEER</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()" aria-expanded="true">BOOK AN ENGINEER</button>
     </li>
     <li class="call-engineer-li">
         <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal" >ENQUIRE FIRST</button>
@@ -51,8 +51,8 @@
       </div>
       </ul>
     </li>
-  		 <li ng-show="loggedIn"><a href="#/panel"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Account</a></li>
-        <li ng-show="loggedIn"><a ng-click="logout()"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Logout</a></li>
+  		 <li ng-show="loggedIn"><a href="#/panel" aria-expanded="true">Account</a></li>
+        <li ng-show="loggedIn"><a ng-click="logout()" aria-expanded="true">Logout</a></li>
 
 <!-- signup -->
   <li class="dropdown" ng-hide="loggedIn">
@@ -163,7 +163,7 @@
           <input type="tel" ng-hide="enquiry.enquirySentFlag" name="enquiryPhoneNo" ng-model="enquiry.phoneNo" class="form-control" placeholder="Mobile Number Will Help Us Serve You Better" data-toggle="tooltip" title="Enter Email Address!" >
             
             <br ng-hide="enquiry.enquirySentFlag" >
-            <p ng-show="enquiry.enquirySentFlag"> We Received Your Enquiry, We Will Reach You Soon. Thank You</p>
+            <p ng-show="enquiry.enquirySentFlag">We Received Your Enquiry, We Will Reach You Soon. Thank You</p>
        </form>
     </div>
       <div class="modal-footer">

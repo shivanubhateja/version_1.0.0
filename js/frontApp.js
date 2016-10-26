@@ -135,7 +135,6 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no +"&$&$"+response.data.userDetails.referalCode +"&$&$"+response.data.userDetails.address);
 					$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
 					$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
-					console.log($rootScope.userDetails[3]);
 					$location.url("/panel")
 				}
 			}, function errorCallback(response) {
