@@ -142,7 +142,12 @@ app.get('/referral',function(request, response){
 	//get referral code 
 	loginsModel.find({emailid: emailidFrom},function(err, referredByData){
 		//save referral data to db
-		var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: referredByData[0].referalCode, madeAccount:false});
+			
+
+	referralSystemModel.find({referredTo : emailidTo, referredBy: referredByData[0].referalCode}, function(err, referralList){
+		if(referralList.length <= 0){
+			console.log(referralList.length)
+			var dataToAdd = new referralSystemModel({referredTo : emailidTo, referredBy: referredByData[0].referalCode, madeAccount:false});
 			dataToAdd.save(function(err, data){
 				if(err){
 					response.send({response: "error"});
@@ -180,6 +185,48 @@ app.get('/referral',function(request, response){
 					})
 				}
 			})
+
+		}
+		else{
+			console.log("else")
+				var referralLink = '';
+					loginsModel.find({emailid: emailidFrom},function(err, data){
+						if(err){
+							response.send({response:"error"});
+						}
+						else{
+							readModuleFile('./../html/email/referral.html', function (err, emailContent) {
+							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode;
+						    emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+						    emailContent = emailContent.replace(/yahanDalnaHaiName/g, referredByData[0].first_name);
+						    emailContent = emailContent.replace("yahanDalnaHaiReferCode", referredByData[0].referalCode);
+						    var mailOptions = {
+					  	   	 		from: data[0].first_name+' <referral@clorda.com>', // sender address
+					  	   	 		to: emailidTo, // list of receivers
+					   		 		subject: 'Invitation From '+data[0].first_name+' to join Clorda.com ✔', // Subject line
+					   		 		text: ' Email', // plaintext body
+					   		 		html: emailContent // html body
+											};	
+									transporter.sendMail(mailOptions, function(error, info){
+						    			if(error)
+						        			response.send({response:"failedToSendMail"});	 
+						   				else
+						   					response.send({response:"emailSent"});
+						    			});
+
+								})
+
+						}
+					})
+		}
+	})
+
+
+	
+
+
+
+
 	})
 })
 app.get('/addCode',function(request, response){
@@ -629,6 +676,26 @@ app.get("/addFeedback", function(request, response){
 	var feedbackToSave = new feedbackModel(feedback);
 	feedbackToSave.save(function(err, saves){
 		response.send("success")
+	})
+})
+app.get("/getReferDetails", function(request, response){
+	var code = request.query.refferedBy;
+// madeAccount
+	var signUps = 0;
+	referralSystemModel.find({referredBy:code}, function(err, data){
+		
+		data.forEach(function(element){
+			if(element.madeAccount == true)
+				signUps++;
+		})
+		loginsModel.find({referalCode: code},function(err, loginData){
+			if(err){
+				response.send("error");
+			}
+			else{
+				response.send({refferedNo:data.length, signUps : signUps, referalBalance : loginData[0].referalBalance})
+			}
+		})
 	})
 })
 app.listen(8080,function(req, res){

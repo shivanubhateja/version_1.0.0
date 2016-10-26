@@ -72,7 +72,7 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 	$rootScope.userEmail = localStorage.getItem('userEmailLocal');
 	if(localStorage.getItem('userDetails') != null){
 		$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
-		$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
+		$rootScope.referralLink.link = "http://www.clorda.com/#/invitation?referralFrom="+$rootScope.userDetails[3];
 	}
 
 	$scope.$on('$locationChangeStart', function(event, next, current) {
