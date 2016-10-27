@@ -13,7 +13,9 @@ body{
 textarea {
     resize: none;
 }
-
+.btn[disabled]{
+	cursor: default;
+}
 .navbar{
 	z-index: 1000;
 }

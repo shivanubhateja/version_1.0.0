@@ -1,6 +1,6 @@
 var headModuleVar = angular.module("headModule");
 
-headModuleVar.controller('profileController',['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+headModuleVar.controller('profileController',['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location){
 	var clipboard = new Clipboard('.copybtn');
 	$rootScope.homePage = false;
 	if(!$rootScope.loggedIn){
@@ -9,6 +9,8 @@ headModuleVar.controller('profileController',['$rootScope', '$scope', '$http', f
 		$location.url("/");
 	}
 	else{
+		$scope.reset = {};
+		$scope.reset.status = false;
 		$scope.canEdit = false;
 		$scope.userDetailsChanges = {};
 		$scope.userDetailsChanges.name = $rootScope.userDetails[1];
@@ -43,5 +45,28 @@ headModuleVar.controller('profileController',['$rootScope', '$scope', '$http', f
 
 		})
 		}
+		$scope.changePassword = function(){
+			$scope.reset.status = true;
+		}
+		$scope.cancelResetPassword = function(){
+			$scope.reset.status = false;
+			$scope.reset.confirmPassword = "";
+			$scope.reset.password = "";
+		}
+		$scope.resetPassword = function(){
+		$http({
+			method:"POST",
+			url:"/resettingPassword",
+			data:{token: $rootScope.userDetails[0], password: $scope.reset.password}
+		}).then(function(response){
+			if(response.data = "success"){
+				$rootScope.errorMessageNavBarSuccess = "Password Successfully Changed";
+				$rootScope.disableErrorBarSuccess();
+				$scope.reset.status = false;
+				$scope.reset.confirmPassword = "";
+				$scope.reset.password = "";
+			}
+		}, function(response){})
+	}
 	}
 }]);

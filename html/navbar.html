@@ -105,7 +105,7 @@
     <div class="modal-body">
        <form name="loginForm">
             <input type="email" ng-show="!recovery.recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover.email" id="userEmailRecover.email" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" required>
-            <p ng-show="recovery.recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
+            <p ng-show="recovery.recoveryEmailSent"> Check your email for password reset link</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
@@ -183,7 +183,7 @@
 <div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header">Request Details
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">{{requestType}}</h4>
 

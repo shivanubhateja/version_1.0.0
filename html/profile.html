@@ -1,11 +1,11 @@
  <div class="container"> 
   <div class="row" style="margin-bottom: 100px;">
     <div class="col-md-5 col-md-offset-3">
+          <legend>Profile Details <span ng-show="reset.status">- Change Password</span></legend>
       <form class="form-horizontal" role="form">
-        <fieldset>
+        <fieldset ng-hide="reset.status">
 
           <!-- Form Name -->
-          <legend>Profile Details</legend>
 
           <!-- Text input-->
           <div class="form-group">
@@ -55,15 +55,43 @@
           <div class="form-group" ng-hide="canEdit">
             <div class="col-sm-offset-3 col-sm-9">
               <div class="pull-right">
+               <button type="submit" ng-click="changePassword()" class="btn btn-primary">Change Password</button>
                 <button type="submit" ng-click="editEnable()" class="btn btn-primary">Edit</button>
               </div>
             </div>
           </div>
+         
 
 
 
         </fieldset>
       </form>
+
+
+<div class="admin-login"  ng-show="reset.status">
+  <form name="signUpForm">
+    <div class="input-group" ng-show="reset.status">
+      <span class="input-group-addon" id="basic-addon1">New Password</span>
+      <input type="password" name="passwordOne" class="form-control" placeholder="" autocomplete="off" aria-describedby="basic-addon1" ng-model="reset.password">
+    </div>
+    <br>
+    <div class="input-group" ng-show="reset.status">
+      <span class="input-group-addon" id="basic-addon1">Confirm Password</span>
+      <input type="password" class="form-control" name="passwordTwo" autocomplete="off" aria-describedby="basic-addon1" ng-model="reset.confirmPassword">
+    </div>
+      <div ng-if="reset.password != reset.confirmPassword && signUpForm.passwordOne.$dirty && signUpForm.passwordTwo.$dirty"><span><sup>Password Didn't match</sup></span></div>
+    <br>
+    <div class=" pull-right" ng-show="reset.status">
+      <button  class="btn btn-default " ng-click="cancelResetPassword()">Cancel</button>
+      <button class="btn btn-success " ng-click="resetPassword()" ng-disabled="reset.password != reset.confirmPassword  || !signUpForm.passwordOne.$dirty || !signUpForm.passwordTwo.$dirty || reset.password == '' || reset.confirmPassword == '' " >Reset my Password</button>
+    </div>
+
+  </form>
+  </div>
+
+
+
+
     </div><!-- /.col-lg-12 -->
 </div><!-- /.row -->
 </div><!-- /.container-->

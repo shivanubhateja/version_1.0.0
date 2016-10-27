@@ -130,8 +130,13 @@ app.get('/',function(request, response){
 }); 
 //admin page
 app.get("/admin",function(request, response){
-	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
+	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'));
 });
+//resetPasswordPage
+app.get("/resetPassword", function(request, response){
+	// console.log(request.query.token)
+	response.sendFile(path.join(__dirname+'/../html/resetPassword.html'));
+})
 //add poin codes
 app.get('/addpincodes', function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
@@ -508,16 +513,41 @@ app.get('/accountActivation',function(request,response){
 		}
 	});
 });
+app.post('/resettingPassword', function(request, response){
+	var passwd = request.body.password;
+	var id = request.body.token;
+	loginsModel.update({_id: id},{password: passwd}, function(err, passwordChanged){
+		if(err){
+		loginsModel.update({emailid: id},{password: passwd}, function(err2, passwordChanged2){
+			if(err2){
+				response.send("error");
+			}
+			else{
+				response.send("success")
+			}
+			})		
+		}
+		else{
+			response.send("success");
+		}
+	});
+
+})
 app.get('/sendPasswordRecoveryEmail',function(request,response){
 	var emailid = request.query.user;
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
-		var user_password = user[0].password;
+
+		readModuleFile('./../html/email/resetpassword.html', function (err, emailContent) {
+				var link="http://localhost:8080/resetPassword?token="+user[0]._id;
+				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+			    emailContent = emailContent.replace(/yahanDalnaHaiName/g, user[0].first_name);
+   				
 		var mailOptions = {
   	   	 		from: '"Clorda" <support@clorda.com>', // sender address
   	   	 		to: emailid, // list of receivers
-   		 		subject: 'Password Recovery✔', // Subject line
-   		 		text: 'Activation Email', // plaintext body
-   		 		html: '<p>Your Password is: <b>'+ user_password+'</b></p>' // html body
+   		 		subject: 'Reset Password', // Subject line
+   		 		text: '', // plaintext body
+   		 		html: emailContent // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error)
@@ -526,6 +556,11 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
    					response.send({signUpResponse:"waitingForActivation"});
    					}
     			});
+
+
+		})
+
+
 	})
 });
 app.get('/resendActivationEmail',function(request,response){
