@@ -148,7 +148,7 @@ sup{
 }
 #notificationBar{
 	z-index: 1001;	
-	background-color: #ef3a29;
+	background-color: #293A4A;
 	min-height: 30px;
 	color:white;
 	font-weight: bold;
@@ -166,7 +166,7 @@ sup{
 }
 #notificationBarSuccess{
 	z-index: 1001;	
-	background-color: #008542;
+	background-color: #00796b;
 	min-height: 30px;
 	color:white;
 	font-weight: bold;

@@ -168,7 +168,7 @@
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-hide="enquiry.enquirySentFlag" ng-disabled="enquiryForm.userEmail.$invalid || enquiryForm.userEmail.$pristine || enquiryForm.enquiryQuery.$pristine ||
-        enquiryForm.enquiryPhoneNo.$pristine || enquiryForm.enquiryPhoneNo.$invalid || enquiry.query === '' || enquiry.phoneNo == '' "  ng-click="enquiry.submitEnquiry()">Enquire</button>
+        enquiryForm.enquiryPhoneNo.$pristine || enquiryForm.enquiryPhoneNo.$invalid || enquiry.userEmail === '' || enquiry.query === '' || enquiry.phoneNo == '' "  ng-click="enquiry.submitEnquiry()">Enquire</button>
         <button type="button" class="btn btn-Default" ng-click="enquiry.enquirySentFlag = false" data-dismiss="modal" ng-show="enquiry.enquirySentFlag">OK</button>
       </div>
     </div>

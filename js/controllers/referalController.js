@@ -48,5 +48,10 @@ headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '
 			$scope.referral.displaySent = true;
 			$scope.referral.removeSuccessMessage();
 		}
+		$scope.dataCopied = function(){
+			$rootScope.errorMessageNavBarSuccess = "Link copied";
+			$rootScope.disableErrorBarSuccess();
+		}
+
 	}
 }]);

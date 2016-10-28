@@ -17,6 +17,42 @@ mongoose.connect('mongodb://localhost:27017/version_1');
 //    		});	
 // var fs = require('fs');
 
+
+
+
+
+
+
+
+
+
+var api_key = 'key-4d9609707ae2a7d722b39129135edc1b';
+var domain = 'www.clorda.com';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+ 
+var data = {
+  from: 'Excited User <me@samples.mailgun.org>',
+  to: 'shivanubhateja31@gmail.com ',
+  subject: 'Hello',
+  text: 'Testing some Mailgun awesomness!'
+};
+ 
+mailgun.messages().send(data, function (error, body) {
+  console.log(body);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 function readModuleFile(path, callback) {
     try {
         var filename = require.resolve(path);
@@ -33,7 +69,7 @@ var loginSchema =mongoose.Schema({
 	password : String,
 	phone_no : Number,
 	referalCode: String,
-	referalBalance: {type: Number, default: 0},
+	referalBalance: {type: Number, default: 75},
 	activationStatus : {type:String, default:"inActive"},
 	address: {type:String, default:"Not Saved"}
 });
@@ -356,8 +392,8 @@ app.post('/signUpRequest',function(request,response){
    		if(err){
    			}
    		else{   
-				readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-				   var link="http://localhost:8080/accountActivation?token="+logins._id;
+					readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+					   var link="http://localhost:8080/accountActivation?token="+logins._id;
 					emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 				    emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
 				   			var mailOptions = {
@@ -403,13 +439,20 @@ app.post('/signUpRequestRefer', function(request, response){
     	}
     	else{
     		//sending activation link
+
+
+readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+
     		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
+    		emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+			emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
+				   
    			var mailOptions = {
 		  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
 		  	   	 		to: username, // list of receivers
 		   		 		subject: 'Hello ✔', // Subject line
 		   		 		text: 'Activation Email', // plaintext body
-		   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+		   		 		html:  emailContent // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error){
@@ -429,6 +472,11 @@ app.post('/signUpRequestRefer', function(request, response){
    					})
    					}
     			});
+
+
+
+})
+
 
     	}
     })
@@ -495,7 +543,7 @@ app.get('/accountActivation',function(request,response){
    									response.send({response:"error"});
    								}
    								else{
-   									if(referredBy !== ''){
+   									if(referredBy !== '' && updatedRecord.nModified > 0){
    									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 50}, function(err, updated){
    										if(err){
    											response.send({response:"error"});
@@ -545,7 +593,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 		var mailOptions = {
   	   	 		from: '"Clorda" <support@clorda.com>', // sender address
   	   	 		to: emailid, // list of receivers
-   		 		subject: 'Reset Password', // Subject line
+   		 		subject: 'Reset Password ✔', // Subject line
    		 		text: '', // plaintext body
    		 		html: emailContent // html body
 						};	
