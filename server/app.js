@@ -17,42 +17,6 @@ mongoose.connect('mongodb://localhost:27017/version_1');
 //    		});	
 // var fs = require('fs');
 
-
-
-
-
-
-
-
-
-
-var api_key = 'key-4d9609707ae2a7d722b39129135edc1b';
-var domain = 'www.clorda.com';
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
- 
-var data = {
-  from: 'Excited User <me@samples.mailgun.org>',
-  to: 'shivanubhateja31@gmail.com ',
-  subject: 'Hello',
-  text: 'Testing some Mailgun awesomness!'
-};
- 
-mailgun.messages().send(data, function (error, body) {
-  console.log(body);
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
 function readModuleFile(path, callback) {
     try {
         var filename = require.resolve(path);
@@ -303,7 +267,9 @@ app.get('/checkAvailability',function(request, response){
 		}
 		else {
 			if(data.length > 0 && data[0].availability === true){
-				response.send({response: data[0].availability});
+				pincodesWeServeModel.update({pincode: pin}, {counter: data[0].counter+1}, function(err, updated){
+					response.send({response: data[0].availability});
+				})
 			}
 			//else if we do not server on that location then store that pincode to database
 			else{
