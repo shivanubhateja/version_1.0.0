@@ -34,8 +34,8 @@
 		/*height: initial;*/
 	}	
 	.welcome-image{
-    background-position: 0% 17%;
-    background-size: 197% 84%;
+    background-position: 21% -46%;
+    background-size: 289% 90%;
 	}
 	.navbar-default {
 		 margin-bottom: 0px;
@@ -69,5 +69,14 @@
 	.taglineContent{
 		top: 30%;
   		left: 0%;
+	}
+	.taglineVisible ul {
+	    padding-left: 100px;
+	}
+	.taglineContent {
+    font-size: 24px;
+	}
+	.taglineDiv {
+    height: 280px;
 	}
 }

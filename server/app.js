@@ -17,6 +17,42 @@ mongoose.connect('mongodb://localhost:27017/version_1');
 //    		});	
 // var fs = require('fs');
 
+
+
+
+
+
+
+
+
+
+var api_key = 'key-4d9609707ae2a7d722b39129135edc1b';
+var domain = 'www.clorda.com';
+var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+ 
+var data = {
+  from: 'Excited User <me@samples.mailgun.org>',
+  to: 'shivanubhateja31@gmail.com ',
+  subject: 'Hello',
+  text: 'Testing some Mailgun awesomness!'
+};
+ 
+mailgun.messages().send(data, function (error, body) {
+  console.log(body);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 function readModuleFile(path, callback) {
     try {
         var filename = require.resolve(path);
@@ -33,8 +69,9 @@ var loginSchema =mongoose.Schema({
 	password : String,
 	phone_no : Number,
 	referalCode: String,
-	referalBalance: {type: Number, default: 0},
-	activationStatus : {type:String, default:"inActive"}
+	referalBalance: {type: Number, default: 75},
+	activationStatus : {type:String, default:"inActive"},
+	address: {type:String, default:"Not Saved"}
 });
 var submitRequstSchema = mongoose.Schema({
 			date : {type:Date,default:Date.now},
@@ -129,8 +166,13 @@ app.get('/',function(request, response){
 }); 
 //admin page
 app.get("/admin",function(request, response){
-	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'))
+	response.sendFile(path.join(__dirname+'/../html/adminPanel.html'));
 });
+//resetPasswordPage
+app.get("/resetPassword", function(request, response){
+	// console.log(request.query.token)
+	response.sendFile(path.join(__dirname+'/../html/resetPassword.html'));
+})
 //add poin codes
 app.get('/addpincodes', function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
@@ -213,20 +255,11 @@ app.get('/referral',function(request, response){
 						   				else
 						   					response.send({response:"emailSent"});
 						    			});
-
 								})
-
 						}
 					})
 		}
 	})
-
-
-	
-
-
-
-
 	})
 })
 app.get('/addCode',function(request, response){
@@ -296,13 +329,15 @@ app.post('/loginRequest',function(request, response){
 
 
 	mongoose.model('logins').find({emailid : username},function(err,user){
-		var userDetails = {};
+	
+
+		if(user.length > 0){
+				var userDetails = {};
 		userDetails.email = user[0].emailid;
 		userDetails.name = user[0].first_name;
 		userDetails.phone_no = user[0].phone_no;
 		userDetails.referalCode = user[0].referalCode;
-
-		if(user.length > 0){
+		userDetails.address = user[0].address;
 		if(password == user[0].password && user[0].activationStatus == "active"){
 			response.send({loginSuccess: true, message : "success", userDetails:userDetails});
 		}
@@ -357,8 +392,8 @@ app.post('/signUpRequest',function(request,response){
    		if(err){
    			}
    		else{   
-				readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-				   var link="http://localhost:8080/accountActivation?token="+logins._id;
+					readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+					   var link="http://localhost:8080/accountActivation?token="+logins._id;
 					emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 				    emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
 				   			var mailOptions = {
@@ -404,13 +439,20 @@ app.post('/signUpRequestRefer', function(request, response){
     	}
     	else{
     		//sending activation link
+
+
+readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+
     		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
+    		emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+			emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
+				   
    			var mailOptions = {
 		  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
 		  	   	 		to: username, // list of receivers
 		   		 		subject: 'Hello ✔', // Subject line
 		   		 		text: 'Activation Email', // plaintext body
-		   		 		html: '<a href="'+ link+'">CLICK HERE</a>' // html body
+		   		 		html:  emailContent // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error){
@@ -430,6 +472,11 @@ app.post('/signUpRequestRefer', function(request, response){
    					})
    					}
     			});
+
+
+
+})
+
 
     	}
     })
@@ -496,8 +543,8 @@ app.get('/accountActivation',function(request,response){
    									response.send({response:"error"});
    								}
    								else{
-   									if(referredBy !== ''){
-   									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 75}, function(err, updated){
+   									if(referredBy !== '' && updatedRecord.nModified > 0){
+   									loginsModel.update({referalCode: referredBy}, {referalBalance : referredByData[0].referalBalance + 50}, function(err, updated){
    										if(err){
    											response.send({response:"error"});
    										}
@@ -514,16 +561,41 @@ app.get('/accountActivation',function(request,response){
 		}
 	});
 });
+app.post('/resettingPassword', function(request, response){
+	var passwd = request.body.password;
+	var id = request.body.token;
+	loginsModel.update({_id: id},{password: passwd}, function(err, passwordChanged){
+		if(err){
+		loginsModel.update({emailid: id},{password: passwd}, function(err2, passwordChanged2){
+			if(err2){
+				response.send("error");
+			}
+			else{
+				response.send("success")
+			}
+			})		
+		}
+		else{
+			response.send("success");
+		}
+	});
+
+})
 app.get('/sendPasswordRecoveryEmail',function(request,response){
 	var emailid = request.query.user;
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
-		var user_password = user[0].password;
+
+		readModuleFile('./../html/email/resetpassword.html', function (err, emailContent) {
+				var link="http://localhost:8080/resetPassword?token="+user[0]._id;
+				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+			    emailContent = emailContent.replace(/yahanDalnaHaiName/g, user[0].first_name);
+   				
 		var mailOptions = {
   	   	 		from: '"Clorda" <support@clorda.com>', // sender address
   	   	 		to: emailid, // list of receivers
-   		 		subject: 'Password Recovery✔', // Subject line
-   		 		text: 'Activation Email', // plaintext body
-   		 		html: '<p>Your Password is: <b>'+ user_password+'</b></p>' // html body
+   		 		subject: 'Reset Password ✔', // Subject line
+   		 		text: '', // plaintext body
+   		 		html: emailContent // html body
 						};	
 			transporter.sendMail(mailOptions, function(error, info){
     			if(error)
@@ -532,6 +604,11 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
    					response.send({signUpResponse:"waitingForActivation"});
    					}
     			});
+
+
+		})
+
+
 	})
 });
 app.get('/resendActivationEmail',function(request,response){
@@ -680,7 +757,6 @@ app.get("/addFeedback", function(request, response){
 })
 app.get("/getReferDetails", function(request, response){
 	var code = request.query.refferedBy;
-// madeAccount
 	var signUps = 0;
 	referralSystemModel.find({referredBy:code}, function(err, data){
 		
@@ -697,7 +773,21 @@ app.get("/getReferDetails", function(request, response){
 			}
 		})
 	})
-})
+});
+app.get('/editUserDetails', function(request, response){
+	var name = request.query.name;
+	var phone = request.query.phone;
+	var address = request.query.address;
+	var code = request.query.code;
+	loginsModel.update({referalCode: code}, {first_name:name, phone_no:phone, address:address}, function(err, data){
+		if(err){
+			response.send("error");
+		}
+		else{
+			response.send("success");
+		}
+	})
+});
 app.listen(8080,function(req, res){
 	console.log("server started successfully");
 });

@@ -28,7 +28,7 @@
                     <div class="input-group">
 						<input id="copylink" type="text" value={{referralLink.link}} readonly />
 						<span class="input-group-button">
-							<button class="btn copybtn" type="button" data-clipboard-target="#copylink">Copy Link</button>
+							<button class="btn copybtn" type="button" ng-click="dataCopied()" data-clipboard-target="#copylink">Copy Link</button>
 						</span>
 					</div>
                 </div>

@@ -52,7 +52,8 @@ when('/activation',{
 	controller:"accountActivationController"
 }).
 when('/profile',{
-	templateUrl:"/html/profile.html"
+	templateUrl:"/html/profile.html",
+	controller:"profileController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies",function($rootScope,$scope,$http,$location,$cookies){
@@ -131,10 +132,9 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 					// localStorage.setItem("loggedInLocal",true);
 					$rootScope.loggedIn = true;
 					localStorage.setItem("userEmailLocal",$rootScope.userEmail);
-					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no +"&$&$"+response.data.userDetails.referalCode);
+					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no +"&$&$"+response.data.userDetails.referalCode +"&$&$"+response.data.userDetails.address);
 					$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
 					$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
-					console.log($rootScope.userDetails[3]);
 					$location.url("/panel")
 				}
 			}, function errorCallback(response) {

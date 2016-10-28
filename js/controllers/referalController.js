@@ -12,6 +12,9 @@ headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '
 		$scope.referral = {};
 		$scope.referral.emailid	= '';
 		$scope.referral.displaySent = false;
+		$scope.referral.referredNo = 0;
+		$scope.referral.signUps = 0;
+		$scope.referral.referalBalance = 0;
 		var getReferDetailsRequest = function(){
 		$http({
 			method:"GET",
@@ -45,5 +48,10 @@ headModuleVar.controller('referalController',['$rootScope', '$scope', '$http', '
 			$scope.referral.displaySent = true;
 			$scope.referral.removeSuccessMessage();
 		}
+		$scope.dataCopied = function(){
+			$rootScope.errorMessageNavBarSuccess = "Link copied";
+			$rootScope.disableErrorBarSuccess();
+		}
+
 	}
 }]);

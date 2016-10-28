@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav navbar-right">
       <!--  <p class = "navbar-text" id= "errorSpan"> {{errorMessageNavBar}}</p> -->
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">BOOK AN ENGINEER</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()" aria-expanded="true">BOOK AN ENGINEER</button>
     </li>
     <li class="call-engineer-li">
         <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal" >ENQUIRE FIRST</button>
@@ -51,8 +51,8 @@
       </div>
       </ul>
     </li>
-  		 <li ng-show="loggedIn"><a href="#/panel"  data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Account</a></li>
-        <li ng-show="loggedIn"><a ng-click="logout()" id="logout-button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="true">Logout</a></li>
+  		 <li ng-show="loggedIn"><a href="#/panel" aria-expanded="true">Account</a></li>
+        <li ng-show="loggedIn"><a ng-click="logout()" id="logout-button" aria-expanded="true">Logout</a></li>
 
 <!-- signup -->
   <li class="dropdown" ng-hide="loggedIn">
@@ -105,7 +105,7 @@
     <div class="modal-body">
        <form name="loginForm">
             <input type="email" ng-show="!recovery.recoveryEmailSent" name="userEmailRecover" ng-model="userEmailRecover.email" id="userEmailRecover.email" class="form-control" placeholder="Enter Registered Email" data-toggle="tooltip" title="Enter Email Address!" required>
-            <p ng-show="recovery.recoveryEmailSent"> Your Password Is Sent To Your Registered Email Address</p>
+            <p ng-show="recovery.recoveryEmailSent"> Check your email for password reset link</p>
             <div><span>&nbsp</span></div>
            <div class="loading" ng-if="loadingInModal"><img src="/images/loading.gif"></div>
         </form>
@@ -163,12 +163,12 @@
           <input type="tel" ng-hide="enquiry.enquirySentFlag" name="enquiryPhoneNo" ng-model="enquiry.phoneNo" class="form-control" placeholder="Mobile Number Will Help Us Serve You Better" data-toggle="tooltip" title="Enter Email Address!" >
             
             <br ng-hide="enquiry.enquirySentFlag" >
-            <p ng-show="enquiry.enquirySentFlag"> We Received Your Enquiry, We Will Reach You Soon. Thank You</p>
+            <p ng-show="enquiry.enquirySentFlag">We Received Your Enquiry, We Will Reach You Soon. Thank You</p>
        </form>
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" ng-hide="enquiry.enquirySentFlag" ng-disabled="enquiryForm.userEmail.$invalid || enquiryForm.userEmail.$pristine || enquiryForm.enquiryQuery.$pristine ||
-        enquiryForm.enquiryPhoneNo.$pristine || enquiryForm.enquiryPhoneNo.$invalid || enquiry.query === '' || enquiry.phoneNo == '' "  ng-click="enquiry.submitEnquiry()">Enquire</button>
+        enquiryForm.enquiryPhoneNo.$pristine || enquiryForm.enquiryPhoneNo.$invalid || enquiry.userEmail === '' || enquiry.query === '' || enquiry.phoneNo == '' "  ng-click="enquiry.submitEnquiry()">Enquire</button>
         <button type="button" class="btn btn-Default" ng-click="enquiry.enquirySentFlag = false" data-dismiss="modal" ng-show="enquiry.enquirySentFlag">OK</button>
       </div>
     </div>
@@ -183,7 +183,7 @@
 <div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header">Request Details
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">{{requestType}}</h4>
 

@@ -67,6 +67,7 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 			url: "/updateStatus?user="+user+"&status="+$scope.statusObject.statusToChange[index]
 		}).then(function successCallback(response){
 			console.log(response.data)
+			$scope.fetchPendingRequests();
 		}, function failCallback(){
 
 		})
