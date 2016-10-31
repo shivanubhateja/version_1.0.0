@@ -38,6 +38,7 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 	$scope.statusObject.statusToChange = [];
 	$scope.feedback = {};
 	$scope.feedback.showPage = false;
+	$scope.feedback.balance = [];
 	$scope.adminLoginCheck = function(){
 		$http({
   			method: 'POST',
@@ -107,5 +108,22 @@ angular.module("adminApp",['ngCookies']).controller('AdminController',["$scope",
 		$scope.feedback.suggestions = '';
 		})
 	}
-
+	$scope.getBalance = function(index, id, email){
+		$http({
+		 method:"GET",
+		 url:"getBalance?email="+email
+		}).then(function(response){
+			$scope.feedback.balance[index] = response.data.balance;
+		})
+	}
+	$scope.feedback.changeInAmount = '';
+	$scope.changeBalance = function(index, id, email){
+		var final_amount = parseInt($scope.feedback.balance[index]) + parseInt($scope.feedback.changeInAmount);
+		$http({
+			method:'GET',
+			url:"/changeBalance?email="+email+"&amount="+final_amount
+		}).then(function successCallback(){
+			$scope.feedback.balance[index] = final_amount;
+		})
+	}
 }]);

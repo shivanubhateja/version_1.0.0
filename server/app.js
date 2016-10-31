@@ -11,11 +11,6 @@ app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../'));
 mongoose.connect('mongodb://localhost:27017/version_1');
-// fs.readFile('./../html/confirmEmailTemplate.html',  function(err, data){
-//    			console.log(data)
-//    			console.log(err)
-//    		});	
-// var fs = require('fs');
 
 function readModuleFile(path, callback) {
     try {
@@ -142,6 +137,26 @@ app.get('/addpincodes', function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
 })
 //http requests
+app.get('/changeBalance', function(request, response){
+	email = request.query.email;
+	amount = request.query.amount;
+		loginsModel.update({emailid:email}, {referalBalance: amount}, function(err, done){
+		if(err)
+			response.send("error");
+		else
+			response.send("done")
+		
+		})
+})
+app.get('/getBalance', function(request, response){
+	emailId = request.query.email;
+	loginsModel.find({emailid:emailId},function(err, data){
+		if(err || data.length === 0)
+			response.send({balance: "eror"});
+		else
+			response.send({balance: data[0].referalBalance})
+	})
+})
 app.get('/referral',function(request, response){
 	var emailidTo = request.query.emailidTo;
 	var emailidFrom = request.query.emailidFrom;
@@ -290,10 +305,6 @@ app.get('/checkAvailability',function(request, response){
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
 	var password = request.body.password;
-
-
-
-
 	mongoose.model('logins').find({emailid : username},function(err,user){
 	
 
@@ -358,8 +369,8 @@ app.post('/signUpRequest',function(request,response){
    		if(err){
    			}
    		else{   
-					readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-					   var link="http://localhost:8080/accountActivation?token="+logins._id;
+				readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
+				   var link="http://localhost:8080/accountActivation?token="+logins._id;
 					emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 				    emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
 				   			var mailOptions = {
@@ -405,14 +416,11 @@ app.post('/signUpRequestRefer', function(request, response){
     	}
     	else{
     		//sending activation link
+		readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
 
-
-readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-
-    		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
-    		emailContent = emailContent.replace("yahanDalnaHaiLink", link);
+	    		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
+			emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 			emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
-				   
    			var mailOptions = {
 		  	   	 		from: '"Clorda " <support@clorda.com>', // sender address
 		  	   	 		to: username, // list of receivers
@@ -439,10 +447,7 @@ readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent)
    					}
     			});
 
-
-
-})
-
+		})
 
     	}
     })

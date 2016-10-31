@@ -97,7 +97,6 @@
 							<td>Status</td>
 							<td class="status-styling">{{activeRequest.status}}</td>
 						</tr>
-
 					</table>
 					<br>
 					<select name="status" ng-model="statusObject.statusToChange[$index]" >
@@ -108,7 +107,12 @@
 					</select>
 					<button class="btn btn-primary" ng-click="changeStatusFromActiveRequest($index,activeRequest._id)">Change Status</button>
 					<button class="btn btn-primary" ng-click="addFeedbackButton($index,activeRequest._id, activeRequest.email)">Feedback</button>
-				<hr>
+					<button class="btn btn-primary" ng-click="getBalance($index,activeRequest._id, activeRequest.email)">Get Balance = {{feedback.balance[$index]}}</button>
+					<div>
+						<input type="text" class="form-control amountField" ng-model="feedback.changeInAmount" name="changeBalanceField" >
+						<button ng-click="changeBalance($index,activeRequest._id, activeRequest.email)">Change Balance</button>
+					</div>
+					<hr>
 				</div>
 		</div>
 
