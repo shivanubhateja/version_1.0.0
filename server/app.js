@@ -20,7 +20,9 @@ function readModuleFile(path, callback) {
         callback(e);
     }
 }
-
+var siteCounterSchema = mongoose.Schema({
+	counter:{type: Number, default:0}
+})
 //mongoose schemas
 var loginSchema =mongoose.Schema({
 	emailid : { type: String, unique:true},
@@ -106,6 +108,7 @@ var feedbackSchema = mongoose.Schema({
 	suggestion: {type: String, default: "No Comments"}
 });
 //mongoose models
+var siteCounterModel = mongoose.model('siteCounters', siteCounterSchema);
 var loginsModel = mongoose.model('logins',loginSchema);
 var submitRequestModel = mongoose.model('submitRequests',submitRequstSchema);
 var completedRequestsModel = mongoose.model('completedRequests',pastRequestsSchema);
@@ -121,6 +124,16 @@ var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:mad
 
 //index page
 app.get('/',function(request, response){ 
+
+
+	siteCounterModel.find({}, function(err, data){
+		if(!err){
+			siteCounterModel.update({counter: data[0].counter}, {counter: data[0].counter + 1}, function(err, success){
+				if(err)
+					console.log(err)
+			})
+		}
+	})
 	response.sendFile(path.join(__dirname+"/../html/index.html"));
 }); 
 //admin page
