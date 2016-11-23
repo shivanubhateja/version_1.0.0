@@ -107,6 +107,13 @@ var feedbackSchema = mongoose.Schema({
 	recommend:String,
 	suggestion: {type: String, default: "No Comments"}
 });
+// var ipsAccessingSchema = mongoose.Schema({
+// 	ip: {type: String, unique: true},
+// 	time: {
+// 		type: Date, 
+// 		default: Date.now()
+// 	}
+// })
 //mongoose models
 var siteCounterModel = mongoose.model('siteCounters', siteCounterSchema);
 var loginsModel = mongoose.model('logins',loginSchema);
@@ -119,13 +126,19 @@ var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSch
 var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
 var referralSystemModel = mongoose.model('referrals', referralSystemShema);
 var feedbackModel = mongoose.model('feedbacks', feedbackSchema);
+// var ipsAccessingModel = mongoose.model('ips', ipsAccessingSchema);
 // mail setup
-var transporter = nodemailer.createTransport('smtps://copetoke31%40gmail.com:madarchod@smtp.gmail.com');
+var transporter = nodemailer.createTransport('smtps://clordacorp@gmail.com:shhuji123@smtp.gmail.com');
 
 //index page
 app.get('/',function(request, response){ 
+// var ipReceived = request.headers['x-forwarded-for'] || 
+//      request.connection.remoteAddress || 
+//      request.socket.remoteAddress ||
+//      request.connection.socket.remoteAddress;
 
-
+//     var ipToStore = new ipsAccessingModel({ip: ipReceived});
+//     ipToStore.save();
 	siteCounterModel.find({}, function(err, data){
 		if(!err){
 			siteCounterModel.update({counter: data[0].counter}, {counter: data[0].counter + 1}, function(err, success){
@@ -144,12 +157,40 @@ app.get("/admin",function(request, response){
 app.get("/resetPassword", function(request, response){
 	// console.log(request.query.token)
 	response.sendFile(path.join(__dirname+'/../html/resetPassword.html'));
-})
+});
 //add poin codes
 app.get('/addpincodes', function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
 })
 //http requests
+app.get('/sendDiscountCoupon', function(request, response){
+	var emailid = request.query.email;
+	var emailDb = new earlyBirdModel({emailid: emailid});
+	emailDb.save(function(err, saved){
+			if(err){
+				response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" })
+			}
+			else{
+			readModuleFile('./../html/email/discountEmail.html', function (err, emailContent) {
+			emailContent = emailContent.replace("PROMOCODE", saved._id);
+			var mailOptions = {
+  	   	 		from: '"CLORDA" <support@clorda.com>', // sender address
+  	   	 		to: emailid, // list of receivers
+   		 		subject: '100/- off on reviving your laptop/desktop/printer ✔', // Subject line
+   		 		text: 'Congratulations', // plaintext body
+   		 		html: emailContent
+						};	
+			transporter.sendMail(mailOptions, function(error, info){
+    			if(error)
+        			response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" });	 
+   				else{
+   					response.send({infoEmail:"Check your email for more information about Clorda", status:"success"});
+   					}
+    			});
+			});
+	}
+	});
+})
 app.get('/changeBalance', function(request, response){
 	email = request.query.email;
 	amount = request.query.amount;
@@ -222,7 +263,6 @@ app.get('/referral',function(request, response){
 
 		}
 		else{
-			console.log("else")
 				var referralLink = '';
 					loginsModel.find({emailid: emailidFrom},function(err, data){
 						if(err){
@@ -482,6 +522,22 @@ app.post('/submitRequest',function(request,response){
         	
         }
         else{
+        	
+        		var mailOptions = {
+	  	   	 		from: '"Clorda" <support@clorda.com>', // sender address
+	  	   	 		to: deviceDetails['email'], // list of receivers
+	   		 		subject: 'Request Submitted successfully ✔', // Subject line
+	   		 		text: '', // plaintext body
+	   		 		html: "<p>Hi, we have received Your service request, Soon our team will get in touch with you.</p>" // html body
+						};	
+				transporter.sendMail(mailOptions, function(error, info){
+	    			// if(error){
+	       //  			// response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+	    			// }
+	   				// else{
+	   				// 	// response.send({signUpResponse:"emailSent"});
+	   				// 	}
+    			});
         	response.send({response:"requestSubmitted"})
         } 
         // return console.error("Error while saving data to MongoDB: " + err); // <- this gets executed when there's an error
@@ -568,7 +624,11 @@ app.post('/resettingPassword', function(request, response){
 app.get('/sendPasswordRecoveryEmail',function(request,response){
 	var emailid = request.query.user;
 	mongoose.model('logins').find({emailid:emailid},function(err,user){
-
+		if(user.length < 1 || err){
+	    			response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
+   	
+		}
+	else{
 		readModuleFile('./../html/email/resetpassword.html', function (err, emailContent) {
 				var link="http://localhost:8080/resetPassword?token="+user[0]._id;
 				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
@@ -591,7 +651,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 
 
 		})
-
+}
 
 	})
 });

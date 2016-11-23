@@ -1,4 +1,4 @@
-<div style="min-height: 500px">
+<div style="min-height: 500px;   display: inline-block;">
 <div class="col-lg-4 col-md-4  col-sm-12 col-xs-12"> 
 <h4 >&nbsp&nbsp&nbsp&nbsp&nbsp Details</h4>
 <ul>
@@ -67,6 +67,8 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-show="!loggedIn">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
   			<input type="email" name="email"  class="form-control"   ng-model="deviceDetails.email" placeholder="Email Address" aria-describedby="basic-addon1" required>
+  			<div class="invalidSignInBookEng" ng-if="requestForm.email.$dirty && requestForm.email.$invalid"><span><sup>invalid Email Address</sup></span></div>
+              
 		</div><br>
 		</div>
 		
