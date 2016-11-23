@@ -1,6 +1,6 @@
 var headModuleVar = angular.module("headModule");
 
-headModuleVar.controller('serviceRequestsController',["$rootScope","$scope","$http",function($rootScope,$scope,$http){
+headModuleVar.controller('serviceRequestsController',["$rootScope", "$scope", "$http", "$location",function($rootScope, $scope, $http, $location){
 	$rootScope.homePage = false;
 	if(!$rootScope.loggedIn){
 		$rootScope.errorMessageNavBar = "Login To Open Menu";

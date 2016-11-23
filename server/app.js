@@ -10,8 +10,8 @@ var app = express();
 app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../'));
-mongoose.connect('mongodb://localhost:27017/version_1');
-
+mongoose.connect(process.env.DB || 'mongodb://localhost:27017/version_1');
+var hostName = (process.env.redirectionUrl || 'localhost:8080');
 function readModuleFile(path, callback) {
     try {
         var filename = require.resolve(path);
@@ -236,7 +236,7 @@ app.get('/referral',function(request, response){
 						}
 						else{
 							readModuleFile('./../html/email/referral.html', function (err, emailContent) {
-							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode;
+							link = "http://"+hostName+"/#/invitation?referralFrom="+data[0].referalCode;
 						    emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 						    emailContent = emailContent.replace(/yahanDalnaHaiName/g, referredByData[0].first_name);
 						    emailContent = emailContent.replace("yahanDalnaHaiReferCode", referredByData[0].referalCode);
@@ -270,7 +270,7 @@ app.get('/referral',function(request, response){
 						}
 						else{
 							readModuleFile('./../html/email/referral.html', function (err, emailContent) {
-							link = "http://localhost:8080/#/invitation?referralFrom="+data[0].referalCode;
+							link = "http://"+hostName+"/#/invitation?referralFrom="+data[0].referalCode;
 						    emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 						    emailContent = emailContent.replace(/yahanDalnaHaiName/g, referredByData[0].first_name);
 						    emailContent = emailContent.replace("yahanDalnaHaiReferCode", referredByData[0].referalCode);
@@ -423,7 +423,7 @@ app.post('/signUpRequest',function(request,response){
    			}
    		else{   
 				readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-				   var link="http://localhost:8080/accountActivation?token="+logins._id;
+				   var link="http://"+hostName+"/accountActivation?token="+logins._id;
 					emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 				    emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
 				   			var mailOptions = {
@@ -471,7 +471,7 @@ app.post('/signUpRequestRefer', function(request, response){
     		//sending activation link
 		readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
 
-	    		var link="http://localhost:8080/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
+	    		var link="http://"+hostName+"/accountActivation?token="+detailsSaved._id+"&referredBy="+referredBy;
 			emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 			emailContent = emailContent.replace(/yahanDalnaHaiName/g, firstName);
    			var mailOptions = {
@@ -630,7 +630,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 		}
 	else{
 		readModuleFile('./../html/email/resetpassword.html', function (err, emailContent) {
-				var link="http://localhost:8080/resetPassword?token="+user[0]._id;
+				var link="http://"+hostName+"/resetPassword?token="+user[0]._id;
 				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 			    emailContent = emailContent.replace(/yahanDalnaHaiName/g, user[0].first_name);
    				
@@ -665,7 +665,7 @@ app.get('/resendActivationEmail',function(request,response){
 				response.send({response:'Account is already Active'})
 			else{
 			readModuleFile('./../html/email/confirm_mail.html', function (err, emailContent) {
-				var link="http://localhost:8080/accountActivation?token="+user[0]._id;
+				var link="http://"+hostName+"/accountActivation?token="+user[0]._id;
 				emailContent = emailContent.replace("yahanDalnaHaiLink", link);
 			    emailContent = emailContent.replace(/yahanDalnaHaiName/g, user[0].first_name);
    				var mailOptions = {
@@ -832,6 +832,6 @@ app.get('/editUserDetails', function(request, response){
 		}
 	})
 });
-app.listen(8080,function(req, res){
+app.listen(process.env.PORT || '8080',function(req, res){
 	console.log("server started successfully");
 });

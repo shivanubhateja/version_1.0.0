@@ -62,6 +62,7 @@ function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
+if($location.path() === '/' || $location.path() === ''){
 $timeout(function(){
 swal({  title: "Promotional Offer",   
 		text: "Enter email address to receive discount coupon",   
@@ -85,6 +86,7 @@ swal({  title: "Promotional Offer",
 			swal("Great!", "Discount coupon is sent to " + inputValue, "success"); 
 		});
 }, 2500);
+};
 	$scope.sendDiscountCoupon = function(emailId){
 		$http({
 			method:"GET", 
@@ -168,7 +170,7 @@ swal({  title: "Promotional Offer",
 					localStorage.setItem("userEmailLocal",$rootScope.userEmail);
 					localStorage.setItem("userDetails",response.data.userDetails.email+"&$&$" +response.data.userDetails.name+"&$&$"+ response.data.userDetails.phone_no +"&$&$"+response.data.userDetails.referalCode +"&$&$"+response.data.userDetails.address);
 					$rootScope.userDetails = localStorage.getItem('userDetails').split('&$&$');
-					$rootScope.referralLink.link = "http://www.clorda.com/#/referral?code="+$rootScope.userDetails[3];
+					$rootScope.referralLink.link = "http://www.clorda.com/#/invitation?referralFrom="+$rootScope.userDetails[3];
 					$location.url("/panel")
 				}
 			}, function errorCallback(response) {
