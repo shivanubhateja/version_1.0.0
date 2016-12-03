@@ -107,13 +107,12 @@ var feedbackSchema = mongoose.Schema({
 	recommend:String,
 	suggestion: {type: String, default: "No Comments"}
 });
-// var ipsAccessingSchema = mongoose.Schema({
-// 	ip: {type: String, unique: true},
-// 	time: {
-// 		type: Date, 
-// 		default: Date.now()
-// 	}
-// })
+var ipsAccessingSchema = mongoose.Schema({
+	ip: {type: String, unique: true},
+	time: {
+		type: Date
+	}
+})
 //mongoose models
 var siteCounterModel = mongoose.model('siteCounters', siteCounterSchema);
 var loginsModel = mongoose.model('logins',loginSchema);
@@ -126,19 +125,19 @@ var pincodesWeServeModel = mongoose.model('service_pincodes', pincodesWeServeSch
 var pincodesRequestedModel = mongoose.model('pincodes_requested', pincodesRequestedSchema);
 var referralSystemModel = mongoose.model('referrals', referralSystemShema);
 var feedbackModel = mongoose.model('feedbacks', feedbackSchema);
-// var ipsAccessingModel = mongoose.model('ips', ipsAccessingSchema);
+var ipsAccessingModel = mongoose.model('ips', ipsAccessingSchema);
 // mail setup
 var transporter = nodemailer.createTransport('smtps://clordacorp@gmail.com:shhuji123@smtp.gmail.com');
 
 //index page
 app.get('/',function(request, response){ 
-// var ipReceived = request.headers['x-forwarded-for'] || 
-//      request.connection.remoteAddress || 
-//      request.socket.remoteAddress ||
-//      request.connection.socket.remoteAddress;
+var ipReceived = request.headers['x-forwarded-for'] || 
+     request.connection.remoteAddress || 
+     request.socket.remoteAddress ||
+     request.connection.socket.remoteAddress;
 
-//     var ipToStore = new ipsAccessingModel({ip: ipReceived});
-//     ipToStore.save();
+    var ipToStore = new ipsAccessingModel({ip: ipReceived, time:Date.now()});
+    ipToStore.save();
 	siteCounterModel.find({}, function(err, data){
 		if(!err){
 			siteCounterModel.update({counter: data[0].counter}, {counter: data[0].counter + 1}, function(err, success){
