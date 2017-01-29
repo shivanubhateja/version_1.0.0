@@ -60,7 +60,8 @@
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  			<input type="number" class="form-control" ng-model="deviceDetails.address.zipCode" placeholder="Zip Code" aria-describedby="basic-addon1" required>
+  			<input type="number" class="form-control" ng-model="deviceDetails.address.zipCode"  ng-change="checkAvailability()" placeholder="Zip Code" aria-describedby="basic-addon1" required>
+			<div class="invalidSignInBookEng" ng-if="!checkAvailabilityWhileBooking.isAvailable"><span><sup>Not Available Here</sup></span></div>
 		</div>
 <br>
 </div>
@@ -87,7 +88,7 @@
 
 		</div>
 		<!-- <div class="g-recaptcha" data-sitekey="6LetvyETAAAAAN_IDiHZgjMli4Afu-nbAeXkFH74"></div> -->
-<input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary == '' || requestForm.email.$invalid" ng-click="submitRequest()" value="BOOK ENGINEER">
+<input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary == '' || requestForm.email.$invalid || !checkAvailabilityWhileBooking.isAvailable" ng-click="submitRequest()" value="BOOK ENGINEER">
 			</form>
 </div>
 </div>

@@ -26,7 +26,9 @@ headModuleVar.controller('serviceRequestsController',["$rootScope", "$scope", "$
 						}, function errorCallback(response) {
 		});
 	$scope.openModal = function(requestDetails){
-		$scope.requestType = (requestDetails.status == "Processing") ? "Active Request" : "Completed Request";
+		$scope.$parent.orderStatus.showDetails = true;
+		$scope.$parent.orderStatus.showOrderNumberHeading = false;
+		$rootScope.requestType = requestDetails.status;
 		$rootScope.modalContent = requestDetails;
 		$rootScope.modalContent.date = ($scope.modalContent.date);
 	}

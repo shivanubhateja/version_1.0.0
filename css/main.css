@@ -143,6 +143,7 @@ sup{
 	position: fixed;
 	top:35%;
 	left:45%;
+    z-index: 1100;	
 }
 .loading img{
 	background-color: transparent;
@@ -310,4 +311,12 @@ button.btn.btn-primary.btn-group-justified.callEngineer:focus,button.btn.btn-pri
 	    position: absolute;
     top: 36px;
     left: 10px;
+}
+.status_modal_heading{
+	color:#337AB7;
+}
+.validationError{
+	color:red;
+    font-size: 11px;	
+    padding: 14px 0 0 0;
 }

@@ -87,7 +87,7 @@ swal({  title: "Promotional Offer",
 		});
 }, 2500);
 };
-	$scope.sendDiscountCoupon = function(emailId){
+$scope.sendDiscountCoupon = function(emailId){
 		$http({
 			method:"GET", 
 			url: "/sendDiscountCoupon?email="+emailId
@@ -132,7 +132,8 @@ swal({  title: "Promotional Offer",
 	 	$rootScope.errorMessageNavBarSuccess = "";
 	 	$rootScope.$apply()
 	},5000)
-	};
+};
+// login
 	$scope.login = function(){
 		$rootScope.userEmail = document.getElementById("userEmail").value;
 		$scope.password= document.getElementById("password").value;
@@ -178,6 +179,8 @@ swal({  title: "Promotional Offer",
  			   // or server returns response with an error status.
 			  });
 	};
+// login ends
+// signup starts
 	$scope.signUp = function(){
 		$scope.loading = true;
 		userEmailSignUp = document.getElementById("userEmailSignUp").value;
@@ -209,6 +212,8 @@ swal({  title: "Promotional Offer",
 
 		//send email to mail address
 	}
+// sign up ends
+// logout starts
 	$scope.logout = function(){
 		$rootScope.loggedIn = false;
 		// localStorage.loggedInLocal = false;
@@ -217,6 +222,8 @@ swal({  title: "Promotional Offer",
 		localStorage.removeItem("deviceTypeLocal");
 		localStorage.removeItem("serviceTypeLocal");
 	}
+// logout ends
+// recover password starts
 	$scope.recovery = {};
 	$scope.recovery.recoveryEmailSent = false;
 	$scope.recoverPassword = function(email){
@@ -231,6 +238,8 @@ swal({  title: "Promotional Offer",
 		},function errorCallback(response){
 		})
 	}
+// recover password ends
+
 	$scope.activationEmailSent.flag = false;
 	$scope.resendActivationEmail = function(email){
 		$scope.loadingInModal = true;
@@ -250,6 +259,8 @@ swal({  title: "Promotional Offer",
 	$scope.goToHomePage = function(){
 		$location.path('/');
 	}
+
+
 	$scope.enquiry.submitEnquiry = function(){
 		$http({
 			method:"POST",
@@ -259,33 +270,76 @@ swal({  title: "Promotional Offer",
 				$scope.enquiry.enquirySentFlag = true;
 		}, function failCallback(){})
 	}
-	$scope.issueTypeListDesktop=[
-			"Display Malfunction.",
-			"LCD/LED damages or complete broken down.",
-			"PC turns on and off repeatedly.",
-			"Repetitive beep sound on startup.",
-			"Keyboard Problem.",
-			"Virus/Malware",
-			"Password recovery",
-			"Liquid spills",
-			"Internet connection difficulties",
-			"Data Recovery"
+// order status starts
+	$scope.orderStatus = {};
+	$scope.orderStatus.showDetails = false;
+	$scope.orderStatus.showOrderNumberHeading = false;
+	$scope.trackOrderStatusClicked = function(){
+		$scope.orderStatus.showDetails = false;	
+		$scope.orderStatus.showOrderNumberHeading = true;
+	}
+	$scope.orderStatus.getOrderStatus = function(){
+		if($scope.orderStatus.orderNumber.match(/^[0-9a-fA-F]{24}$/)){
+			$scope.loading = true;
+			$http({
+				method: "GET",
+				url: "/getOrderDetails?orderno="+$scope.orderStatus.orderNumber
+			}).then(function successCallback(response){
+				$scope.loading = false;
+				if(response.data.error){
+					$scope.orderStatus.validationError = true;
+					$scope.orderStatus.validationErrorMessage = "Order No is not Valid. Please check order no from the email we sent while booking. Or please sign Up with your email id to check status of your orders."
+				}
+				else{
+					$scope.orderStatus.showDetails = true;
+					$scope.orderStatus.showOrderNumberHeading = false;
+					$rootScope.requestType = response.data.status;
+					$rootScope.modalContent = response.data;
+					$rootScope.modalContent.date = response.data.date.substr(0,10);
+				}
+			}, function failCallback(response){
+				$scope.loading = false;
+				$scope.orderStatus.validationError = true;
+				$scope.orderStatus.validationErrorMessage = "Order No is not Valid. Please check order no from the email we sent while booking. Or please sign Up with your email id to check status of your orders."
+			})
+		}
+		else{
+			$scope.orderStatus.validationError = true;
+			$scope.orderStatus.validationErrorMessage = "Order No is not Valid. Please check order no from the email we sent while booking. Or please sign Up with your email id to check status of your orders."
+		}
+	};
+	$scope.orderStatus.clearErrorMessage = function(){
+		$scope.orderStatus.validationError = false;
+		$scope.orderStatus.validationErrorMessage = "";
+			
+	}
+	// $scope.issueTypeListDesktop=[
+	// 		"Display Malfunction.",
+	// 		"LCD/LED damages or complete broken down.",
+	// 		"PC turns on and off repeatedly.",
+	// 		"Repetitive beep sound on startup.",
+	// 		"Keyboard Problem.",
+	// 		"Virus/Malware",
+	// 		"Password recovery",
+	// 		"Liquid spills",
+	// 		"Internet connection difficulties",
+	// 		"Data Recovery"
 
-		];
+	// 	];
 
-	$scope.issueTypeListLaptop=[
-			"Monitor Malfunction.",
-			"PC turns on and off repeatedly.",
-			"Laptop makes noise while running.",
-			"Repetitive beep sound on startup.",
-			"Keyboard Problem.",
-			"Virus/Malware",
-			"Password recovery",
-			"Liquid spills",
-			"Internet connection difficulties",
-			"Data Recovery",
-			"Other"
+	// $scope.issueTypeListLaptop=[
+	// 		"Monitor Malfunction.",
+	// 		"PC turns on and off repeatedly.",
+	// 		"Laptop makes noise while running.",
+	// 		"Repetitive beep sound on startup.",
+	// 		"Keyboard Problem.",
+	// 		"Virus/Malware",
+	// 		"Password recovery",
+	// 		"Liquid spills",
+	// 		"Internet connection difficulties",
+	// 		"Data Recovery",
+	// 		"Other"
 
-		];
+	// 	];
 	
 }]);	

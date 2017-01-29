@@ -131,7 +131,7 @@ var transporter = nodemailer.createTransport('smtps://clordacorp@gmail.com:shhuj
 
 //index page
 app.get('/',function(request, response){ 
-var ipReceived = request.headers['x-forwarded-for'] || 
+	var ipReceived = request.headers['x-forwarded-for'] || 
      request.connection.remoteAddress || 
      request.socket.remoteAddress ||
      request.connection.socket.remoteAddress;
@@ -353,13 +353,35 @@ app.get('/checkAvailability',function(request, response){
 			}
 		}
 	})
-})
+});
+app.get('/getOrderDetails', function(request, response){
+	var orderNo = request.query.orderno;
+	submitRequestModel.find({_id: orderNo}, function(err, orders){
+		if(err){
+			response.send(err);
+		}
+		else if(orders.length < 1){
+			completedRequestsModel.find({_id: orderNo}, function(err, orders){
+				if(err){
+					response.send({error:"error in accessing db"});
+				}
+				else if(orders.length < 1){
+					response.send({error: "no_such_order"});
+				}
+				else{
+					response.send(orders[0]);
+				} 
+			})
+		}
+		else{
+			response.send(orders[0]);
+		}
+	})
+});
 app.post('/loginRequest',function(request, response){ 
 	var username = request.body.userEmail;
 	var password = request.body.password;
 	mongoose.model('logins').find({emailid : username},function(err,user){
-	
-
 		if(user.length > 0){
 				var userDetails = {};
 		userDetails.email = user[0].emailid;
@@ -527,7 +549,9 @@ app.post('/submitRequest',function(request,response){
 	  	   	 		to: deviceDetails['email'], // list of receivers
 	   		 		subject: 'Request Submitted successfully ✔', // Subject line
 	   		 		text: '', // plaintext body
-	   		 		html: "<p>Hi, we have received Your service request, Soon our team will get in touch with you.</p>" // html body
+	   		 		html: "<p>Hi, we have received Your service request, Soon our team will get in touch with you.</p>"+
+	   		 			  "<p>Order No.= <b>"+submitRequests._id+"</b></p> " 
+	   		 			   // html body
 						};	
 				transporter.sendMail(mailOptions, function(error, info){
 	    			// if(error){
@@ -537,7 +561,7 @@ app.post('/submitRequest',function(request,response){
 	   				// 	// response.send({signUpResponse:"emailSent"});
 	   				// 	}
     			});
-        	response.send({response:"requestSubmitted"})
+        	response.send({response:"requestSubmitted", data:submitRequests})
         } 
         // return console.error("Error while saving data to MongoDB: " + err); // <- this gets executed when there's an error
     });
@@ -650,7 +674,7 @@ app.get('/sendPasswordRecoveryEmail',function(request,response){
 
 
 		})
-}
+	}
 
 	})
 });

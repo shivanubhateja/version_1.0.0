@@ -19,7 +19,8 @@ $rootScope.homePage = false;
 			},
 			email:$rootScope.loggedIn? $rootScope.userEmail : ""
 		}
-
+		$scope.checkAvailabilityWhileBooking = {};
+		$scope.checkAvailabilityWhileBooking.isAvailable = true;
 		$scope.deviceList=["Desktop","Laptop"];
 		$scope.serviceTypes = ["Pick Up","On-Site Repair"];
 		
@@ -41,7 +42,6 @@ $rootScope.homePage = false;
 			}).then(function successCallback(response) {
 				if(response.data.response == "requestSubmitted")
 				{
-
 						$location.url('/bookingDone')
 						localStorage.removeItem("deviceTypeLocal");
 						localStorage.removeItem("serviceTypeLocal");
@@ -55,7 +55,22 @@ $rootScope.homePage = false;
  			   // or server returns response with an error status.
 			  });
 	    }
-	
-	
+	$scope.checkAvailability = function(){
+		$scope.checkAvailabilityWhileBooking.isAvailable = true;
+		if(($scope.deviceDetails.address.zipCode+"").length === 6){
+		$http({
+			method: 'GET',
+			url: '/checkAvailability?location='+$scope.deviceDetails.address.zipCode
+			}).then(function successCallback(response){
+			if(response.data.response === true){
+				$scope.checkAvailabilityWhileBooking.isAvailable = true;
+			}
+			else{
+				$scope.checkAvailabilityWhileBooking.isAvailable = false;	
+			}
+		}, function failureCallback(){
+		})
 
+		}
+	}
 }]);

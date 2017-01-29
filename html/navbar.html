@@ -18,11 +18,14 @@
       <ul class="nav navbar-nav navbar-right">
       <!--  <p class = "navbar-text" id= "errorSpan"> {{errorMessageNavBar}}</p> -->
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()" aria-expanded="true">BOOK AN ENGINEER</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="engineerBook()" aria-expanded="true">BOOK ENGINEER</button>
     </li>
     <li class="call-engineer-li">
-        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal" >ENQUIRE PRICE</button>
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="trackOrderStatusClicked()" data-toggle="modal"  data-target="#requestDetailsModal" aria-expanded="true">Track Order</button>
     </li>
+   <!--  <li class="call-engineer-li">
+        <button class="btn btn-primary btn-group-justified callEngineer" ng-click="enqueryModal()"  data-toggle="modal"  data-target="#enquireModal" >ENQUIRE PRICE</button>
+    </li> -->
     <li class="dropdown" ng-hide="loggedIn">
       <a class="dropdown-toggle login-tab" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" >{{loginButton}} <span class="caret"></span></a>
      
@@ -177,18 +180,23 @@
 <!-- modal box for enquire ends -->
 
 <!-- modal -->
-
-
-
 <div class="modal fade" id="requestDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">Request Details
+      <div class="modal-header" ng-if="!orderStatus.showOrderNumberHeading">Request Details
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">{{requestType}}</h4>
-
+        <h4 class="modal-title status_modal_heading" id="myModalLabel">{{requestType}}</h4>
       </div>
-    <div class="modal-body">
+       <div class="modal-header" ng-if="orderStatus.showOrderNumberHeading">Enter Order Number
+        <button ng-click="orderStatus.clearErrorMessage()" type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div ng-if="orderStatus.validationError" class="validationError">{{orderStatus.validationErrorMessage}}</div>
+      </div>
+      <div class="modal-body" ng-if="orderStatus.showOrderNumberHeading">
+        <form name="enterOrderNoForm">
+          <input type="text" name="orderNumber" ng-model="orderStatus.orderNumber" class="form-control" placeholder="Enter Order Number" data-toggle="tooltip" title="Enter Order Number">
+        </form>
+      </div>
+    <div class="modal-body" ng-if="orderStatus.showDetails">
         <table class="table">
         <tr><td>Device Type</td><td>{{modalContent.deviceType}}</td></tr>
         <tr><td>Service Type</td><td>{{modalContent.serviceType}}</td></tr>
@@ -201,7 +209,8 @@
       </table>
     </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" ng-if="!orderStatus.showDetails && orderStatus.showOrderNumberHeading" class="btn btn-primary"  ng-click="orderStatus.getOrderStatus()">Track</button>
+        <button type="button" class="btn btn-default" ng-click="orderStatus.clearErrorMessage()" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

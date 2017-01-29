@@ -1,7 +1,6 @@
 var headModuleVar = angular.module("headModule");
 
 headModuleVar.controller('invitationController',['$scope','$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location){
-	console.log($rootScope.loggedIn)
 	if($rootScope.loggedIn){
 		$rootScope.errorMessageNavBar = "You are already member";
 		$rootScope.disableErrorBar();
