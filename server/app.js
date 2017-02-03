@@ -2,6 +2,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var express = require('express');
 var path = require('path');
+var http = require('http');
 var promise = require('promise');
 var nodemailer = require('nodemailer');
 var fs = require('fs');
@@ -561,6 +562,21 @@ app.post('/submitRequest',function(request,response){
 	   				// 	// response.send({signUpResponse:"emailSent"});
 	   				// 	}
     			});
+    			var options = {
+					  host: "https://control.msg91.com",
+					  port: 80,
+					  path: '/api/sendhttp.php?authkey=139030A46PfUBW588ee201&mobiles=9962702609&message=bcchalgya&sender=99999&route=4&country=91',
+					  method: 'GET'
+					};
+
+					http.request(options, function(res) {
+					  console.log('STATUS: ' + res.statusCode);
+					  console.log('HEADERS: ' + JSON.stringify(res.headers));
+					  res.setEncoding('utf8');
+					  res.on('data', function (chunk) {
+					    console.log('BODY: ' + chunk);
+					  });
+					}).end();
         	response.send({response:"requestSubmitted", data:submitRequests})
         } 
         // return console.error("Error while saving data to MongoDB: " + err); // <- this gets executed when there's an error
