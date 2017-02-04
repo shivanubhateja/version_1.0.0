@@ -35,10 +35,8 @@ $rootScope.homePage = false;
 		}
 
 		$scope.submitRequest = function(){
-			// $scope.deviceDetails.tel.primary
 			$scope.deviceDetails.tel.primary = $scope.deviceDetails.tel.primary.replace('-', '');
 			$scope.deviceDetails.tel.primary = $scope.deviceDetails.tel.primary.replace(' ', '');
-			console.log($scope.deviceDetails.tel.primary)
 
 			$http({
   			method: 'POST',
