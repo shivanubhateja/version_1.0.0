@@ -75,8 +75,11 @@
 		
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  			<input type="number"  class="form-control" ng-model="deviceDetails.tel.primary" placeholder="Primary PhoneNo." aria-describedby="basic-addon1" required>
-		</div><br>
+  			<input type="tel" name="phoneno" class="form-control" ng-model="deviceDetails.tel.primary" placeholder="Primary PhoneNo." aria-describedby="basic-addon1" required>
+		</div>
+<!-- 
+		<div class="invalidSignInBookEng" ng-if="requestForm.phoneno.$dirty && requestForm.phoneno.$invalid"><span><sup>invalid Phone No</sup></span></div>
+            <br> -->
 		</div>
 		</div>
 		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">

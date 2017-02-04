@@ -47,7 +47,7 @@ var submitRequstSchema = mongoose.Schema({
 				zipCode:Number
 			},
 			tel:{
-				primary:Number,
+				primary:String,
 				},
 			email:String,
 			status:String
@@ -65,7 +65,7 @@ var pastRequestsSchema = mongoose.Schema({
 				zipCode:Number
 			},
 			tel:{
-				primary:Number,
+				primary:String,
 			},
 			email:String,
 			status :String
