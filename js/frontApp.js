@@ -54,39 +54,43 @@ when('/activation',{
 when('/profile',{
 	templateUrl:"/html/profile.html",
 	controller:"profileController"
+}).
+when('/trackBooking/:bookingId',{
+	templateUrl:"/html/trackBooking.html",
+	controller:"trackBookingController"
 })
 }]);
 headModuleVar.controller('mainController',["$rootScope","$scope","$http","$location","$cookies", "$timeout",function($rootScope, $scope, $http, $location, $cookies, $timeout){
-
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
-if($location.path() === '/' || $location.path() === ''){
-$timeout(function(){
-swal({  title: "Promotional Offer",   
-		text: "Enter email address to receive discount coupon",   
-		type: "input",   
-		showCancelButton: true,   
-		closeOnConfirm: false,   
-		animation: "slide-from-top",   
-		inputPlaceholder: "Email Address" }, 
-		function(inputValue){   
-			if (inputValue === false) 
-				return false;      
-			if (inputValue === "") {     
-				swal.showInputError("Please Enter Email Address");     
-				return false   
-			}
-			if(!validateEmail(inputValue)){
-				swal.showInputError("Please Enter valid Email Address");
-				return false
-			}
-			$scope.sendDiscountCoupon(inputValue);
-			swal("Great!", "Discount coupon is sent to " + inputValue, "success"); 
-		});
-}, 2500);
-};
+//popup on start up
+// function validateEmail(email) {
+//     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+//     return re.test(email);
+// }
+// if($location.path() === '/' || $location.path() === ''){
+// $timeout(function(){
+// swal({  title: "Promotional Offer",   
+// 		text: "Enter email address to receive discount coupon",   
+// 		type: "input",   
+// 		showCancelButton: true,   
+// 		closeOnConfirm: false,   
+// 		animation: "slide-from-top",   
+// 		inputPlaceholder: "Email Address" }, 
+// 		function(inputValue){   
+// 			if (inputValue === false) 
+// 				return false;      
+// 			if (inputValue === "") {     
+// 				swal.showInputError("Please Enter Email Address");     
+// 				return false   
+// 			}
+// 			if(!validateEmail(inputValue)){
+// 				swal.showInputError("Please Enter valid Email Address");
+// 				return false
+// 			}
+// 			$scope.sendDiscountCoupon(inputValue);
+// 			swal("Great!", "Discount coupon is sent to " + inputValue, "success"); 
+// 		});
+// }, 2500);
+// };
 $scope.sendDiscountCoupon = function(emailId){
 		$http({
 			method:"GET", 
@@ -291,6 +295,8 @@ $scope.sendDiscountCoupon = function(emailId){
 					$scope.orderStatus.validationErrorMessage = "Order No is not Valid. Please check order no from the email we sent while booking. Or please sign Up with your email id to check status of your orders."
 				}
 				else{
+					$scope.orderStatus.validationError = false;
+					$scope.orderStatus.validationErrorMessage = "";
 					$scope.orderStatus.showDetails = true;
 					$scope.orderStatus.showOrderNumberHeading = false;
 					$rootScope.requestType = response.data.status;

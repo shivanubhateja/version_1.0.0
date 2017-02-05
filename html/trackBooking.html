@@ -1,0 +1,19 @@
+<div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+	<h4>Booking Status - <span class="status_modal_heading">{{requestType}}</span></h4>
+	<div ng-if="$parent.orderStatus.validationError">
+		{{$parent.orderStatus.validationErrorMessage}}
+	</div>
+	<div ng-if="($parent.orderStatus.showDetails || trackingPage)&& !$parent.orderStatus.validationError">
+        <table class="table">
+        <tr><td>Track Id</td><td>{{trackBookingDetails._id}}</td></tr>
+        <tr><td>Device Type</td><td>{{trackBookingDetails.deviceType}}</td></tr>
+        <tr><td>Service Type</td><td>{{trackBookingDetails.serviceType}}</td></tr>
+        <tr><td>Issue</td><td>{{trackBookingDetails.issueDesc}}</td></tr>
+        <tr><td>Date</td><td>{{trackBookingDetails.date}}</td></tr>
+        <tr><td>Pick Up Address</td><td>{{trackBookingDetails.address.initialAddress}},{{trackBookingDetails.address.city}},{{trackBookingDetails.address.state}},{{trackBookingDetails.address.zipCode}}</td></tr>
+        <tr><td>Contact Details</td><td>{{trackBookingDetails.tel.primary}},{{trackBookingDetails.tel.alternate}}</td></tr>
+        <tr><td>Email Provided</td><td>{{trackBookingDetails.email}}</td></tr>
+        <tr><td>Status</td><td>{{trackBookingDetails.status}}</td></tr>
+      </table>
+    </div>
+</div>

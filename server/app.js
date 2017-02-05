@@ -521,9 +521,7 @@ app.post('/signUpRequestRefer', function(request, response){
    					})
    					}
     			});
-
 		})
-
     	}
     })
 })
@@ -555,49 +553,23 @@ app.post('/submitRequest',function(request,response){
 	   		 			   // html body
 						};	
 				transporter.sendMail(mailOptions, function(error, info){
-	    			// if(error){
-	       //  			// response.send({signUpResponse:"failedToSendMailRegisterLater"});	 
-	    			// }
-	   				// else{
-	   				// 	// response.send({signUpResponse:"emailSent"});
-	   				// 	}
     			});
 
+//msg91
+				var messageBody = 'Booking%20successful,%20your%20assigned%20engineer%20will%20contact%20you%20soon.%20Now%20you%20can%20track%20your%20booking%20by%20clicking%20following%20link%20-%20http:%2F%2F' + hostName +'%2F%23%2FtrackBooking%2F'+submitRequests._id;
+				console.log(messageBody, deviceDetails.tel.primary)
+			   https.get('https://control.msg91.com/api/sendhttp.php?authkey=139030A46PfUBW588ee201&mobiles='+deviceDetails.tel.primary+'&message='+messageBody+'&sender=Clorda&route=4&country=91', function(res){
+			        var str = '';
+			        console.log('Response is '+res.statusCode);
+			        res.on('data', function (chunk) {
+			              //console.log('BODY: ' + chunk);
+			               str += chunk;
+			         });
+			        res.on('end', function () {
+			             console.log(str);
+			        });
 
-
-    			//msg91
-    	// 		var options = {
-					//   host: "https://control.msg91.com",
-					//   path: '/api/sendhttp.php?authkey=139030A46PfUBW588ee201&mobiles=9962702609&message=bcchalgya&sender=99999&route=4&country=91',
-					//   method: 'GET'
-					// };
-
-					// http.request(options, function(res) {
-					//   console.log('STATUS: ' + res.statusCode);
-					//   console.log('HEADERS: ' + JSON.stringify(res.headers));
-					//   res.setEncoding('utf8');
-					//   res.on('data', function (chunk) {
-					//     console.log('BODY: ' + chunk);
-					//   });
-					// }).end();
-
-
-   https.get('https://control.msg91.com/api/sendhttp.php?authkey=139030A46PfUBW588ee201&mobiles='+deviceDetails.tel.primary+'&message=Booking%20successful,%20your%20assigned%20engineer%20will%20contact%20you%20soon.%20Thank%20You&sender=Clorda&route=4&country=91', function(res){
-        var str = '';
-        console.log('Response is '+res.statusCode);
-
-        res.on('data', function (chunk) {
-              //console.log('BODY: ' + chunk);
-               str += chunk;
-         });
-
-        res.on('end', function () {
-             console.log(str);
-        });
-
-  });
-
-
+			  });
         	response.send({response:"requestSubmitted", data:submitRequests})
         } 
         // return console.error("Error while saving data to MongoDB: " + err); // <- this gets executed when there's an error
