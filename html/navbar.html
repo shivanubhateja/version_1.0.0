@@ -198,12 +198,13 @@
       </div>
     <div class="modal-body" ng-if="orderStatus.showDetails">
         <table class="table">
+        <tr><td>Track Id</td><td>{{modalContent._id}}</td></tr>
         <tr><td>Device Type</td><td>{{modalContent.deviceType}}</td></tr>
         <tr><td>Service Type</td><td>{{modalContent.serviceType}}</td></tr>
         <tr><td>Issue</td><td>{{modalContent.issueDesc}}</td></tr>
         <tr><td>Date</td><td>{{modalContent.date}}</td></tr>
         <tr><td>Pick Up Address</td><td>{{modalContent.address.initialAddress}},{{modalContent.address.city}},{{modalContent.address.state}},{{modalContent.address.zipCode}}</td></tr>
-        <tr><td>Contact Details</td><td>{{modalContent.tel.primary}},{{modalContent.tel.alternate}}</td></tr>
+        <tr><td>Contact Details</td><td>{{modalContent.tel.primary}}</td></tr>
         <tr><td>Email Provided</td><td>{{modalContent.email}}</td></tr>
         <tr><td>Status</td><td>{{modalContent.status}}</td></tr>
       </table>

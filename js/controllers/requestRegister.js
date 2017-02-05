@@ -19,6 +19,8 @@ $rootScope.homePage = false;
 			},
 			email:$rootScope.loggedIn? $rootScope.userEmail : ""
 		}
+		$scope.deviceDetails.address.city = "Coimbatore";
+		$scope.deviceDetails.address.state = "Tamil Nadu";
 		$scope.checkAvailabilityWhileBooking = {};
 		$scope.checkAvailabilityWhileBooking.isAvailable = true;
 		$scope.deviceList=["Desktop","Laptop"];
@@ -60,6 +62,7 @@ $rootScope.homePage = false;
 	    }
 	$scope.checkAvailability = function(){
 		$scope.checkAvailabilityWhileBooking.isAvailable = true;
+		$scope.checkAvailabilityWhileBooking.showInvalidPin = true;
 		if(($scope.deviceDetails.address.zipCode+"").length === 6){
 		$http({
 			method: 'GET',
@@ -67,9 +70,11 @@ $rootScope.homePage = false;
 			}).then(function successCallback(response){
 			if(response.data.response === true){
 				$scope.checkAvailabilityWhileBooking.isAvailable = true;
+				$scope.checkAvailabilityWhileBooking.showInvalidPin = false;
 			}
 			else{
 				$scope.checkAvailabilityWhileBooking.isAvailable = false;	
+				$scope.checkAvailabilityWhileBooking.showInvalidPin = false;
 			}
 		}, function failureCallback(){
 		})

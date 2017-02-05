@@ -45,23 +45,24 @@
 
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  			<input type="text" class="form-control" ng-model="deviceDetails.address.initialAddress" placeholder="Address" aria-describedby="basic-addon1" required>
+  			<input type="text" class="form-control" name="address" ng-model="deviceDetails.address.initialAddress" placeholder="Address" aria-describedby="basic-addon1" required>
 		</div><br>
 		</div>
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-  			<input type="text" class="form-control" ng-model="deviceDetails.address.city" placeholder="City" aria-describedby="basic-addon1" required>
+  			<input type="text" class="form-control" name="city" ng-model="deviceDetails.address.city" placeholder="City" aria-describedby="basic-addon1" required>
 		</div><br>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  			<input type="text" class="form-control" ng-model="deviceDetails.address.state" placeholder="State" aria-describedby="basic-addon1" required>
+  			<input type="text" name="state" class="form-control" ng-model="deviceDetails.address.state" placeholder="State" aria-describedby="basic-addon1" required>
 		</div><br>
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 		<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-  			<input type="number" class="form-control" ng-model="deviceDetails.address.zipCode"  ng-change="checkAvailability()" placeholder="Zip Code" aria-describedby="basic-addon1" required>
+  			<input type="number" class="form-control" ng-model="deviceDetails.address.zipCode"  ng-change="checkAvailability()" name="zipCode" placeholder="Zip Code" aria-describedby="basic-addon1" required>
 			<div class="invalidSignInBookEng" ng-if="!checkAvailabilityWhileBooking.isAvailable"><span><sup>Not Available Here</sup></span></div>
+			<div class="invalidSignInBookEng" ng-if="checkAvailabilityWhileBooking.showInvalidPin && requestForm.zipCode.$dirty "><span><sup>Please enter Valid Pincode</sup></span></div>
 		</div>
 <br>
 </div>
@@ -91,7 +92,7 @@
 
 		</div>
 		<!-- <div class="g-recaptcha" data-sitekey="6LetvyETAAAAAN_IDiHZgjMli4Afu-nbAeXkFH74"></div> -->
-<input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary == '' || requestForm.email.$invalid || !checkAvailabilityWhileBooking.isAvailable" ng-click="submitRequest()" value="BOOK ENGINEER">
+<input type="submit" class="btn btn-primary btn-group" ng-disabled=" deviceDetails.issueDesc == '' || deviceDetails.address.initialAddress == '' || deviceDetails.address.city == '' || deviceDetails.address.state == '' || deviceDetails.address.zipCode == '' || deviceDetails.tel.primary === '' || requestForm.phoneno.$invalid || requestForm.address.$invalid || requestForm.city.$invalid || requestForm.state.$invalid || requestForm.email.$invalid || !checkAvailabilityWhileBooking.isAvailable || (checkAvailabilityWhileBooking.showInvalidPin && requestForm.zipCode.$dirty)" ng-click="submitRequest()" value="BOOK ENGINEER">
 			</form>
 </div>
 </div>
