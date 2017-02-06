@@ -76,7 +76,8 @@ var adminSchema = mongoose.Schema({
 	changePermission: Boolean
 });
 var earlyBirdSchema = mongoose.Schema({
-	emailid:{type:String , unique: true}
+	emailid:String,
+	pincode:String
 });
 var enquirySchema = mongoose.Schema({
 	emailId : String,
@@ -163,31 +164,33 @@ app.get('/addpincodes', function(request, response){
 	response.sendFile(path.join(__dirname+'/../html/addpincodes.html'))
 })
 //http requests
-app.get('/sendDiscountCoupon', function(request, response){
+app.get('/notifyEmail', function(request, response){
 	var emailid = request.query.email;
-	var emailDb = new earlyBirdModel({emailid: emailid});
+	var pincodeReceived = request.query.pincode;
+	var emailDb = new earlyBirdModel({emailid: emailid, pincode: pincodeReceived});
 	emailDb.save(function(err, saved){
 			if(err){
 				response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" })
 			}
 			else{
-			readModuleFile('./../html/email/discountEmail.html', function (err, emailContent) {
-			emailContent = emailContent.replace("PROMOCODE", saved._id);
-			var mailOptions = {
-  	   	 		from: '"CLORDA" <support@clorda.com>', // sender address
-  	   	 		to: emailid, // list of receivers
-   		 		subject: '100/- off on reviving your laptop/desktop/printer ✔', // Subject line
-   		 		text: 'Congratulations', // plaintext body
-   		 		html: emailContent
-						};	
-			transporter.sendMail(mailOptions, function(error, info){
-    			if(error)
-        			response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" });	 
-   				else{
-   					response.send({infoEmail:"Check your email for more information about Clorda", status:"success"});
-   					}
-    			});
-			});
+				response.send({response: "emailId Stored"})
+			// readModuleFile('./../html/email/discountEmail.html', function (err, emailContent) {
+			// emailContent = emailContent.replace("PROMOCODE", saved._id);
+			// var mailOptions = {
+  	//    	 		from: '"CLORDA" <support@clorda.com>', // sender address
+  	//    	 		to: emailid, // list of receivers
+   // 		 		subject: '100/- off on reviving your laptop/desktop/printer ✔', // Subject line
+   // 		 		text: 'Congratulations', // plaintext body
+   // 		 		html: emailContent
+			// 			};	
+			// transporter.sendMail(mailOptions, function(error, info){
+   //  			if(error)
+   //      			response.send({infoEmail:"Sorry we are unable to process emails right now.", status:"failed" });	 
+   // 				else{
+   // 					response.send({infoEmail:"Check your email for more information about Clorda", status:"success"});
+   // 					}
+   //  			});
+			// });
 	}
 	});
 })

@@ -91,12 +91,12 @@ headModuleVar.controller('mainController',["$rootScope","$scope","$http","$locat
 // 		});
 // }, 2500);
 // };
-$scope.sendDiscountCoupon = function(emailId){
-		$http({
-			method:"GET", 
-			url: "/sendDiscountCoupon?email="+emailId
-		})
-	}
+// $scope.sendDiscountCoupon = function(emailId){
+// 		$http({
+// 			method:"GET", 
+// 			url: "/sendDiscountCoupon?email="+emailId
+// 		})
+// 	}
 	if($cookies.getObject("loggedIn") === true){
 		$rootScope.loggedIn = true;
 	}

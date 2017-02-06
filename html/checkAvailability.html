@@ -12,8 +12,16 @@
 			<p ng-if="availability.isAvailable === 'true'" class="no-availability-text">Hurray, we are near you, Click <b><a href="#/request">HERE</a></b> to book an engineer.</p>
 			
 			<img ng-if="availability.isAvailable === 'false' || availability.invalidPinCode" class="no-availability-image" src="/images/no-address.svg" alt="computer repairs  and services in coimbatore">
-			<p ng-if="availability.isAvailable === 'false' " class="no-availability-text">Sorry, we don't provide any services in the selected location. We are working hard to extend our services in your area.</p>
+			<p ng-if="availability.isAvailable === 'false' " class="no-availability-text">We are launching soon in your area. Drop your email address and we will notify you.</p>
 			
+
+			<div class="enterPincodeDiv" ng-if="availability.isAvailable === 'false' && !availability.emailSaved" >
+			<input type="email" name="" placeholder="Enter Your Email Id" ng-model="availability.emailid" class='pincode-input email-input'>
+			<button ng-click="availability.notifyEmail()" class="btn btn-primary check-btn" >Notify Me!</button>
+			</div>
+			<p ng-if="availability.emailSaved" class="no-availability-text">Thank you for showing interest. We are working hard to extend our services to your area.</p>
+			
+
 			<p ng-if="availability.invalidPinCode" class="no-availability-text">Please enter a valid Pin Code</p>
 		</div>
 		</div>

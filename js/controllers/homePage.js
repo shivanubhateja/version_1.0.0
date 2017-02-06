@@ -26,7 +26,16 @@ headModuleVar.controller("homeController",['$scope','$rootScope','$http',functio
 				$scope.availability.isAvailable = 'false';	
 			}
 		}, function failureCallback(){
+		});
+		$scope.availability.emailSaved = false;
+		$scope.availability.notifyEmail = function(){
+		$http({
+			method:"GET", 
+			url: "/notifyEmail?email="+$scope.availability.emailid+"&pincode="+$scope.availability.location
+		}).then(function (response){
+			$scope.availability.emailSaved = true;
 		})
+	}
 	}
 	}
 	// $scope.borderStyleLaptop = {

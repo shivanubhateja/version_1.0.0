@@ -48,3 +48,6 @@ input::-webkit-inner-spin-button {
 	  fill:white;
       background-color:transparent; 
 }
+.email-input{
+	margin-top:10px;
+}
